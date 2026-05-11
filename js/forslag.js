@@ -4,7 +4,7 @@
    ============================================================ */
 
 (function () {
-  var recept = window.RECEPT || [];
+  function allRecept() { return (window.allRecipes ? window.allRecipes() : (window.RECEPT || [])); }
 
   var elMeals  = document.getElementById("pick-meals");
   var elMoods  = document.getElementById("pick-moods");
@@ -55,7 +55,7 @@
     var meals = checkedValues("meal");
     var moods = checkedValues("mood");
     var foods = checkedValues("food");
-    var pool = recept.filter(function (r) {
+    var pool = allRecept().filter(function (r) {
       if (meals.length === 0) return true;
       return meals.some(function (m) { return r.maltid && r.maltid.indexOf(m) !== -1; });
     });
@@ -74,8 +74,9 @@
 
   function metaRow(r) {
     var row = document.createElement("div"); row.className = "meta";
+    if (r.egen) row.appendChild(tag("Eget recept", "own"));
     (r.maltid || []).forEach(function (m) { row.appendChild(tag(window.labelFor(window.MALTIDER, m), "meal")); });
-    row.appendChild(tag("≈ " + r.tid + " min", "time"));
+    if (r.tid) row.appendChild(tag("≈ " + r.tid + " min", "time"));
     (r.plus || []).forEach(function (p) { row.appendChild(tag("✓ " + p, "plus")); });
     (r.allergener || []).forEach(function (a) { row.appendChild(tag("innehåller " + window.labelFor(window.ALLERGENER, a).toLowerCase(), "warn")); });
     return row;

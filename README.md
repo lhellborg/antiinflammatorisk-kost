@@ -13,22 +13,39 @@ Inköpslistan sparas i besökarens egen webbläsare (localStorage).
 
 ```
 index.html             Startsida + "Vad ska jag äta?"
-recept.html            Alla recept, filtrerbara på måltid, tid och allergener
-om-kosten.html         "Ät mer av / mindre av" + länk till faktasidan
-fakta.html             "Så funkar det" – fakta om inflammation (klickbara delar) + ätordning
+recept.html            Alla recept (inbyggda + egna), filtrerbara på måltid, tid, allergener
+om-kosten.html         "Ät mer / mindre av" + fakta om inflammation (klickbara delar) + ätordning
+forbattra.html         "Förbättra ett recept" – mata in en rätt, få byten, spara som eget recept
+fakta.html             Liten omdirigering till om-kosten.html (sidan slogs ihop dit)
 inkopslista.html       Inköpslista för de recept man markerat
 css/style.css          Utseende (färgerna ligger högst upp i filen, under :root)
-js/labels.js           Gemensamma listor + mängd-/portionsuträkningar
+js/labels.js           Gemensamma listor + mängd-/portions-/matchningsfunktioner
 js/ui.js               Portionsväljare och ingredienslista (återanvänds)
 js/store.js            Inköpslistan – lagras i webbläsaren (localStorage)
+js/myrecipes.js        Egna recept – lagras i webbläsaren; allRecipes() = inbyggda + egna
 js/forslag.js          Logiken bakom "Vad ska jag äta?"
 js/lista.js            Logiken bakom receptlistan
 js/inkopslista-sida.js Logiken bakom inköpslistan
-data/recept.js         ALLA RECEPT – det är den här filen du redigerar
+js/forbattra.js        Logiken bakom "Förbättra ett recept"
+data/recept.js         ALLA INBYGGDA RECEPT – det är den här filen du redigerar
+data/byten.js          Bytestabell + tilläggstips för "Förbättra ett recept"
 ```
 
-Faktasidan (`fakta.html`) och "Om kosten" är vanlig HTML – ändra texten direkt
-i filerna. De "klickbara delarna" är vanliga `<details>`-element.
+"Om kosten" är vanlig HTML – ändra texten direkt i filen. De "klickbara
+delarna" är vanliga `<details>`-element.
+
+### Förbättra ett recept / egna recept
+
+På `forbattra.html` kan besökaren mata in en egen rätt, få förslag på byten
+(t.ex. crème fraiche → grekisk yoghurt) och tillägg, och spara resultatet.
+Egna recept lagras i besökarens egen webbläsare (`localStorage`) – de syns
+i receptlistan (märkta "Eget recept"), kan läggas i inköpslistan och skalas
+efter portioner precis som de inbyggda. Inget skickas till någon server.
+
+Vill du fylla på "byt ut"-förslagen: redigera `data/byten.js` (formatet står
+högst upp i filen). "Skicka in"-knappen på sidan öppnar ett mejl till adressen
+i `js/forbattra.js` (sök efter `mailto:`) – byt den eller koppla in ett
+formulärverktyg om du vill ha inskicken någon annanstans.
 
 ## Lägga till eller ändra ett recept
 

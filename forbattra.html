@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Förbättra ett recept – Antiinflammatorisk kost</title>
+  <meta name="description" content="Skriv in din favoriträtt och få förslag på hur den kan göras mer antiinflammatorisk – och spara den som ett eget recept med inköpslista.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html"><span class="leaf">🌿</span> Antiinflammatorisk kost</a>
+      <nav class="site-nav">
+        <a data-page="hem" href="index.html">Hem</a>
+        <a data-page="recept" href="recept.html">Recept</a>
+        <a data-page="om" href="om-kosten.html">Om kosten</a>
+        <a data-page="forbattra" href="forbattra.html">Förbättra recept</a>
+        <a data-page="inkop" href="inkopslista.html">Inköpslista<span data-cart-badge></span></a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <h1>Förbättra ett recept</h1>
+      <p class="lead">Skriv in en rätt du tycker om så föreslår vi byten och tillägg som gör den snällare ur antiinflammatorisk synvinkel. Du kan spara resultatet som ett eget recept – det dyker då upp under <a href="recept.html">Recept</a> och du kan få en inköpslista för det.</p>
+      <p id="fb-edit-note" class="help hidden"><strong>Du redigerar ett tidigare sparat recept.</strong> Ändringar skrivs över när du sparar igen.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+
+      <form id="fb-form" onsubmit="return false;">
+
+        <fieldset class="fb-block">
+          <legend>1. Din rätt</legend>
+          <div class="fb-grid">
+            <label class="fb-field fb-wide">
+              <span>Vad heter rätten?</span>
+              <input type="text" id="fb-namn" placeholder="t.ex. Mammas lasagne">
+            </label>
+            <label class="fb-field">
+              <span>Ungefärlig tid (min, valfritt)</span>
+              <input type="number" id="fb-tid" min="1" step="5" placeholder="t.ex. 45">
+            </label>
+            <div class="fb-field">
+              <span>Portioner</span>
+              <div id="fb-portioner"></div>
+            </div>
+          </div>
+          <div class="fb-field" style="margin-top:1rem;">
+            <span>Måltid (välj en eller flera)</span>
+            <div class="chips" id="fb-maltid"></div>
+          </div>
+        </fieldset>
+
+        <fieldset class="fb-block">
+          <legend>2. Ingredienser</legend>
+          <p class="help">Bocka i vanliga "mindre bra" ingredienser nedan för att snabbt lägga till dem – eller skriv in allt själv. Fyll i mängd och enhet om du vill ha en inköpslista som stämmer.</p>
+          <div class="chips" id="fb-bad-chips" style="margin-bottom:1rem;"></div>
+          <div id="fb-ingredienser" class="ingr-rows"></div>
+          <button type="button" class="btn btn-ghost" id="fb-add-rad" style="margin-top:.6rem;">+ Lägg till ingrediens</button>
+        </fieldset>
+
+        <fieldset class="fb-block">
+          <legend>3. Så här gör du (valfritt)</legend>
+          <p class="help">Ett steg per rad.</p>
+          <textarea id="fb-steg" rows="5" placeholder="Fräs lök och vitlök i olivolja.&#10;Tillsätt krossade tomater och låt sjuda.&#10;..."></textarea>
+        </fieldset>
+
+        <div class="btn-row">
+          <button type="button" class="btn btn-primary btn-lg" id="fb-analysera">Visa förbättringsförslag</button>
+        </div>
+      </form>
+
+      <div id="fb-resultat" class="hidden fb-result">
+
+        <h2>Byt ut</h2>
+        <div id="fb-byten" class="swap-list"></div>
+
+        <h2>Lägg till för extra antiinflammatorisk effekt</h2>
+        <div id="fb-lagg-till" class="tip-list"></div>
+
+        <h2>Tänk på tillagningen</h2>
+        <div id="fb-tillagning" class="prose"></div>
+
+        <h2>Så ser ditt recept ut nu</h2>
+        <div id="fb-preview" class="card"></div>
+        <div class="btn-row">
+          <button type="button" class="btn btn-primary" id="fb-spara">Spara som mitt recept</button>
+          <button type="button" class="btn btn-secondary" id="fb-spara-inkop">Spara + skapa inköpslista</button>
+        </div>
+        <div id="fb-sparad" class="hidden result-hero"></div>
+
+        <h2>Liknande recept hos oss</h2>
+        <div id="fb-liknande"></div>
+
+        <div class="callout">
+          <strong>Vill du att vi gör en ordentlig omskrivning och lägger upp den för alla?</strong>
+          Skicka in din rätt så tar vi en titt. (Texten nedan fylls i automatiskt utifrån det du skrivit.)
+          <div class="btn-row" style="margin-top:1rem;">
+            <button type="button" class="btn btn-secondary" id="fb-skicka">Skicka in via e-post</button>
+            <button type="button" class="btn btn-ghost" id="fb-kopiera">Kopiera texten</button>
+          </div>
+          <textarea id="fb-skicka-text" rows="6" class="fb-skicka-text" placeholder="Texten som skickas in visas här..."></textarea>
+        </div>
+
+      </div>
+
+      <p class="disclaimer">Förslagen är allmänna tips, inte näringsberäknad eller medicinsk rådgivning. Smaka av och anpassa efter dig själv – och din eventuella allergi eller kosthållning.</p>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>Egna recept sparas bara i din egen webbläsare (localStorage). Rensar du webbläsardata försvinner de.</p>
+    </div>
+  </footer>
+
+  <script src="data/recept.js"></script>
+  <script src="data/byten.js"></script>
+  <script src="js/labels.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/myrecipes.js"></script>
+  <script src="js/forbattra.js"></script>
+  <script>window.markNav("forbattra");</script>
+</body>
+</html>

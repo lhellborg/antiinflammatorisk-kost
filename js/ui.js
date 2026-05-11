@@ -50,7 +50,7 @@ window.renderIngredientList = function (recipe, portioner, haveSet) {
       var s = document.createElement("span"); s.className = "ingr-amt"; s.textContent = amtStr;
       li.appendChild(s); li.appendChild(document.createTextNode(" "));
     }
-    li.appendChild(document.createTextNode(window.ravaraLabel(it.id)));
+    li.appendChild(document.createTextNode(window.ingrLabel(it)));
     if (have.indexOf(it.id) !== -1) {
       li.classList.add("have");
       var b = document.createElement("span"); b.className = "have-mark"; b.textContent = " ✓ har hemma";

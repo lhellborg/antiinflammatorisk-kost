@@ -92,6 +92,45 @@ window.labelFor = function (list, id) {
 // Etikett för en råvara (med fallback)
 window.ravaraLabel = function (id) { return window.labelFor(window.RAVAROR, id); };
 
+// Etikett för en ingrediensrad i ett recept ({ id, mangd, enhet, namn? }).
+// Egna recept kan ha ett fritt namn; annars slås råvarans etikett upp.
+window.ingrLabel = function (it) { return (it && it.namn) ? it.namn : window.ravaraLabel(it ? it.id : ""); };
+
+// Enheter som går att välja i "Förbättra ett recept".
+window.ENHETER = ["", "st", "dl", "msk", "tsk", "krm", "g", "klyfta", "burk", "näve", "skiva", "cm", "förp"];
+
+// Försök matcha ett fritt ingrediensnamn mot en känd råvara (för fina etiketter,
+// kategori i inköpslistan och "har hemma"-bockning). Returnerar råvarans id eller null.
+window.matchRavara = (function () {
+  var map = null;
+  function build() {
+    map = {};
+    (window.RAVAROR || []).forEach(function (r) {
+      map[r.id.toLowerCase()] = r.id;
+      map[r.label.toLowerCase().trim()] = r.id;
+    });
+    // några vanliga synonymer
+    var syn = {
+      "lök": "lok", "gul lök": "lok", "rödlök": "lok",
+      "vitlök": "vitlok", "vitlöksklyfta": "vitlok",
+      "ägg": "agg",
+      "blåbär": "bar", "hallon": "bar", "jordgubbar": "bar", "blandade bär": "bar", "frysta bär": "bar",
+      "havre": "havregryn", "havregryn": "havregryn",
+      "fullkornsris": "ris", "matvete": "fullkorn", "korn": "fullkorn",
+      "grekisk yoghurt": "naturell yoghurt", "turkisk yoghurt": "naturell yoghurt", "yoghurt": "naturell yoghurt",
+      "valnöt": "valnotter", "valnötter": "valnotter", "mandlar": "mandel",
+      "chiafrö": "chiafron", "chiafrön": "chiafron", "linfrö": "linfro", "linfrön": "linfro",
+      "rödbetor": "rodbeta", "morötter": "morot", "äpple": "apple", "äpplen": "apple"
+    };
+    Object.keys(syn).forEach(function (k) { if (!(k in map)) map[k] = syn[k]; });
+  }
+  return function (name) {
+    if (!name) return null;
+    if (!map) build();
+    return map[String(name).toLowerCase().trim()] || null;
+  };
+})();
+
 /* ---------- Mängder och portioner ---------- */
 
 // Räkna om en mängd från basantal portioner till nytt antal portioner.
