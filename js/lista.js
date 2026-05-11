@@ -1,6 +1,7 @@
 /* ============================================================
-   Receptlistan på recept.html – visar alla recept och låter
-   besökaren filtrera på måltid, tid och utesluta allergener.
+   Receptlistan på recept.html – visar alla recept, låter
+   besökaren filtrera (måltid/tid/allergener), välja antal
+   portioner per recept och lägga recept i inköpslistan.
    ============================================================ */
 
 (function () {
@@ -30,14 +31,11 @@
     return l;
   }
 
-  // måltid
   elMeal.appendChild(radio("meal", "alla", "Alla", true));
   window.MALTIDER.forEach(function (m) { elMeal.appendChild(radio("meal", m.id, m.label, false)); });
-  // tid
   elTime.appendChild(radio("time", "999", "Spelar ingen roll", true));
   elTime.appendChild(radio("time", "15", "≤ 15 min", false));
   elTime.appendChild(radio("time", "30", "≤ 30 min", false));
-  // allergener (uteslut)
   window.ALLERGENER.forEach(function (a) { elAller.appendChild(checkbox("allergen", a.id, a.label)); });
 
   function syncChipClasses(container) {
@@ -45,25 +43,32 @@
       c.classList.toggle("is-checked", c.querySelector("input").checked);
     });
   }
-
   function readState() {
     state.meal = (document.querySelector('input[name="meal"]:checked') || {}).value || "alla";
     state.time = parseInt((document.querySelector('input[name="time"]:checked') || {}).value || "999", 10);
     state.exclude = Array.prototype.map.call(
       document.querySelectorAll('input[name="allergen"]:checked'), function (i) { return i.value; });
   }
+  function matches(r) {
+    if (state.meal !== "alla" && !(r.maltid || []).includes(state.meal)) return false;
+    if (r.tid > state.time) return false;
+    for (var i = 0; i < state.exclude.length; i++) {
+      if ((r.allergener || []).includes(state.exclude[i])) return false;
+    }
+    return true;
+  }
 
-  /* ---------- rendera kort ---------- */
+  /* ---------- bygg kort (en gång per recept) ---------- */
   function tag(text, cls) { var s = document.createElement("span"); s.className = "tag" + (cls ? " " + cls : ""); s.textContent = text; return s; }
 
-  function card(r) {
+  function buildCard(r) {
     var c = document.createElement("article"); c.className = "card";
+
     var h = document.createElement("h3"); h.textContent = r.namn; c.appendChild(h);
 
     var meta = document.createElement("div"); meta.className = "meta";
     (r.maltid || []).forEach(function (m) { meta.appendChild(tag(window.labelFor(window.MALTIDER, m), "meal")); });
     meta.appendChild(tag("≈ " + r.tid + " min", "time"));
-    meta.appendChild(tag(r.portioner + (r.portioner === 1 ? " portion" : " portioner")));
     c.appendChild(meta);
 
     var d = document.createElement("p"); d.className = "desc"; d.textContent = r.beskrivning; c.appendChild(d);
@@ -74,9 +79,30 @@
       c.appendChild(pm);
     }
 
-    var ing = document.createElement("p"); ing.className = "help";
-    ing.innerHTML = "<strong>Ingredienser:</strong> " + (r.ingredienser || []).join(", ");
-    c.appendChild(ing);
+    // portionsväljare – startar på det antal som ev. finns i inköpslistan
+    var inCart = window.Cart.get(r.id);
+    var startP = (inCart && inCart.portioner) ? inCart.portioner : r.portioner;
+
+    var ingrWrap = document.createElement("div"); ingrWrap.className = "ingr-wrap";
+    var ingrHead = document.createElement("div"); ingrHead.className = "ingr-head";
+    var ingrTitle = document.createElement("strong"); ingrTitle.textContent = "Ingredienser";
+    ingrHead.appendChild(ingrTitle);
+
+    var stepper = window.makeStepper(startP, 1, function (n) {
+      drawIngredients(n);
+      if (window.Cart.has(r.id)) window.Cart.setPortions(r.id, n);
+    });
+    ingrHead.appendChild(stepper);
+    ingrWrap.appendChild(ingrHead);
+
+    var ingrListHolder = document.createElement("div");
+    ingrWrap.appendChild(ingrListHolder);
+    function drawIngredients(n) {
+      ingrListHolder.innerHTML = "";
+      ingrListHolder.appendChild(window.renderIngredientList(r, n));
+    }
+    drawIngredients(startP);
+    c.appendChild(ingrWrap);
 
     if (r.steg && r.steg.length) {
       var det = document.createElement("details");
@@ -95,49 +121,63 @@
     }
 
     var btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "btn cart-toggle";
-    function paint() {
+    btn.type = "button"; btn.className = "btn cart-toggle";
+    function paintBtn() {
       var on = window.Cart.has(r.id);
       btn.classList.toggle("btn-secondary", on);
       btn.classList.toggle("btn-ghost", !on);
       btn.textContent = on ? "✓ I inköpslistan" : "+ Lägg till i inköpslistan";
     }
-    btn.addEventListener("click", function () { window.Cart.toggle(r.id); });
-    document.addEventListener("cart:changed", paint);
-    paint();
+    btn.addEventListener("click", function () {
+      window.Cart.toggle(r.id, stepper.getValue());
+    });
     c.appendChild(btn);
+
+    // håll knapp + stepper i synk om listan ändras någon annanstans
+    function syncFromCart() {
+      paintBtn();
+      var item = window.Cart.get(r.id);
+      if (item && item.portioner && item.portioner !== stepper.getValue()) {
+        stepper.setValue(item.portioner);
+        drawIngredients(item.portioner);
+      }
+    }
+    document.addEventListener("cart:changed", syncFromCart);
+    paintBtn();
+
     return c;
   }
 
-  function matches(r) {
-    if (state.meal !== "alla" && !(r.maltid || []).includes(state.meal)) return false;
-    if (r.tid > state.time) return false;
-    for (var i = 0; i < state.exclude.length; i++) {
-      if ((r.allergener || []).includes(state.exclude[i])) return false;
-    }
-    return true;
-  }
+  // bygg alla kort en gång; filtrering döljer/visar dem
+  var cards = recept.map(function (r) { return { r: r, el: buildCard(r) }; });
+  cards.forEach(function (x) { elList.appendChild(x.el); });
 
-  function render() {
+  function applyFilter() {
     readState();
     syncChipClasses(elMeal); syncChipClasses(elTime); syncChipClasses(elAller);
-    var shown = recept.filter(matches);
-    elList.innerHTML = "";
-    shown.forEach(function (r) { elList.appendChild(card(r)); });
-    elCount.textContent = shown.length + " av " + recept.length + " recept";
-    if (shown.length === 0) elList.innerHTML = '<p class="help">Inga recept matchade. Lätta på filtren ovan.</p>';
+    var shown = 0;
+    cards.forEach(function (x) {
+      var ok = matches(x.r);
+      x.el.classList.toggle("hidden", !ok);
+      if (ok) shown++;
+    });
+    elCount.textContent = shown + " av " + recept.length + " recept";
+    var empty = document.getElementById("recept-empty");
+    if (shown === 0) {
+      if (!empty) { empty = document.createElement("p"); empty.id = "recept-empty"; empty.className = "help"; empty.textContent = "Inga recept matchade. Lätta på filtren ovan."; elList.appendChild(empty); }
+      empty.classList.remove("hidden");
+    } else if (empty) { empty.classList.add("hidden"); }
   }
 
-  document.getElementById("recept-filters").addEventListener("change", render);
-  render();
+  document.getElementById("recept-filters").addEventListener("change", applyFilter);
+  applyFilter();
 
   /* ---------- liten "X recept i listan"-bar längst ner ---------- */
   var bar = document.getElementById("cartbar");
   var barText = document.getElementById("cartbar-text");
   function updateBar() {
-    var n = window.Cart.count();
     if (!bar) return;
+    var n = window.Cart.count();
     bar.classList.toggle("hidden", n === 0);
     if (n > 0) barText.textContent = n + " recept i inköpslistan";
   }

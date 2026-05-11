@@ -42,10 +42,11 @@
         </div>
 
         <h2 class="mt-0">Valda recept</h2>
+        <p class="help no-print">Ändra antal portioner per recept med − och + – mängderna och inköpslistan räknas om.</p>
         <div class="card-grid" id="inkop-recept"></div>
 
         <h2>Det här behöver du handla</h2>
-        <p class="help no-print">Bocka av medan du handlar. (Avbockningen sparas inte om du laddar om sidan.) Antalet inom parentes är hur många av recepten som använder ingrediensen.</p>
+        <p class="help no-print">Summerat och skalat efter dina portioner. Bocka av medan du handlar (avbockningen sparas inte om du laddar om sidan). "Till: …" visar vilka recept ingrediensen används i.</p>
         <div id="inkop-ingredienser"></div>
       </div>
     </div>
@@ -59,6 +60,7 @@
 
   <script src="data/recept.js"></script>
   <script src="js/labels.js"></script>
+  <script src="js/ui.js"></script>
   <script src="js/store.js"></script>
   <script src="js/inkopslista-sida.js"></script>
   <script>window.markNav("inkop");</script>

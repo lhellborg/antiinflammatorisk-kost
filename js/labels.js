@@ -92,6 +92,61 @@ window.labelFor = function (list, id) {
 // Etikett för en råvara (med fallback)
 window.ravaraLabel = function (id) { return window.labelFor(window.RAVAROR, id); };
 
+/* ---------- Mängder och portioner ---------- */
+
+// Räkna om en mängd från basantal portioner till nytt antal portioner.
+// Rundar till "snälla" steg så det inte blir 1.3333 dl.
+window.scaleAmount = function (mangd, basPortioner, nyaPortioner) {
+  if (mangd == null) return null;
+  if (!basPortioner) basPortioner = 1;
+  var v = mangd * nyaPortioner / basPortioner;
+  if (v >= 10) return Math.round(v);
+  if (v >= 2)  return Math.round(v * 2) / 2;   // närmaste 0,5
+  return Math.round(v * 4) / 4;                 // närmaste 0,25
+};
+
+// Snygg sträng av ett tal: 0.5 -> "½", 1.5 -> "1½", 2 -> "2", 0.75 -> "¾"
+window.niceNumber = function (n) {
+  if (n == null) return "";
+  var frac = { 0.25: "¼", 0.5: "½", 0.75: "¾", 0.33: "⅓", 0.67: "⅔" };
+  var whole = Math.floor(n + 1e-9);
+  var rem = Math.round((n - whole) * 100) / 100;
+  if (rem === 0) return String(whole);
+  if (frac[rem]) return (whole ? whole : "") + frac[rem];
+  return String(Math.round(n * 100) / 100).replace(".", ",");
+};
+
+// Pluralformer för de enheter som böjs (övriga – dl, msk, tsk, g ... – böjs inte).
+var ENHET_PLURAL = { burk: "burkar", klyfta: "klyftor", "näve": "nävar", skiva: "skivor" };
+
+// "1 dl", "½ st", "300 g", "2 burkar", eller "" om ingen mängd.
+window.formatAmount = function (mangd, enhet) {
+  if (mangd == null) return enhet || "";
+  var nstr = window.niceNumber(mangd);
+  if (!enhet) return nstr;
+  var e = (mangd > 1 && ENHET_PLURAL[enhet]) ? ENHET_PLURAL[enhet] : enhet;
+  return nstr + " " + e;
+};
+
+// Slå ihop flera mängder av samma råvara (från olika recept) till en text.
+// Samma enhet summeras ("1 dl" + "½ dl" -> "1½ dl"); olika enheter listas
+// med "+" ("1 dl + 2 msk").
+window.combineAmounts = function (poster) {
+  // poster: [{ mangd, enhet }, ...]
+  var perEnhet = {};
+  var order = [];
+  var harOkand = false;
+  poster.forEach(function (p) {
+    if (p.mangd == null) { harOkand = true; return; }
+    var key = p.enhet || "";
+    if (!(key in perEnhet)) { perEnhet[key] = 0; order.push(key); }
+    perEnhet[key] += p.mangd;
+  });
+  var delar = order.map(function (key) { return window.formatAmount(perEnhet[key], key); });
+  if (harOkand && delar.length === 0) return "efter behov";
+  return delar.join(" + ");
+};
+
 // Sätt "active" på rätt länk i menyn (anropas från varje sida)
 window.markNav = function (page) {
   document.querySelectorAll(".site-nav a").forEach(function (a) {

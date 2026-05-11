@@ -1,33 +1,58 @@
 /* ============================================================
    Inköpslistan – enkel lagring i webbläsaren (localStorage).
-   Håller reda på vilka recept besökaren har markerat. Delas av
-   alla sidor. Lyssna på "cart:changed" på document för att
-   reagera när listan ändras.
+   Sparar vilka recept besökaren markerat OCH för hur många
+   portioner. Delas av alla sidor. Lyssna på "cart:changed" på
+   document för att reagera när listan ändras.
+
+   Lagras som [{ id: "recept-id", portioner: 2 }, ...]
    ============================================================ */
 
 window.Cart = (function () {
-  var KEY = "aik_inkopslista_v1";
+  var KEY = "aik_inkopslista_v2";
 
   function read() {
     try {
       var raw = localStorage.getItem(KEY);
       var arr = raw ? JSON.parse(raw) : [];
-      return Array.isArray(arr) ? arr : [];
+      if (!Array.isArray(arr)) return [];
+      // tål gammalt format (bara strängar) – tolka som okänt antal portioner
+      return arr.map(function (x) {
+        if (typeof x === "string") return { id: x, portioner: null };
+        return { id: x.id, portioner: (typeof x.portioner === "number" && x.portioner > 0) ? x.portioner : null };
+      }).filter(function (x) { return x.id; });
     } catch (e) { return []; }
   }
 
   function write(arr) {
     try { localStorage.setItem(KEY, JSON.stringify(arr)); } catch (e) {}
-    document.dispatchEvent(new CustomEvent("cart:changed", { detail: { ids: arr.slice() } }));
+    document.dispatchEvent(new CustomEvent("cart:changed", { detail: { items: arr.slice() } }));
+  }
+
+  function find(arr, id) {
+    for (var i = 0; i < arr.length; i++) if (arr[i].id === id) return i;
+    return -1;
   }
 
   return {
     list:  function () { return read(); },
     count: function () { return read().length; },
-    has:   function (id) { return read().indexOf(id) !== -1; },
-    add:   function (id) { var a = read(); if (a.indexOf(id) === -1) { a.push(id); write(a); } },
-    remove:function (id) { var a = read().filter(function (x) { return x !== id; }); write(a); },
-    toggle:function (id) { this.has(id) ? this.remove(id) : this.add(id); return this.has(id); },
+    has:   function (id) { return find(read(), id) !== -1; },
+    get:   function (id) { var a = read(), i = find(a, id); return i === -1 ? null : a[i]; },
+    add:   function (id, portioner) {
+      var a = read(), i = find(a, id);
+      if (i === -1) a.push({ id: id, portioner: portioner || null });
+      else if (portioner) a[i].portioner = portioner;
+      write(a);
+    },
+    setPortions: function (id, portioner) {
+      var a = read(), i = find(a, id);
+      if (i !== -1) { a[i].portioner = portioner || null; write(a); }
+    },
+    remove: function (id) { write(read().filter(function (x) { return x.id !== id; })); },
+    toggle: function (id, portioner) {
+      if (this.has(id)) { this.remove(id); return false; }
+      this.add(id, portioner); return true;
+    },
     clear: function () { write([]); }
   };
 })();

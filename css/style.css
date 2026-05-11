@@ -179,6 +179,34 @@ p { margin: 0 0 1em; }
 }
 .site-footer .wrap { padding-top: 1.6rem; padding-bottom: 1.6rem; }
 
+/* ---------- Portionsväljare ---------- */
+.ingr-head {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: .8rem; flex-wrap: wrap; margin: 1.1rem 0 .4rem;
+}
+.ingr-head > strong, .block-title { font-family: var(--serif); font-size: 1.1rem; }
+.block-title { display: block; margin: 1.1rem 0 .3rem; }
+.stepper {
+  display: inline-flex; align-items: center; gap: .1rem;
+  background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; padding: .15rem;
+}
+.step-btn {
+  border: none; background: var(--surface); color: var(--terracotta-dark);
+  width: 1.9rem; height: 1.9rem; border-radius: 999px; cursor: pointer;
+  font-size: 1.15rem; line-height: 1; font-weight: 700;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.step-btn:hover { background: var(--terracotta); color: #fff; }
+.step-val { padding: 0 .7rem; font-size: .92rem; white-space: nowrap; min-width: 4.7rem; text-align: center; }
+
+/* ---------- Ingredienslista på kort ---------- */
+.ingr-list { list-style: none; padding: 0; margin: .2rem 0 0; }
+.ingr-list li { padding: .18rem 0; border-bottom: 1px dotted var(--line); }
+.ingr-list li:last-child { border-bottom: none; }
+.ingr-amt { font-weight: 600; color: var(--terracotta-dark); }
+.ingr-list li.have { color: var(--ink-soft); }
+.have-mark { font-size: .82rem; color: var(--olive-dark); }
+
 /* ---------- Inköpslista: knapp på kort ---------- */
 .cart-toggle { margin-top: 1rem; align-self: flex-start; }
 .card .cart-toggle { width: 100%; text-align: center; }
@@ -218,9 +246,12 @@ p { margin: 0 0 1em; }
 /* ---------- Utskrift ---------- */
 @media print {
   .site-header, .site-footer, .hero, .cartbar, .no-print,
-  .cart-toggle, details summary { display: none !important; }
+  .cart-toggle, .stepper, details summary { display: none !important; }
   body { background: #fff; color: #000; }
   .section { padding: 0; }
   .card { box-shadow: none; border: 1px solid #bbb; break-inside: avoid; }
+  .card-grid { display: block; }
+  .card { margin-bottom: .8rem; }
+  .ingr-amt, .shop-name { color: #000; }
   a { color: #000; text-decoration: none; }
 }

@@ -11,8 +11,13 @@
      namn          rättens namn
      maltid        en eller flera av: "frukost", "lunch", "middag", "mellanmal"
      tid           ungefärlig tid i minuter
-     portioner     antal portioner
-     ingredienser  råvaror (matcha gärna namnen i listan i js/forslag.js)
+     portioner     hur många portioner mängderna nedan gäller för
+                   (besökaren kan ändra antal portioner och då räknas allt om)
+     ingredienser  lista med { id, mangd, enhet } där:
+                     id    = råvarans id (matcha namnen i js/labels.js)
+                     mangd = mängd för "portioner" ovan (null om mängd inte är relevant)
+                     enhet = "dl", "msk", "tsk", "krm", "st", "g", "klyfta",
+                             "burk", "näve", "cm" ... (tom sträng om ingen enhet)
      mood          en eller flera av:
                      "trott"            – trött / energilös
                      "stressad"         – stressad / behöver något lugnande
@@ -25,7 +30,8 @@
                      (lämna [] om inga av dessa finns med)
      plus          de mest antiinflammatoriska ingredienserna i rätten (visas som taggar)
      beskrivning   en kort mening om rätten
-     steg          lista med tillagningssteg
+     steg          lista med tillagningssteg (beskriver tillvägagångssättet –
+                   mängderna står i ingredienslistan)
    ============================================================ */
 
 window.RECEPT = [
@@ -37,14 +43,21 @@ window.RECEPT = [
     maltid: ["frukost", "mellanmal"],
     tid: 10,
     portioner: 1,
-    ingredienser: ["havregryn", "chiafron", "bar", "valnotter", "kanel", "naturell yoghurt"],
+    ingredienser: [
+      { id: "havregryn",        mangd: 1, enhet: "dl" },
+      { id: "chiafron",         mangd: 1, enhet: "msk" },
+      { id: "bar",              mangd: 1, enhet: "dl" },
+      { id: "valnotter",        mangd: 1, enhet: "msk" },
+      { id: "kanel",            mangd: 1, enhet: "krm" },
+      { id: "naturell yoghurt", mangd: 1, enhet: "msk" }
+    ],
     mood: ["trott", "ont-i-magen", "snabbt", "sugen-pa-sott"],
     allergener: ["gluten", "notter", "mjolk"],
     plus: ["bär", "chiafrön", "havre", "kanel"],
     beskrivning: "Krämig havregröt toppad med bär, chiafrön och en klick yoghurt.",
     steg: [
-      "Koka havregrynen med vatten enligt paketet, rör i chiafrön mot slutet.",
-      "Häll upp, toppa med bär, hackade valnötter och en nypa kanel.",
+      "Koka havregrynen med vatten enligt paketet, rör i chiafröna mot slutet.",
+      "Häll upp, toppa med bär, hackade valnötter och kanel.",
       "Lägg en klick naturell yoghurt vid sidan."
     ]
   },
@@ -54,13 +67,20 @@ window.RECEPT = [
     maltid: ["frukost", "mellanmal"],
     tid: 5,
     portioner: 1,
-    ingredienser: ["spenat", "banan", "bar", "chiafron", "naturell yoghurt", "ingefara"],
+    ingredienser: [
+      { id: "spenat",           mangd: 1, enhet: "näve" },
+      { id: "banan",            mangd: 1, enhet: "st" },
+      { id: "bar",              mangd: 1, enhet: "dl" },
+      { id: "chiafron",         mangd: 1, enhet: "msk" },
+      { id: "naturell yoghurt", mangd: 1, enhet: "dl" },
+      { id: "ingefara",         mangd: 1, enhet: "tsk" }
+    ],
     mood: ["snabbt", "trott", "stressad"],
     allergener: ["mjolk"],
     plus: ["spenat", "bär", "chiafrön", "ingefära"],
     beskrivning: "Snabb smoothie som ger fart på morgonen utan socker.",
     steg: [
-      "Lägg spenat, banan, bär, en bit riven ingefära och yoghurt i en mixer.",
+      "Lägg spenat, banan, bär, riven ingefära och yoghurt i en mixer.",
       "Tillsätt lite vatten och mixa slätt.",
       "Häll upp och strö över chiafrön."
     ]
@@ -71,15 +91,22 @@ window.RECEPT = [
     maltid: ["frukost", "lunch"],
     tid: 12,
     portioner: 1,
-    ingredienser: ["agg", "avokado", "ragbrod", "citron", "olivolja", "tomat"],
+    ingredienser: [
+      { id: "agg",      mangd: 1,    enhet: "st" },
+      { id: "avokado",  mangd: 0.5,  enhet: "st" },
+      { id: "ragbrod",  mangd: 1,    enhet: "st" },
+      { id: "tomat",    mangd: 1,    enhet: "st" },
+      { id: "citron",   mangd: 0.25, enhet: "st" },
+      { id: "olivolja", mangd: 1,    enhet: "tsk" }
+    ],
     mood: ["varmt-och-matigt", "trott"],
     allergener: ["agg", "gluten"],
     plus: ["avokado", "olivolja"],
     beskrivning: "Mättande frukost med bra fetter och protein.",
     steg: [
-      "Rosta en skiva rågbröd och bred på mosad avokado med en skvätt citron.",
+      "Rosta rågbrödet och bred på mosad avokado med en skvätt citron.",
       "Pochera ägget i sjudande vatten ca 3 minuter.",
-      "Lägg ägget ovanpå, toppa med tomatklyftor, lite olivolja och svartpeppar."
+      "Lägg ägget ovanpå, toppa med tomatklyftor, olivolja och svartpeppar."
     ]
   },
   {
@@ -88,7 +115,15 @@ window.RECEPT = [
     maltid: ["frukost"],
     tid: 5,
     portioner: 1,
-    ingredienser: ["havregryn", "naturell yoghurt", "bar", "chiafron", "linfro", "kanel", "valnotter"],
+    ingredienser: [
+      { id: "havregryn",        mangd: 1,   enhet: "dl" },
+      { id: "naturell yoghurt", mangd: 1.5, enhet: "dl" },
+      { id: "bar",              mangd: 1,   enhet: "dl" },
+      { id: "chiafron",         mangd: 1,   enhet: "msk" },
+      { id: "linfro",           mangd: 1,   enhet: "msk" },
+      { id: "valnotter",        mangd: 1,   enhet: "msk" },
+      { id: "kanel",            mangd: 1,   enhet: "krm" }
+    ],
     mood: ["snabbt", "ont-i-magen", "sugen-pa-sott"],
     allergener: ["gluten", "mjolk", "notter"],
     plus: ["havre", "bär", "chiafrön", "linfrö", "kanel"],
@@ -107,16 +142,26 @@ window.RECEPT = [
     maltid: ["lunch", "middag"],
     tid: 25,
     portioner: 2,
-    ingredienser: ["quinoa", "kikartor", "spenat", "tomat", "paprika", "avokado", "olivolja", "citron", "gurkmeja"],
+    ingredienser: [
+      { id: "quinoa",   mangd: 1.5, enhet: "dl" },
+      { id: "kikartor", mangd: 1,   enhet: "burk" },
+      { id: "spenat",   mangd: 2,   enhet: "näve" },
+      { id: "tomat",    mangd: 2,   enhet: "st" },
+      { id: "paprika",  mangd: 1,   enhet: "st" },
+      { id: "avokado",  mangd: 1,   enhet: "st" },
+      { id: "olivolja", mangd: 2,   enhet: "msk" },
+      { id: "citron",   mangd: 0.5, enhet: "st" },
+      { id: "gurkmeja", mangd: 1,   enhet: "tsk" }
+    ],
     mood: ["varmt-och-matigt", "stressad"],
     allergener: [],
     plus: ["quinoa", "kikärtor", "spenat", "olivolja", "gurkmeja"],
     beskrivning: "Färgglad matig bowl som funkar lika bra ljummen som kall.",
     steg: [
       "Koka quinoan enligt paketet.",
-      "Vänd kikärtorna i olivolja, gurkmeja och salt, rosta i ugn 200°C ca 15 min.",
+      "Skölj och torka kikärtorna, vänd dem i hälften av olivoljan, gurkmeja och salt, rosta i ugn 200°C ca 15 min.",
       "Lägg quinoa, spenat, tomat, paprika och avokado i en skål, toppa med kikärtorna.",
-      "Ringla över olivolja och pressa citron."
+      "Ringla över resten av olivoljan och pressa citron."
     ]
   },
   {
@@ -125,14 +170,23 @@ window.RECEPT = [
     maltid: ["lunch", "middag"],
     tid: 30,
     portioner: 4,
-    ingredienser: ["linser", "lok", "vitlok", "tomat", "ingefara", "gurkmeja", "olivolja", "citron"],
+    ingredienser: [
+      { id: "linser",   mangd: 3,   enhet: "dl" },
+      { id: "lok",      mangd: 1,   enhet: "st" },
+      { id: "vitlok",   mangd: 2,   enhet: "klyfta" },
+      { id: "tomat",    mangd: 1,   enhet: "burk" },
+      { id: "ingefara", mangd: 1,   enhet: "msk" },
+      { id: "gurkmeja", mangd: 1,   enhet: "tsk" },
+      { id: "olivolja", mangd: 2,   enhet: "msk" },
+      { id: "citron",   mangd: 0.5, enhet: "st" }
+    ],
     mood: ["forkyld", "varmt-och-matigt", "ont-i-magen", "stressad"],
     allergener: [],
     plus: ["linser", "ingefära", "gurkmeja", "vitlök", "olivolja"],
     beskrivning: "Värmande soppa som känns extra bra när man är krasslig.",
     steg: [
-      "Fräs hackad lök, vitlök och riven ingefära i olivolja.",
-      "Tillsätt sköljda röda linser, krossade tomater, gurkmeja och vatten.",
+      "Fräs hackad lök, vitlök och riven ingefära i olivoljan.",
+      "Tillsätt sköljda röda linser, krossade tomater, gurkmeja och vatten så det täcker.",
       "Sjud ca 20 min tills linserna är mjuka, mixa slätt om du vill.",
       "Smaka av med salt och citron."
     ]
@@ -143,7 +197,16 @@ window.RECEPT = [
     maltid: ["lunch"],
     tid: 15,
     portioner: 1,
-    ingredienser: ["lax", "spenat", "avokado", "tomat", "fullkorn", "olivolja", "citron", "valnotter"],
+    ingredienser: [
+      { id: "lax",       mangd: 100,  enhet: "g" },
+      { id: "spenat",    mangd: 1,    enhet: "näve" },
+      { id: "fullkorn",  mangd: 1,    enhet: "dl" },
+      { id: "avokado",   mangd: 0.5,  enhet: "st" },
+      { id: "tomat",     mangd: 1,    enhet: "st" },
+      { id: "valnotter", mangd: 1,    enhet: "msk" },
+      { id: "olivolja",  mangd: 1,    enhet: "msk" },
+      { id: "citron",    mangd: 0.25, enhet: "st" }
+    ],
     mood: ["snabbt", "trott"],
     allergener: ["fisk", "notter"],
     plus: ["lax", "avokado", "spenat", "olivolja", "valnötter"],
@@ -160,14 +223,24 @@ window.RECEPT = [
     maltid: ["lunch", "mellanmal"],
     tid: 15,
     portioner: 2,
-    ingredienser: ["kikartor", "tortilla", "spenat", "tomat", "paprika", "naturell yoghurt", "vitlok", "olivolja", "gurkmeja"],
+    ingredienser: [
+      { id: "kikartor",         mangd: 1, enhet: "burk" },
+      { id: "tortilla",         mangd: 2, enhet: "st" },
+      { id: "spenat",           mangd: 2, enhet: "näve" },
+      { id: "tomat",            mangd: 1, enhet: "st" },
+      { id: "paprika",          mangd: 1, enhet: "st" },
+      { id: "naturell yoghurt", mangd: 1, enhet: "dl" },
+      { id: "vitlok",           mangd: 1, enhet: "klyfta" },
+      { id: "olivolja",         mangd: 1, enhet: "msk" },
+      { id: "gurkmeja",         mangd: 1, enhet: "tsk" }
+    ],
     mood: ["snabbt", "varmt-och-matigt"],
     allergener: ["gluten", "mjolk"],
     plus: ["kikärtor", "spenat", "gurkmeja", "vitlök"],
     beskrivning: "Går snabbt och funkar lika bra som matlåda.",
     steg: [
-      "Stek kikärtorna i olivolja med gurkmeja, paprikapulver och salt.",
-      "Rör ihop yoghurt med pressad vitlök och lite citron.",
+      "Stek de sköljda kikärtorna i olivoljan med gurkmeja, paprikapulver och salt.",
+      "Rör ihop yoghurten med pressad vitlök och lite citron.",
       "Fyll tortillan med spenat, tomat, paprika, kikärtorna och såsen. Rulla ihop."
     ]
   },
@@ -179,13 +252,20 @@ window.RECEPT = [
     maltid: ["middag"],
     tid: 30,
     portioner: 2,
-    ingredienser: ["lax", "broccoli", "quinoa", "citron", "olivolja", "vitlok"],
+    ingredienser: [
+      { id: "lax",      mangd: 2,   enhet: "st" },
+      { id: "broccoli", mangd: 250, enhet: "g" },
+      { id: "quinoa",   mangd: 1.5, enhet: "dl" },
+      { id: "citron",   mangd: 0.5, enhet: "st" },
+      { id: "olivolja", mangd: 1,   enhet: "msk" },
+      { id: "vitlok",   mangd: 1,   enhet: "klyfta" }
+    ],
     mood: ["varmt-och-matigt", "trott"],
     allergener: ["fisk"],
     plus: ["lax", "broccoli", "quinoa", "olivolja"],
     beskrivning: "Klassisk vardagsmiddag som nästan lagar sig själv i ugnen.",
     steg: [
-      "Lägg laxen i en ugnsform med citronskivor, olivolja, salt och peppar.",
+      "Lägg laxbitarna i en ugnsform med citronskivor, olivolja, hackad vitlök, salt och peppar.",
       "Baka i 200°C ca 15 min. Lägg i broccolibuketter de sista 10 minuterna.",
       "Koka quinoan under tiden. Servera med en extra skvätt olivolja."
     ]
@@ -196,16 +276,26 @@ window.RECEPT = [
     maltid: ["middag"],
     tid: 35,
     portioner: 4,
-    ingredienser: ["kyckling", "lok", "vitlok", "tomat", "spenat", "gurkmeja", "ingefara", "olivolja", "ris"],
+    ingredienser: [
+      { id: "kyckling", mangd: 600, enhet: "g" },
+      { id: "lok",      mangd: 1,   enhet: "st" },
+      { id: "vitlok",   mangd: 2,   enhet: "klyfta" },
+      { id: "tomat",    mangd: 1,   enhet: "burk" },
+      { id: "spenat",   mangd: 2,   enhet: "näve" },
+      { id: "gurkmeja", mangd: 1,   enhet: "tsk" },
+      { id: "ingefara", mangd: 1,   enhet: "msk" },
+      { id: "olivolja", mangd: 2,   enhet: "msk" },
+      { id: "ris",      mangd: 3,   enhet: "dl" }
+    ],
     mood: ["varmt-och-matigt", "forkyld", "stressad"],
     allergener: [],
     plus: ["gurkmeja", "ingefära", "spenat", "vitlök"],
     beskrivning: "Mustig gryta med värmande kryddor – mat som kramar om en.",
     steg: [
-      "Bryn kycklingbitar i olivolja, ta upp.",
-      "Fräs lök, vitlök, riven ingefära och gurkmeja i samma panna.",
+      "Bryn kycklingbitarna i olivoljan, ta upp.",
+      "Fräs hackad lök, vitlök, riven ingefära och gurkmeja i samma panna.",
       "Tillsätt krossade tomater och kycklingen, sjud ca 20 min.",
-      "Rör ner spenat på slutet. Servera med fullkornsris."
+      "Rör ner spenaten på slutet. Servera med kokt fullkornsris."
     ]
   },
   {
@@ -214,30 +304,47 @@ window.RECEPT = [
     maltid: ["middag"],
     tid: 30,
     portioner: 4,
-    ingredienser: ["linser", "lok", "vitlok", "tomat", "paprika", "olivolja", "fullkornspasta"],
+    ingredienser: [
+      { id: "linser",         mangd: 3,   enhet: "dl" },
+      { id: "lok",            mangd: 1,   enhet: "st" },
+      { id: "vitlok",         mangd: 2,   enhet: "klyfta" },
+      { id: "tomat",          mangd: 2,   enhet: "burk" },
+      { id: "paprika",        mangd: 1,   enhet: "st" },
+      { id: "olivolja",       mangd: 2,   enhet: "msk" },
+      { id: "fullkornspasta", mangd: 320, enhet: "g" }
+    ],
     mood: ["varmt-och-matigt"],
     allergener: ["gluten"],
     plus: ["linser", "tomat", "vitlök", "olivolja"],
     beskrivning: "Vegetarisk bolognese med fyllig smak och massor av fibrer.",
     steg: [
-      "Fräs lök, vitlök och hackad paprika i olivolja.",
-      "Tillsätt röda linser och krossade tomater, sjud ca 20 min tills linserna mjuknar.",
+      "Fräs hackad lök, vitlök och hackad paprika i olivoljan.",
+      "Tillsätt sköljda röda linser och krossade tomater, sjud ca 20 min tills linserna mjuknar.",
       "Smaka av med oregano, salt och peppar. Servera med kokt fullkornspasta."
     ]
   },
   {
     id: "ugnsgronsaker-kikartor",
-    namn: "Ugnsrostade rotsaker med kikärtor och tahini",
+    namn: "Ugnsrostade rotsaker med kikärtor",
     maltid: ["middag", "lunch"],
     tid: 40,
     portioner: 3,
-    ingredienser: ["kikartor", "morot", "rodbeta", "lok", "vitlok", "olivolja", "citron", "spenat"],
+    ingredienser: [
+      { id: "kikartor", mangd: 1,   enhet: "burk" },
+      { id: "morot",    mangd: 3,   enhet: "st" },
+      { id: "rodbeta",  mangd: 2,   enhet: "st" },
+      { id: "lok",      mangd: 1,   enhet: "st" },
+      { id: "vitlok",   mangd: 2,   enhet: "klyfta" },
+      { id: "olivolja", mangd: 3,   enhet: "msk" },
+      { id: "spenat",   mangd: 3,   enhet: "näve" },
+      { id: "citron",   mangd: 0.5, enhet: "st" }
+    ],
     mood: ["varmt-och-matigt", "stressad"],
     allergener: [],
     plus: ["kikärtor", "olivolja", "vitlök"],
     beskrivning: "En plåt i ugnen – minimal disk, maximal smak.",
     steg: [
-      "Skär rotsaker i bitar, blanda med kikärtor, olivolja, vitlök och salt på en plåt.",
+      "Skär rotsakerna i bitar, blanda med sköljda kikärtor, olivolja, hackad vitlök och salt på en plåt.",
       "Rosta i 220°C ca 30 min tills allt fått färg.",
       "Servera på en bädd av spenat med en skvätt citron (och tahini om du har)."
     ]
@@ -250,14 +357,20 @@ window.RECEPT = [
     maltid: ["mellanmal", "frukost"],
     tid: 3,
     portioner: 1,
-    ingredienser: ["naturell yoghurt", "bar", "valnotter", "kanel", "chiafron"],
+    ingredienser: [
+      { id: "naturell yoghurt", mangd: 2, enhet: "dl" },
+      { id: "bar",              mangd: 1, enhet: "dl" },
+      { id: "valnotter",        mangd: 1, enhet: "msk" },
+      { id: "chiafron",         mangd: 1, enhet: "tsk" },
+      { id: "kanel",            mangd: 1, enhet: "krm" }
+    ],
     mood: ["snabbt", "sugen-pa-sott", "ont-i-magen"],
     allergener: ["mjolk", "notter"],
     plus: ["bär", "valnötter", "kanel", "chiafrön"],
     beskrivning: "Det enklaste mellanmålet – klart på en minut.",
     steg: [
       "Häll upp naturell yoghurt (gärna grekisk eller turkisk) i en skål.",
-      "Toppa med bär, hackade valnötter, chiafrön och en nypa kanel."
+      "Toppa med bär, hackade valnötter, chiafrön och kanel."
     ]
   },
   {
@@ -266,7 +379,11 @@ window.RECEPT = [
     maltid: ["mellanmal"],
     tid: 30,
     portioner: 2,
-    ingredienser: ["kikartor", "olivolja", "gurkmeja", "paprika"],
+    ingredienser: [
+      { id: "kikartor", mangd: 1, enhet: "burk" },
+      { id: "olivolja", mangd: 1, enhet: "msk" },
+      { id: "gurkmeja", mangd: 1, enhet: "tsk" }
+    ],
     mood: ["sugen-pa-sott", "snabbt"],
     allergener: [],
     plus: ["kikärtor", "olivolja", "gurkmeja"],
@@ -283,15 +400,20 @@ window.RECEPT = [
     maltid: ["mellanmal"],
     tid: 3,
     portioner: 1,
-    ingredienser: ["apple", "mandel", "kanel", "chiafron"],
+    ingredienser: [
+      { id: "apple",    mangd: 1, enhet: "st" },
+      { id: "mandel",   mangd: 1, enhet: "msk" },
+      { id: "chiafron", mangd: 1, enhet: "tsk" },
+      { id: "kanel",    mangd: 1, enhet: "krm" }
+    ],
     mood: ["sugen-pa-sott", "snabbt"],
     allergener: ["notter"],
     plus: ["mandel", "kanel"],
     beskrivning: "Sött, krispigt och mättande utan tillsatt socker.",
     steg: [
-      "Skiva ett äpple.",
+      "Skiva äpplet.",
       "Bred eller ringla över mandelsmör.",
-      "Strö över kanel och lite chiafrön."
+      "Strö över kanel och chiafrön."
     ]
   },
   {
@@ -300,14 +422,18 @@ window.RECEPT = [
     maltid: ["mellanmal"],
     tid: 5,
     portioner: 2,
-    ingredienser: ["ingefara", "citron", "gurkmeja"],
+    ingredienser: [
+      { id: "ingefara", mangd: 3,   enhet: "cm" },
+      { id: "citron",   mangd: 0.5, enhet: "st" },
+      { id: "gurkmeja", mangd: 1,   enhet: "krm" }
+    ],
     mood: ["forkyld", "snabbt"],
     allergener: [],
     plus: ["ingefära", "gurkmeja", "citron"],
     beskrivning: "Liten pepp när halsen skaver eller du behöver en kick.",
     steg: [
-      "Pressa eller mixa en rejäl bit ingefära med saften av en halv citron.",
-      "Tillsätt en nypa gurkmeja och lite vatten.",
+      "Pressa eller mixa ingefäran med pressad citron.",
+      "Tillsätt gurkmeja och lite vatten.",
       "Sila och drick som en shot."
     ]
   }
