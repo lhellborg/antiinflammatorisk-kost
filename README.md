@@ -14,7 +14,8 @@ Inköpslistan sparas i besökarens egen webbläsare (localStorage).
 ```
 index.html             Startsida + "Vad ska jag äta?"
 recept.html            Alla recept, filtrerbara på måltid, tid och allergener
-om-kosten.html         Faktasida om antiinflammatorisk kost
+om-kosten.html         "Ät mer av / mindre av" + länk till faktasidan
+fakta.html             "Så funkar det" – fakta om inflammation (klickbara delar) + ätordning
 inkopslista.html       Inköpslista för de recept man markerat
 css/style.css          Utseende (färgerna ligger högst upp i filen, under :root)
 js/labels.js           Gemensamma listor + mängd-/portionsuträkningar
@@ -25,6 +26,9 @@ js/lista.js            Logiken bakom receptlistan
 js/inkopslista-sida.js Logiken bakom inköpslistan
 data/recept.js         ALLA RECEPT – det är den här filen du redigerar
 ```
+
+Faktasidan (`fakta.html`) och "Om kosten" är vanlig HTML – ändra texten direkt
+i filerna. De "klickbara delarna" är vanliga `<details>`-element.
 
 ## Lägga till eller ändra ett recept
 
