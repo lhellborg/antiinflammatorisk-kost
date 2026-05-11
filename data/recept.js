@@ -75,7 +75,7 @@ window.RECEPT = [
       { id: "naturell yoghurt", mangd: 1, enhet: "dl" },
       { id: "ingefara",         mangd: 1, enhet: "tsk" }
     ],
-    mood: ["snabbt", "trott", "stressad"],
+    mood: ["snabbt", "trott", "stressad", "sugen-pa-gront", "efter-traning"],
     allergener: ["mjolk"],
     plus: ["spenat", "bär", "chiafrön", "ingefära"],
     beskrivning: "Snabb smoothie som ger fart på morgonen utan socker.",
@@ -124,7 +124,7 @@ window.RECEPT = [
       { id: "valnotter",        mangd: 1,   enhet: "msk" },
       { id: "kanel",            mangd: 1,   enhet: "krm" }
     ],
-    mood: ["snabbt", "ont-i-magen", "sugen-pa-sott"],
+    mood: ["snabbt", "ont-i-magen", "sugen-pa-sott", "dalig-somn"],
     allergener: ["gluten", "mjolk", "notter"],
     plus: ["havre", "bär", "chiafrön", "linfrö", "kanel"],
     beskrivning: "Förbered kvällen innan – klar att äta direkt på morgonen.",
@@ -153,7 +153,7 @@ window.RECEPT = [
       { id: "citron",   mangd: 0.5, enhet: "st" },
       { id: "gurkmeja", mangd: 1,   enhet: "tsk" }
     ],
-    mood: ["varmt-och-matigt", "stressad"],
+    mood: ["varmt-och-matigt", "stressad", "sugen-pa-gront", "efter-traning"],
     allergener: [],
     plus: ["quinoa", "kikärtor", "spenat", "olivolja", "gurkmeja"],
     beskrivning: "Färgglad matig bowl som funkar lika bra ljummen som kall.",
@@ -207,7 +207,7 @@ window.RECEPT = [
       { id: "olivolja",  mangd: 1,    enhet: "msk" },
       { id: "citron",    mangd: 0.25, enhet: "st" }
     ],
-    mood: ["snabbt", "trott"],
+    mood: ["snabbt", "trott", "sugen-pa-gront", "vill-ata-latt", "efter-traning"],
     allergener: ["fisk", "notter"],
     plus: ["lax", "avokado", "spenat", "olivolja", "valnötter"],
     beskrivning: "Snabb sallad full av omega-3 och bra fetter.",
@@ -260,7 +260,7 @@ window.RECEPT = [
       { id: "olivolja", mangd: 1,   enhet: "msk" },
       { id: "vitlok",   mangd: 1,   enhet: "klyfta" }
     ],
-    mood: ["varmt-och-matigt", "trott"],
+    mood: ["varmt-och-matigt", "trott", "vill-bjuda", "efter-traning"],
     allergener: ["fisk"],
     plus: ["lax", "broccoli", "quinoa", "olivolja"],
     beskrivning: "Klassisk vardagsmiddag som nästan lagar sig själv i ugnen.",
@@ -364,7 +364,7 @@ window.RECEPT = [
       { id: "chiafron",         mangd: 1, enhet: "tsk" },
       { id: "kanel",            mangd: 1, enhet: "krm" }
     ],
-    mood: ["snabbt", "sugen-pa-sott", "ont-i-magen"],
+    mood: ["snabbt", "sugen-pa-sott", "ont-i-magen", "dalig-somn", "efter-traning"],
     allergener: ["mjolk", "notter"],
     plus: ["bär", "valnötter", "kanel", "chiafrön"],
     beskrivning: "Det enklaste mellanmålet – klart på en minut.",
@@ -435,6 +435,359 @@ window.RECEPT = [
       "Pressa eller mixa ingefäran med pressad citron.",
       "Tillsätt gurkmeja och lite vatten.",
       "Sila och drick som en shot."
+    ]
+  },
+
+  /* ---------- FLER RECEPT (antiinflammatorisk livsstil – inspirerat av bl.a. Maria Borelius idéer om mat i regnbågens färger, bra fetter, fermenterat och kryddor) ---------- */
+  {
+    id: "gyllene-grot",
+    namn: "Gyllene havregröt med gurkmeja och päron",
+    maltid: ["frukost"],
+    tid: 10,
+    portioner: 1,
+    ingredienser: [
+      { id: "havregryn", mangd: 1,   enhet: "dl" },
+      { id: "vaxtdryck", mangd: 2,   enhet: "dl" },
+      { id: "gurkmeja",  mangd: 0.5, enhet: "tsk" },
+      { id: "kanel",     mangd: 1,   enhet: "krm" },
+      { id: "ingefara",  mangd: 0.5, enhet: "tsk" },
+      { id: "valnotter", mangd: 1,   enhet: "msk" },
+      { id: "bar",       mangd: 1,   enhet: "dl" }
+    ],
+    mood: ["trott", "ont-i-magen", "varmt-och-matigt", "dalig-somn", "snabbt"],
+    allergener: ["gluten", "notter"],
+    plus: ["havre", "gurkmeja", "ingefära", "kanel", "valnötter", "bär"],
+    beskrivning: "Värmande gröt kokad på växtdryck med gurkmeja, ingefära och en nypa svartpeppar.",
+    steg: [
+      "Koka havregrynen med växtdryck och en skvätt vatten enligt paketet.",
+      "Rör i gurkmeja, kanel, riven ingefära och en liten nypa svartpeppar mot slutet.",
+      "Häll upp och toppa med bär och hackade valnötter."
+    ]
+  },
+  {
+    id: "protein-smoothie-blabar",
+    namn: "Proteinsmoothie med blåbär, mandel och frön",
+    maltid: ["frukost", "mellanmal"],
+    tid: 5,
+    portioner: 1,
+    ingredienser: [
+      { id: "vaxtdryck",     mangd: 2.5, enhet: "dl" },
+      { id: "proteinpulver", mangd: 1,   enhet: "msk" },
+      { id: "bar",           mangd: 1.5, enhet: "dl" },
+      { id: "banan",         mangd: 0.5, enhet: "st" },
+      { id: "chiafron",      mangd: 1,   enhet: "msk" },
+      { id: "mandel",        mangd: 1,   enhet: "msk" }
+    ],
+    mood: ["efter-traning", "snabbt", "trott", "sugen-pa-sott"],
+    allergener: ["notter"],
+    plus: ["bär", "chiafrön", "mandel"],
+    beskrivning: "Mättande morgon- eller återhämtningssmoothie utan tillsatt socker (välj växtbaserat proteinpulver om du undviker mjölk).",
+    steg: [
+      "Lägg allt i en mixer (spara lite bär till toppen).",
+      "Mixa slätt, tillsätt mer växtdryck om du vill ha den tunnare.",
+      "Häll upp och strö över de sparade bären."
+    ]
+  },
+  {
+    id: "aggrora-spenat-avokadotoast",
+    namn: "Äggröra med spenat på avokadotoast",
+    maltid: ["frukost", "lunch"],
+    tid: 12,
+    portioner: 1,
+    ingredienser: [
+      { id: "agg",      mangd: 2,    enhet: "st" },
+      { id: "spenat",   mangd: 1,    enhet: "näve" },
+      { id: "avokado",  mangd: 0.5,  enhet: "st" },
+      { id: "ragbrod",  mangd: 1,    enhet: "skiva" },
+      { id: "tomat",    mangd: 1,    enhet: "st" },
+      { id: "olivolja", mangd: 1,    enhet: "tsk" },
+      { id: "citron",   mangd: 0.25, enhet: "st" }
+    ],
+    mood: ["efter-traning", "varmt-och-matigt", "trott"],
+    allergener: ["agg", "gluten"],
+    plus: ["spenat", "avokado", "olivolja"],
+    beskrivning: "Krämig äggröra med spenat på en skiva rostat rågbröd med mosad avokado.",
+    steg: [
+      "Vispa äggen löst, häll i en kall stekpanna med olivoljan och rör på låg värme tills krämigt. Rör ner spenaten på slutet.",
+      "Rosta rågbrödet och bred på mosad avokado med en skvätt citron.",
+      "Lägg äggröran ovanpå och servera med tomatklyftor."
+    ]
+  },
+  {
+    id: "kefirbowl-granatapple",
+    namn: "Kefirbowl med bär, granatäpple och frön",
+    maltid: ["frukost", "mellanmal"],
+    tid: 5,
+    portioner: 1,
+    ingredienser: [
+      { id: "kefir",       mangd: 2,   enhet: "dl" },
+      { id: "bar",         mangd: 1,   enhet: "dl" },
+      { id: "granatapple", mangd: 0.5, enhet: "st" },
+      { id: "chiafron",    mangd: 1,   enhet: "tsk" },
+      { id: "pumpafron",   mangd: 1,   enhet: "msk" },
+      { id: "valnotter",   mangd: 1,   enhet: "msk" }
+    ],
+    mood: ["snabbt", "ont-i-magen", "sugen-pa-sott", "sugen-pa-gront", "efter-traning"],
+    allergener: ["mjolk", "notter"],
+    plus: ["bär", "granatäpple", "chiafrön", "valnötter"],
+    beskrivning: "Fermenterad kefir toppad med bär, granatäpplekärnor och frön – probiotika och antioxidanter i en skål.",
+    steg: [
+      "Häll kefiren i en skål.",
+      "Toppa med bär, granatäpplekärnor, chiafrön, pumpafrön och hackade valnötter."
+    ]
+  },
+  {
+    id: "regnbagssallad-kikartor-tahini",
+    namn: "Regnbågssallad med rostade kikärtor och tahinidressing",
+    maltid: ["lunch", "middag"],
+    tid: 30,
+    portioner: 2,
+    ingredienser: [
+      { id: "kikartor",    mangd: 1,   enhet: "burk" },
+      { id: "gronkal",     mangd: 2,   enhet: "näve" },
+      { id: "morot",       mangd: 2,   enhet: "st" },
+      { id: "rodbeta",     mangd: 1,   enhet: "st" },
+      { id: "avokado",     mangd: 1,   enhet: "st" },
+      { id: "granatapple", mangd: 0.5, enhet: "st" },
+      { id: "tahini",      mangd: 2,   enhet: "msk" },
+      { id: "citron",      mangd: 0.5, enhet: "st" },
+      { id: "olivolja",    mangd: 2,   enhet: "msk" },
+      { id: "gurkmeja",    mangd: 1,   enhet: "tsk" }
+    ],
+    mood: ["sugen-pa-gront", "vill-ata-latt", "vill-bjuda", "varmt-och-matigt"],
+    allergener: [],
+    plus: ["kikärtor", "grönkål", "rödbeta", "avokado", "olivolja", "gurkmeja", "granatäpple"],
+    beskrivning: "En tallrik i regnbågens färger – mycket grönt, bra fetter och en krämig tahinidressing.",
+    steg: [
+      "Skölj och torka kikärtorna, vänd i hälften av olivoljan, gurkmeja och salt. Rosta i ugn 200°C ca 15 min.",
+      "Massera grönkålen med lite olivolja och citron. Riv eller hyvla morot och rödbeta tunt.",
+      "Rör ihop tahini med citron, lite vatten och salt till en len dressing.",
+      "Lägg upp grönsakerna, toppa med kikärtor, avokado och granatäpplekärnor, ringla över dressingen."
+    ]
+  },
+  {
+    id: "sardiner-ragbrod",
+    namn: "Sardiner på rågbröd med tomat och rödlök",
+    maltid: ["lunch", "mellanmal"],
+    tid: 8,
+    portioner: 1,
+    ingredienser: [
+      { id: "sardiner",  mangd: 1,    enhet: "burk" },
+      { id: "ragbrod",   mangd: 2,    enhet: "skiva" },
+      { id: "tomat",     mangd: 1,    enhet: "st" },
+      { id: "lok",       mangd: 0.25, enhet: "st" },
+      { id: "citron",    mangd: 0.25, enhet: "st" },
+      { id: "olivolja",  mangd: 1,    enhet: "tsk" }
+    ],
+    mood: ["snabbt", "efter-traning", "trott"],
+    allergener: ["fisk", "gluten"],
+    plus: ["sardiner", "olivolja", "tomat"],
+    beskrivning: "Snabb, billig och full av omega-3 – sardiner är en av de mest antiinflammatoriska fiskarna.",
+    steg: [
+      "Rosta rågbrödet.",
+      "Lägg på sardinerna, tomatskivor och tunt skivad rödlök.",
+      "Ringla över olivolja och pressa lite citron, mald svartpeppar ovanpå."
+    ]
+  },
+  {
+    id: "sotpotatissoppa-ingefara",
+    namn: "Krämig sötpotatissoppa med ingefära och kokosmjölk",
+    maltid: ["lunch", "middag"],
+    tid: 35,
+    portioner: 4,
+    ingredienser: [
+      { id: "sotpotatis", mangd: 700, enhet: "g" },
+      { id: "lok",        mangd: 1,   enhet: "st" },
+      { id: "vitlok",     mangd: 2,   enhet: "klyfta" },
+      { id: "ingefara",   mangd: 1,   enhet: "msk" },
+      { id: "gurkmeja",   mangd: 1,   enhet: "tsk" },
+      { id: "kokosmjolk", mangd: 2,   enhet: "dl" },
+      { id: "olivolja",   mangd: 2,   enhet: "msk" },
+      { id: "citron",     mangd: 0.5, enhet: "st" }
+    ],
+    mood: ["forkyld", "varmt-och-matigt", "ont-i-magen", "vill-ata-latt", "stressad"],
+    allergener: [],
+    plus: ["sötpotatis", "ingefära", "gurkmeja", "vitlök", "olivolja"],
+    beskrivning: "Sammetslen, värmande soppa med massor av betakaroten och värmande kryddor.",
+    steg: [
+      "Fräs hackad lök, vitlök och riven ingefära i olivoljan tills mjukt.",
+      "Tillsätt sötpotatis i bitar, gurkmeja och vatten så det nästan täcker. Sjud ca 20 min.",
+      "Rör i kokosmjölken och mixa slätt. Smaka av med salt och citron."
+    ]
+  },
+  {
+    id: "gronkalssallad-quinoa-tofu",
+    namn: "Grönkålssallad med quinoa och stekt tofu",
+    maltid: ["lunch", "middag"],
+    tid: 25,
+    portioner: 2,
+    ingredienser: [
+      { id: "gronkal",   mangd: 2,   enhet: "näve" },
+      { id: "quinoa",    mangd: 1.5, enhet: "dl" },
+      { id: "tofu",      mangd: 250, enhet: "g" },
+      { id: "avokado",   mangd: 1,   enhet: "st" },
+      { id: "tomat",     mangd: 2,   enhet: "st" },
+      { id: "pumpafron", mangd: 2,   enhet: "msk" },
+      { id: "olivolja",  mangd: 2,   enhet: "msk" },
+      { id: "citron",    mangd: 0.5, enhet: "st" },
+      { id: "gurkmeja",  mangd: 0.5, enhet: "tsk" }
+    ],
+    mood: ["sugen-pa-gront", "efter-traning", "vill-ata-latt", "varmt-och-matigt"],
+    allergener: ["soja"],
+    plus: ["grönkål", "quinoa", "avokado", "olivolja", "gurkmeja"],
+    beskrivning: "Matig grön sallad med protein från quinoa och tofu – mättar utan att vara tung.",
+    steg: [
+      "Koka quinoan enligt paketet.",
+      "Skär tofun i tärningar, vänd i lite olivolja och gurkmeja, stek krispig i het panna.",
+      "Massera grönkålen med olivolja och citron. Blanda med quinoa, tomat och avokado.",
+      "Toppa med den stekta tofun och pumpafrön, ringla över resten av olivoljan."
+    ]
+  },
+  {
+    id: "ugnslax-rotsaker-gurkmeja",
+    namn: "Ugnslax med rostade rotsaker och gurkmeja",
+    maltid: ["middag"],
+    tid: 40,
+    portioner: 3,
+    ingredienser: [
+      { id: "lax",        mangd: 3,   enhet: "st" },
+      { id: "morot",      mangd: 3,   enhet: "st" },
+      { id: "rodbeta",    mangd: 2,   enhet: "st" },
+      { id: "sotpotatis", mangd: 1,   enhet: "st" },
+      { id: "lok",        mangd: 1,   enhet: "st" },
+      { id: "vitlok",     mangd: 2,   enhet: "klyfta" },
+      { id: "olivolja",   mangd: 3,   enhet: "msk" },
+      { id: "gurkmeja",   mangd: 1,   enhet: "tsk" },
+      { id: "citron",     mangd: 0.5, enhet: "st" }
+    ],
+    mood: ["varmt-och-matigt", "vill-bjuda", "efter-traning"],
+    allergener: ["fisk"],
+    plus: ["lax", "rödbeta", "sötpotatis", "morot", "olivolja", "gurkmeja"],
+    beskrivning: "En plåt: omega-3-rik lax tillsammans med färgglada rotsaker kryddade med gurkmeja.",
+    steg: [
+      "Skär rotsakerna i bitar, blanda med 2 msk olivolja, hackad vitlök, gurkmeja och salt på en plåt. Rosta i 220°C ca 20 min.",
+      "Lägg laxbitarna ovanpå med citronskivor och resten av olivoljan, baka ytterligare ca 12–15 min.",
+      "Pressa lite citron över precis innan servering."
+    ]
+  },
+  {
+    id: "linsdal-spenat-kokos",
+    namn: "Röd linsdal med spenat och kokosmjölk",
+    maltid: ["middag", "lunch"],
+    tid: 30,
+    portioner: 4,
+    ingredienser: [
+      { id: "linser",     mangd: 3,   enhet: "dl" },
+      { id: "lok",        mangd: 1,   enhet: "st" },
+      { id: "vitlok",     mangd: 2,   enhet: "klyfta" },
+      { id: "ingefara",   mangd: 1,   enhet: "msk" },
+      { id: "gurkmeja",   mangd: 1,   enhet: "tsk" },
+      { id: "tomat",      mangd: 1,   enhet: "burk" },
+      { id: "kokosmjolk", mangd: 2,   enhet: "dl" },
+      { id: "spenat",     mangd: 2,   enhet: "näve" },
+      { id: "ris",        mangd: 3,   enhet: "dl" },
+      { id: "olivolja",   mangd: 2,   enhet: "msk" }
+    ],
+    mood: ["varmt-och-matigt", "forkyld", "stressad", "dalig-somn"],
+    allergener: [],
+    plus: ["linser", "ingefära", "gurkmeja", "spenat", "vitlök"],
+    beskrivning: "Mustig indiskinspirerad linsgryta med värmande kryddor – billig, matig och rik på fibrer.",
+    steg: [
+      "Fräs hackad lök, vitlök och riven ingefära i olivoljan. Rör i gurkmeja.",
+      "Tillsätt sköljda röda linser, krossade tomater och vatten så det täcker. Sjud ca 15 min.",
+      "Rör i kokosmjölken och låt sjuda några minuter till. Vänd ner spenaten på slutet.",
+      "Servera med kokt fullkornsris."
+    ]
+  },
+  {
+    id: "fullkornspasta-tomat-spenat-valnotter",
+    namn: "Fullkornspasta med tomatsås, spenat och valnötter",
+    maltid: ["middag"],
+    tid: 20,
+    portioner: 3,
+    ingredienser: [
+      { id: "fullkornspasta", mangd: 240, enhet: "g" },
+      { id: "tomat",          mangd: 1,   enhet: "burk" },
+      { id: "lok",            mangd: 1,   enhet: "st" },
+      { id: "vitlok",         mangd: 2,   enhet: "klyfta" },
+      { id: "spenat",         mangd: 2,   enhet: "näve" },
+      { id: "valnotter",      mangd: 1,   enhet: "dl" },
+      { id: "olivolja",       mangd: 2,   enhet: "msk" }
+    ],
+    mood: ["varmt-och-matigt", "snabbt", "vill-ata-latt"],
+    allergener: ["gluten", "notter"],
+    plus: ["tomat", "spenat", "vitlök", "olivolja", "valnötter"],
+    beskrivning: "Vardagspasta med snabb tomatsås, en näve spenat och rostade valnötter för knaprighet och bra fetter.",
+    steg: [
+      "Koka fullkornspastan al dente.",
+      "Fräs hackad lök och vitlök i olivoljan, tillsätt krossade tomater och låt sjuda 10 min. Smaka av med salt, peppar och oregano.",
+      "Rör ner spenaten i såsen tills den faller ihop. Rosta valnötterna torra i en panna.",
+      "Blanda pastan med såsen och toppa med valnötterna."
+    ]
+  },
+  {
+    id: "golden-milk",
+    namn: "Guldmjölk (golden milk) med gurkmeja och ingefära",
+    maltid: ["mellanmal"],
+    tid: 8,
+    portioner: 1,
+    ingredienser: [
+      { id: "vaxtdryck", mangd: 2.5, enhet: "dl" },
+      { id: "gurkmeja",  mangd: 0.5, enhet: "tsk" },
+      { id: "ingefara",  mangd: 0.5, enhet: "tsk" },
+      { id: "kanel",     mangd: 1,   enhet: "krm" }
+    ],
+    mood: ["forkyld", "dalig-somn", "ont-i-magen", "sugen-pa-sott"],
+    allergener: [],
+    plus: ["gurkmeja", "ingefära", "kanel"],
+    beskrivning: "Lugnande varm dryck med gurkmeja, ingefära, kanel och en nypa svartpeppar (som gör gurkmejan mer tillgänglig).",
+    steg: [
+      "Värm växtdrycken i en kastrull (koka inte).",
+      "Vispa i gurkmeja, riven ingefära, kanel och en liten nypa svartpeppar.",
+      "Sila om du vill ha den helt slät och drick varm."
+    ]
+  },
+  {
+    id: "morkchoklad-valnotter-bar",
+    namn: "Mörk choklad med valnötter och bär",
+    maltid: ["mellanmal"],
+    tid: 3,
+    portioner: 1,
+    ingredienser: [
+      { id: "morkchoklad", mangd: 20, enhet: "g" },
+      { id: "valnotter",   mangd: 1,  enhet: "msk" },
+      { id: "bar",         mangd: 1,  enhet: "dl" }
+    ],
+    mood: ["sugen-pa-sott", "snabbt", "vill-bjuda"],
+    allergener: ["notter"],
+    plus: ["bär", "valnötter"],
+    beskrivning: "Ett litet 'gott' som ändå bidrar – mörk choklad (70%+) har polyfenoler, valnötter bra fetter och bären antioxidanter.",
+    steg: [
+      "Bryt en bit mörk choklad.",
+      "Ät tillsammans med en näve bär och några valnötter."
+    ]
+  },
+  {
+    id: "grontstavar-tahinidipp",
+    namn: "Grönsaksstavar med tahinidipp",
+    maltid: ["mellanmal"],
+    tid: 6,
+    portioner: 2,
+    ingredienser: [
+      { id: "morot",   mangd: 2,   enhet: "st" },
+      { id: "paprika", mangd: 1,   enhet: "st" },
+      { id: "tahini",  mangd: 3,   enhet: "msk" },
+      { id: "citron",  mangd: 0.5, enhet: "st" },
+      { id: "vitlok",  mangd: 0.5, enhet: "klyfta" }
+    ],
+    mood: ["sugen-pa-gront", "snabbt", "vill-ata-latt"],
+    allergener: [],
+    plus: ["morot", "paprika"],
+    beskrivning: "Knaprigt mellanmål – grönsaksstavar med en krämig tahinidipp i stället för chips och dipp.",
+    steg: [
+      "Skär morot och paprika i stavar.",
+      "Rör ihop tahini med pressad vitlök, citron, en nypa salt och lite vatten tills dippig.",
+      "Servera stavarna med dippen."
     ]
   }
 

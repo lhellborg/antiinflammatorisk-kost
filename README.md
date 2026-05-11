@@ -76,7 +76,7 @@ Fälten är dokumenterade högst upp i `data/recept.js`. Kort version:
 | `tid` | ungefärlig tid i minuter |
 | `portioner` | hur många portioner mängderna nedan gäller för (besökaren kan ändra antalet, då räknas allt om) |
 | `ingredienser` | lista med `{ id, mangd, enhet }` – `id` ska matcha en råvara i `js/labels.js`; `enhet` är t.ex. `"dl"`, `"msk"`, `"tsk"`, `"krm"`, `"st"`, `"g"`, `"klyfta"`, `"burk"`, `"näve"`; sätt `mangd: null` om mängd inte är relevant |
-| `mood` | t.ex. `trott`, `stressad`, `forkyld`, `ont-i-magen`, `sugen-pa-sott`, `varmt-och-matigt`, `snabbt` |
+| `mood` | en eller flera av id:na i `window.MOODS` i `js/labels.js` (`trott`, `stressad`, `forkyld`, `ont-i-magen`, `dalig-somn`, `efter-traning`, `sugen-pa-gront`, `sugen-pa-sott`, `varmt-och-matigt`, `vill-ata-latt`, `vill-bjuda`, `snabbt`) |
 | `allergener` | t.ex. `gluten`, `notter`, `agg`, `fisk`, `mjolk`, `soja` (eller `[]`) |
 | `plus` | de mest antiinflammatoriska ingredienserna – visas som gröna taggar |
 | `beskrivning` | en kort mening |

@@ -16,8 +16,13 @@ window.MOODS = [
   { id: "stressad",         label: "Stressad" },
   { id: "forkyld",          label: "Förkyld / krasslig" },
   { id: "ont-i-magen",      label: "Orolig mage" },
+  { id: "dalig-somn",       label: "Sovit dåligt" },
+  { id: "efter-traning",    label: "Efter träning" },
+  { id: "sugen-pa-gront",   label: "Sugen på något fräscht & grönt" },
   { id: "sugen-pa-sott",    label: "Sugen på något sött" },
   { id: "varmt-och-matigt", label: "Vill ha något varmt & matigt" },
+  { id: "vill-ata-latt",    label: "Vill äta lätt & lagom" },
+  { id: "vill-bjuda",       label: "Vill ha något lite extra / bjuda" },
   { id: "snabbt",           label: "Bara något snabbt" }
 ];
 
@@ -56,7 +61,19 @@ window.RAVAROR = [
   { id: "olivolja",       label: "Olivolja" },
   { id: "ingefara",       label: "Ingefära" },
   { id: "gurkmeja",       label: "Gurkmeja" },
-  { id: "kanel",          label: "Kanel" }
+  { id: "kanel",          label: "Kanel" },
+  { id: "gronkal",        label: "Grönkål" },
+  { id: "sotpotatis",     label: "Sötpotatis" },
+  { id: "granatapple",    label: "Granatäpple" },
+  { id: "kefir",          label: "Kefir" },
+  { id: "vaxtdryck",      label: "Växtdryck (havre/mandel)" },
+  { id: "sardiner",       label: "Sardiner (burk)" },
+  { id: "tofu",           label: "Tofu" },
+  { id: "tahini",         label: "Tahini" },
+  { id: "pumpafron",      label: "Pumpafrön" },
+  { id: "kokosmjolk",     label: "Kokosmjölk" },
+  { id: "proteinpulver",  label: "Proteinpulver" },
+  { id: "morkchoklad",    label: "Mörk choklad (70%+)" }
 ];
 
 window.ALLERGENER = [
@@ -71,11 +88,11 @@ window.ALLERGENER = [
 // Grova butiksavdelningar – används för att gruppera inköpslistan.
 // Ingredienser som inte finns med hamnar under "Övrigt".
 window.KATEGORIER = [
-  { namn: "Frukt & grönt", ids: ["spenat","broccoli","tomat","paprika","lok","vitlok","avokado","bar","banan","apple","citron","morot","rodbeta","ingefara"] },
-  { namn: "Kött & fisk",   ids: ["kyckling","lax"] },
-  { namn: "Mejeri & ägg",  ids: ["agg","naturell yoghurt"] },
+  { namn: "Frukt & grönt", ids: ["spenat","broccoli","tomat","paprika","lok","vitlok","avokado","bar","banan","apple","citron","morot","rodbeta","ingefara","gronkal","sotpotatis","granatapple"] },
+  { namn: "Kött & fisk",   ids: ["kyckling","lax","sardiner"] },
+  { namn: "Mejeri & ägg",  ids: ["agg","naturell yoghurt","kefir","vaxtdryck"] },
   { namn: "Bröd",          ids: ["ragbrod","tortilla"] },
-  { namn: "Skafferi",      ids: ["havregryn","linser","kikartor","quinoa","ris","fullkorn","fullkornspasta","valnotter","mandel","chiafron","linfro","olivolja","gurkmeja","kanel"] }
+  { namn: "Skafferi",      ids: ["havregryn","linser","kikartor","quinoa","ris","fullkorn","fullkornspasta","valnotter","mandel","chiafron","linfro","olivolja","gurkmeja","kanel","tofu","tahini","pumpafron","kokosmjolk","proteinpulver","morkchoklad"] }
 ];
 
 window.categoryFor = function (id) {
