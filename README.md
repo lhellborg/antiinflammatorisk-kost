@@ -38,14 +38,26 @@ delarna" är vanliga `<details>`-element.
 
 På `forbattra.html` kan besökaren mata in en egen rätt, få förslag på byten
 (t.ex. crème fraiche → grekisk yoghurt) och tillägg, och spara resultatet.
-Egna recept lagras i besökarens egen webbläsare (`localStorage`) – de syns
-i receptlistan (märkta "Eget recept"), kan läggas i inköpslistan och skalas
-efter portioner precis som de inbyggda. Inget skickas till någon server.
+Sidan har tre lägen:
+- tomt formulär (mata in från noll),
+- `?from=<recept-id>` – gör en **egen version av ett befintligt recept**
+  (nås via "Gör en egen version"-knappen på receptkorten); ingredienserna
+  laddas in och kan ändras, t.ex. med **"byt ut en del"** på en rad som delar
+  raden (default hälften/hälften) och föreslår ersättningar i samma "familj"
+  (linser → kikärtor/bönor/quinoa osv., från `data/byten.js`'s `LIKNANDE`-lista),
+- `?edit=<recept-id>` – redigera ett eget recept man redan sparat.
 
-Vill du fylla på "byt ut"-förslagen: redigera `data/byten.js` (formatet står
-högst upp i filen). "Skicka in"-knappen på sidan öppnar ett mejl till adressen
-i `js/forbattra.js` (sök efter `mailto:`) – byt den eller koppla in ett
-formulärverktyg om du vill ha inskicken någon annanstans.
+Ändrar man portionsväljaren på sidan skalas mängderna i raderna proportionellt.
+Egna recept (inkl. versioner) lagras i besökarens egen webbläsare
+(`localStorage`) – de syns i receptlistan (märkta "Eget recept", versioner får
+beskrivningen "Egen version av «…»"), kan läggas i inköpslistan och skalas efter
+portioner precis som de inbyggda. Inget skickas till någon server.
+
+Vill du fylla på förslagen: redigera `data/byten.js` – `BYTEN` (byt-ut-förslag),
+`LIKNANDE` (ersättningar i samma familj), `LAGG_TILL_TIPS`, `TILLAGNINGSTIPS`,
+`MINDRE_BRA_CHIPS` (formatet står högst upp i filen). "Skicka in"-knappen öppnar
+ett mejl till adressen i `js/forbattra.js` (sök efter `mailto:`) – byt den eller
+koppla in ett formulärverktyg om du vill ha inskicken någon annanstans.
 
 ## Lägga till eller ändra ett recept
 

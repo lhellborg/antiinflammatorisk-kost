@@ -331,21 +331,40 @@ ul.sources li { margin-bottom: .4rem; }
 .fb-block input:focus, .fb-block textarea:focus, .fb-skicka-text:focus { outline: 2px solid var(--terracotta); outline-offset: 1px; }
 
 /* ingrediensrader */
-.ingr-rows { display: flex; flex-direction: column; gap: .5rem; }
+.ingr-rows { display: flex; flex-direction: column; gap: .6rem; }
+.ingr-row-wrap { display: flex; flex-direction: column; gap: .45rem; }
 .ingr-row { display: flex; gap: .5rem; align-items: center; }
 .ingr-row .in-mangd { width: 5rem; flex: 0 0 5rem; }
 .ingr-row .in-enhet { flex: 0 0 6.2rem; font: inherit; padding: .5rem .4rem; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); color: var(--ink); }
 .ingr-row .in-namn { flex: 1 1 auto; min-width: 8rem; }
+.ingr-row .in-split {
+  flex: 0 0 auto; border: 1px solid var(--line); background: var(--surface-2); color: var(--olive-dark);
+  padding: .35rem .6rem; border-radius: 999px; cursor: pointer; font: inherit; font-size: .82rem; white-space: nowrap;
+}
+.ingr-row .in-split:hover { background: #eef3e4; }
 .ingr-row .in-rm {
   flex: 0 0 auto; border: none; background: var(--surface-2); color: var(--ink-soft);
   width: 2rem; height: 2rem; border-radius: 999px; cursor: pointer; font-size: 1.2rem; line-height: 1;
 }
 .ingr-row .in-rm:hover { background: #f3ddd3; color: var(--terracotta-dark); }
-@media (max-width: 520px) {
+@media (max-width: 560px) {
   .ingr-row { flex-wrap: wrap; }
   .ingr-row .in-namn { flex-basis: 100%; order: 3; }
-  .ingr-row .in-rm { order: 4; }
+  .ingr-row .in-split { order: 4; }
+  .ingr-row .in-rm { order: 5; }
 }
+
+/* "byt ut en del"-panel */
+.split-panel {
+  background: var(--surface-2); border: 1px dashed var(--line); border-radius: 12px;
+  padding: .8rem 1rem; margin-left: 1rem;
+}
+.split-panel .help { margin: .2rem 0; }
+.split-keep-row { display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; margin: .4rem 0; }
+.split-keep-row input[type="range"] { flex: 1 1 12rem; max-width: 22rem; accent-color: var(--olive); }
+.split-keep { font-weight: 600; color: var(--olive-dark); white-space: nowrap; }
+.split-namn { font: inherit; padding: .5rem .7rem; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); color: var(--ink); width: 100%; max-width: 24rem; margin-top: .4rem; }
+.split-why { font-style: italic; }
 
 /* ---------- Förbättra: resultat ---------- */
 .fb-result { margin-top: 2.4rem; }

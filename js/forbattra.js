@@ -5,10 +5,11 @@
    ============================================================ */
 
 (function () {
-  var BYTEN   = window.BYTEN || [];
-  var TIPS    = window.LAGG_TILL_TIPS || [];
-  var KOKTIPS = window.TILLAGNINGSTIPS || [];
-  var CHIPS   = window.MINDRE_BRA_CHIPS || [];
+  var BYTEN    = window.BYTEN || [];
+  var TIPS     = window.LAGG_TILL_TIPS || [];
+  var KOKTIPS  = window.TILLAGNINGSTIPS || [];
+  var CHIPS    = window.MINDRE_BRA_CHIPS || [];
+  var LIKNANDE = window.LIKNANDE || [];
 
   var elNamn      = document.getElementById("fb-namn");
   var elMaltid    = document.getElementById("fb-maltid");
@@ -30,12 +31,30 @@
   var elSparad    = document.getElementById("fb-sparad");
   if (!elRows) return;
 
-  var rows = [];          // [{mangd:Number|null, enhet, namn, _el, _namnInput, _mangdInput, _enhetSel, _swapped}]
+  var rows = [];          // [{mangd:Number|null, enhet, namn, _wrap, _namnInput, _mangdInput, _enhetSel, _swapped}]
   var editId = null;      // sätts om vi redigerar ett befintligt eget recept
+  var baseradPa = null;   // recept-id om detta är en "egen version av" ett annat recept
+  var fromName = null;    // originalreceptets namn (för beskrivningstexten)
+  var baseMood = [];      // mood-taggar som ärvs från originalet
 
-  // portionsväljare
-  var stepper = window.makeStepper(4, 1, function () { refreshIfShown(); });
+  // portionsväljare – när antalet ändras skalas mängderna i raderna proportionellt
+  var lastPortioner = 4;
+  var stepper = window.makeStepper(4, 1, function (n) {
+    rescaleRows(lastPortioner, n);
+    lastPortioner = n;
+    refreshIfShown();
+  });
   elPortHold.appendChild(stepper);
+  function rescaleRows(from, to) {
+    if (!from || !to || from === to) return;
+    var f = to / from;
+    rows.forEach(function (row) {
+      if (row.mangd != null && !isNaN(row.mangd)) {
+        row.mangd = Math.round(row.mangd * f * 100) / 100;
+        if (row._mangdInput) row._mangdInput.value = row.mangd;
+      }
+    });
+  }
 
   // måltid-chips
   window.MALTIDER.forEach(function (m) {
@@ -64,7 +83,18 @@
   });
 
   /* ---------- ingrediensrader ---------- */
+  function findLiknande(namn) {
+    var low = namn.toLowerCase();
+    for (var i = 0; i < LIKNANDE.length; i++) {
+      var L = LIKNANDE[i];
+      for (var j = 0; j < L.traffar.length; j++) { if (low.indexOf(L.traffar[j]) !== -1) return L; }
+    }
+    return null;
+  }
+  function capitalize(s) { s = String(s).trim(); return s ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
+
   function makeRowEl(row) {
+    var wrap = document.createElement("div"); wrap.className = "ingr-row-wrap";
     var div = document.createElement("div"); div.className = "ingr-row";
 
     var mangd = document.createElement("input");
@@ -85,15 +115,102 @@
     namn.addEventListener("input", function () { row.namn = namn.value; row._swapped = false; });
     namn.addEventListener("change", refreshIfShown);
 
+    var split = document.createElement("button");
+    split.type = "button"; split.className = "in-split"; split.textContent = "byt ut en del"; split.title = "Byt ut en del av den här ingrediensen";
+
     var rm = document.createElement("button");
     rm.type = "button"; rm.className = "in-rm"; rm.textContent = "×"; rm.title = "Ta bort raden";
     rm.addEventListener("click", function () {
-      var i = rows.indexOf(row); if (i !== -1) { rows.splice(i, 1); div.remove(); refreshIfShown(); }
+      var i = rows.indexOf(row); if (i !== -1) { rows.splice(i, 1); wrap.remove(); refreshIfShown(); }
     });
 
-    div.appendChild(mangd); div.appendChild(enhet); div.appendChild(namn); div.appendChild(rm);
-    row._el = div; row._namnInput = namn; row._mangdInput = mangd; row._enhetSel = enhet;
-    return div;
+    div.appendChild(mangd); div.appendChild(enhet); div.appendChild(namn); div.appendChild(split); div.appendChild(rm);
+    wrap.appendChild(div);
+
+    /* --- panel för "byt ut en del" --- */
+    var panel = document.createElement("div"); panel.className = "split-panel hidden"; wrap.appendChild(panel);
+    split.addEventListener("click", function () {
+      if (!panel.classList.contains("hidden")) { panel.classList.add("hidden"); return; }
+      buildSplitPanel();
+      panel.classList.remove("hidden");
+    });
+    function buildSplitPanel() {
+      panel.innerHTML = "";
+      var nm = (row.namn || "").trim() || "ingrediensen";
+      var Y = (row.mangd != null && !isNaN(row.mangd)) ? row.mangd : null;
+
+      var head = document.createElement("p"); head.className = "help";
+      head.innerHTML = "Byt ut en del av <strong>" + esc(nm) + "</strong>:";
+      panel.appendChild(head);
+
+      var keepVal = null, slider = null, keepOut = null;
+      if (Y != null && Y > 0) {
+        var step = (Y >= 200) ? 25 : (Y >= 20 ? 5 : 0.25);
+        keepVal = Math.round((Y / 2) / step) * step;
+        var lbl = document.createElement("label"); lbl.className = "split-keep-row";
+        lbl.appendChild(document.createTextNode("Behåll "));
+        slider = document.createElement("input"); slider.type = "range"; slider.min = "0"; slider.max = String(Y); slider.step = String(step); slider.value = String(keepVal);
+        keepOut = document.createElement("span"); keepOut.className = "split-keep";
+        function paintKeep() { keepVal = parseFloat(slider.value); keepOut.textContent = window.niceNumber(keepVal) + (row.enhet ? " " + row.enhet : "") + " av " + window.niceNumber(Y) + (row.enhet ? " " + row.enhet : ""); }
+        slider.addEventListener("input", paintKeep);
+        lbl.appendChild(slider); lbl.appendChild(document.createTextNode(" ")); lbl.appendChild(keepOut);
+        panel.appendChild(lbl); paintKeep();
+      } else {
+        var note = document.createElement("p"); note.className = "help"; note.textContent = "Raden saknar mängd – då byts hela ingrediensen ut.";
+        panel.appendChild(note);
+      }
+
+      var rl = document.createElement("p"); rl.style.margin = ".6rem 0 .2rem"; rl.textContent = "Ersätt resten med:"; panel.appendChild(rl);
+      var repInput = document.createElement("input"); repInput.type = "text"; repInput.className = "split-namn"; repInput.placeholder = "…skriv en ingrediens";
+      var why = document.createElement("p"); why.className = "split-why help hidden";
+
+      var lik = findLiknande(nm);
+      if (lik) {
+        var chips = document.createElement("div"); chips.className = "chips";
+        lik.alternativ.forEach(function (alt) {
+          var b = document.createElement("button"); b.type = "button"; b.className = "chip"; b.textContent = alt.namn;
+          b.addEventListener("click", function () {
+            repInput.value = capitalize(alt.namn);
+            why.textContent = alt.varfor; why.classList.remove("hidden");
+            chips.querySelectorAll(".chip").forEach(function (c) { c.classList.remove("is-checked"); });
+            b.classList.add("is-checked");
+          });
+          chips.appendChild(b);
+        });
+        panel.appendChild(chips);
+      }
+      panel.appendChild(repInput);
+      panel.appendChild(why);
+
+      var btnRow = document.createElement("div"); btnRow.className = "btn-row";
+      var confirm = document.createElement("button"); confirm.type = "button"; confirm.className = "btn btn-secondary"; confirm.textContent = "Dela & byt";
+      var cancel = document.createElement("button"); cancel.type = "button"; cancel.className = "btn btn-ghost"; cancel.textContent = "Avbryt";
+      cancel.addEventListener("click", function () { panel.classList.add("hidden"); });
+      confirm.addEventListener("click", function () {
+        var repName = (repInput.value || "").trim();
+        if (!repName) { repInput.focus(); return; }
+        if (Y != null && Y > 0 && keepVal != null && keepVal > 0 && keepVal < Y) {
+          var repAmt = Math.round((Y - keepVal) * 100) / 100;
+          row.mangd = Math.round(keepVal * 100) / 100;
+          if (row._mangdInput) row._mangdInput.value = row.mangd;
+          var newRow = { mangd: repAmt, enhet: row.enhet || "", namn: capitalize(repName), _swapped: false };
+          var idx = rows.indexOf(row);
+          rows.splice(idx + 1, 0, newRow);
+          wrap.after(makeRowEl(newRow));
+        } else {
+          // ingen vettig delning – byt hela raden
+          row.namn = capitalize(repName); row._swapped = false;
+          if (row._namnInput) row._namnInput.value = row.namn;
+        }
+        panel.classList.add("hidden");
+        refreshIfShown();
+      });
+      btnRow.appendChild(confirm); btnRow.appendChild(cancel);
+      panel.appendChild(btnRow);
+    }
+
+    row._wrap = wrap; row._namnInput = namn; row._mangdInput = mangd; row._enhetSel = enhet;
+    return wrap;
   }
   function addRow(row, focusIt) {
     rows.push(row); elRows.appendChild(makeRowEl(row));
@@ -102,6 +219,7 @@
   }
   function seedEmpty(n) { for (var i = 0; i < (n || 3); i++) { var r = { mangd: null, enhet: "", namn: "" }; rows.push(r); elRows.appendChild(makeRowEl(r)); } }
   function nonEmptyRows() { return rows.filter(function (r) { return r.namn && r.namn.trim(); }); }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   elAddRad.addEventListener("click", function () { addRow({ mangd: null, enhet: "", namn: "" }, true); });
 
   /* ---------- analys ---------- */
@@ -233,7 +351,6 @@
     if (any(["soja","tofu","edamame"])) res.push("soja");
     return res.filter(function (v, i, a) { return a.indexOf(v) === i; });
   }
-  function capitalize(s) { s = String(s).trim(); return s ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
 
   function buildRecipeObject() {
     var ingr = nonEmptyRows().map(function (row) {
@@ -246,20 +363,24 @@
     var maltid = checkedMaltider(); if (!maltid.length) maltid = ["middag"];
     var tid = elTid.value ? parseInt(elTid.value, 10) : null;
     var steg = (elSteg.value || "").split(/\n+/).map(function (s) { return s.trim(); }).filter(Boolean);
-    return {
+    var beskr = baseradPa ? ("Egen version av «" + (fromName || "ett recept") + "».")
+              : (editId ? "Eget recept (redigerat)." : "Eget recept.");
+    var r = {
       id: editId || window.MyRecipes.newId(),
       namn: (elNamn.value || "").trim() || "Mitt recept",
       maltid: maltid,
       tid: (tid && tid > 0) ? tid : null,
       portioner: stepper.getValue(),
       ingredienser: ingr,
-      mood: [],
+      mood: (baseMood || []).slice(),
       allergener: detectAllergener(ingr),
       plus: detectPlus(ingr),
-      beskrivning: editId ? "Eget recept (redigerat)." : "Eget recept.",
+      beskrivning: beskr,
       steg: steg,
       egen: true
     };
+    if (baseradPa) r.baseradPa = baseradPa;
+    return r;
   }
 
   function renderPreview() {
@@ -357,27 +478,57 @@
     var b = document.getElementById("fb-kopiera"); b.textContent = "✓ Kopierat"; setTimeout(function () { b.textContent = "Kopiera texten"; }, 2000);
   });
 
-  /* ---------- init / redigeringsläge ---------- */
+  /* ---------- init / redigerings- och versionsläge ---------- */
+  function loadIngredientRows(list) {
+    (list || []).forEach(function (it) {
+      var row = { mangd: (it.mangd != null ? it.mangd : null), enhet: it.enhet || "", namn: window.ingrLabel(it), _swapped: false };
+      rows.push(row); elRows.appendChild(makeRowEl(row));
+    });
+  }
   (function init() {
     var params = new URLSearchParams(location.search);
     var ed = params.get("edit");
+    var fromId = params.get("from");
     var r = ed ? window.MyRecipes.get(ed) : null;
+
     if (r) {
+      // redigera ett befintligt eget recept
       editId = r.id;
+      baseradPa = r.baseradPa || null;
+      baseMood = (r.mood || []).slice();
+      if (baseradPa) { var bf = window.recipeById(baseradPa); fromName = bf ? bf.namn : null; }
       elNamn.value = r.namn || "";
       setMaltider(r.maltid || []);
       stepper.setValue(r.portioner || 4);
       if (r.tid) elTid.value = r.tid;
-      (r.ingredienser || []).forEach(function (it) {
-        var row = { mangd: (it.mangd != null ? it.mangd : null), enhet: it.enhet || "", namn: window.ingrLabel(it), _swapped: true };
-        rows.push(row); elRows.appendChild(makeRowEl(row));
-      });
+      loadIngredientRows(r.ingredienser);
       if (!rows.length) seedEmpty(2);
       if (r.steg && r.steg.length) elSteg.value = r.steg.join("\n");
-      var note = document.getElementById("fb-edit-note"); if (note) note.classList.remove("hidden");
+      var en = document.getElementById("fb-edit-note"); if (en) en.classList.remove("hidden");
+      analyse();
+    } else if (fromId && window.recipeById(fromId)) {
+      // gör en EGEN VERSION av ett befintligt recept (originalet rörs inte)
+      var base = window.recipeById(fromId);
+      editId = null;
+      baseradPa = base.id;
+      fromName = base.namn;
+      baseMood = (base.mood || []).slice();
+      elNamn.value = "Min version av " + base.namn;
+      setMaltider(base.maltid || []);
+      stepper.setValue(base.portioner || 4);
+      if (base.tid) elTid.value = base.tid;
+      loadIngredientRows(base.ingredienser);
+      if (!rows.length) seedEmpty(2);
+      if (base.steg && base.steg.length) elSteg.value = base.steg.join("\n");
+      var fn = document.getElementById("fb-from-note");
+      if (fn) {
+        fn.innerHTML = "Du gör en egen version av <strong>«" + esc(base.namn) + "»</strong> – originalreceptet ändras inte. Använd <em>byt ut en del</em> på en rad för att t.ex. byta hälften av en ingrediens mot något annat.";
+        fn.classList.remove("hidden");
+      }
       analyse();
     } else {
       seedEmpty(3);
     }
+    lastPortioner = stepper.getValue();
   })();
 })();

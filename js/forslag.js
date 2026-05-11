@@ -136,6 +136,7 @@
 
     var row = document.createElement("div"); row.className = "btn-row";
     row.appendChild(cartButton(r.id, function () { return stepper.getValue(); }));
+    row.appendChild(linkTo("forbattra.html?from=" + encodeURIComponent(r.id), "Gör en egen version", "btn-ghost"));
     row.appendChild(linkTo("recept.html", "Se alla recept", "btn-ghost"));
     box.appendChild(row);
 
@@ -156,6 +157,9 @@
     var d = document.createElement("p"); d.className = "desc"; d.textContent = r.beskrivning; c.appendChild(d);
     var note = document.createElement("p"); note.className = "help"; note.textContent = "Receptet är för " + r.portioner + (r.portioner === 1 ? " portion" : " portioner") + " – ändra antalet på inköpslistan."; c.appendChild(note);
     c.appendChild(cartButton(r.id, function () { return r.portioner; }));
+    var vrow = document.createElement("div"); vrow.className = "btn-row";
+    vrow.appendChild(linkTo("forbattra.html?from=" + encodeURIComponent(r.id), "Gör en egen version", "btn-ghost"));
+    c.appendChild(vrow);
     return c;
   }
 

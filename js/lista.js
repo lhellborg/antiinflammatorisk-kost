@@ -109,14 +109,15 @@
     btn.addEventListener("click", function () { window.Cart.toggle(r.id, stepper.getValue()); });
     c.appendChild(btn);
 
+    var actRow = document.createElement("div"); actRow.className = "btn-row own-actions";
+    var ver = document.createElement("a"); ver.href = "forbattra.html?from=" + encodeURIComponent(r.id); ver.className = "btn btn-ghost"; ver.textContent = "Gör en egen version"; actRow.appendChild(ver);
     if (r.egen) {
-      var ownRow = document.createElement("div"); ownRow.className = "btn-row own-actions";
-      var edit = document.createElement("a"); edit.href = "forbattra.html?edit=" + encodeURIComponent(r.id); edit.className = "btn btn-ghost"; edit.textContent = "Redigera"; ownRow.appendChild(edit);
+      var edit = document.createElement("a"); edit.href = "forbattra.html?edit=" + encodeURIComponent(r.id); edit.className = "btn btn-ghost"; edit.textContent = "Redigera"; actRow.appendChild(edit);
       var del = document.createElement("button"); del.type = "button"; del.className = "btn btn-ghost"; del.textContent = "Ta bort";
       del.addEventListener("click", function () { if (confirm('Ta bort "' + r.namn + '" från dina recept?')) { window.Cart.remove(r.id); window.MyRecipes.remove(r.id); } });
-      ownRow.appendChild(del);
-      c.appendChild(ownRow);
+      actRow.appendChild(del);
     }
+    c.appendChild(actRow);
 
     function syncFromCart() {
       paintBtn();

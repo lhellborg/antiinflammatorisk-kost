@@ -131,6 +131,106 @@ window.LAGG_TILL_TIPS = [
   { namn: "bär", mangd: 1, enhet: "dl", text: "Bär vid sidan av eller på toppen – antioxidanter och naturlig sötma." }
 ];
 
+/* ------------------------------------------------------------
+   LIKNANDE – när man vill byta ut en DEL av en ingrediens i ett
+   befintligt recept (t.ex. hälften av linserna mot något annat).
+   Här ligger rimliga ersättningar "i samma familj", med en kort
+   antiinflammatorisk motivering. Matchas precis som BYTEN: om
+   ingrediensnamnet innehåller någon sträng i "traffar".
+   ------------------------------------------------------------ */
+window.LIKNANDE = [
+  {
+    traffar: ["linser", "röda linser", "gröna linser"],
+    alternativ: [
+      { namn: "kikärtor", varfor: "Samma sorts baljväxt – protein och fibrer, dämpar blodsockret." },
+      { namn: "vita bönor", varfor: "Mild smak, mycket fibrer." },
+      { namn: "svarta bönor", varfor: "Mörka bönor innehåller dessutom antioxidanter." },
+      { namn: "quinoa", varfor: "Ger ett komplett protein och fullkornsfibrer." }
+    ]
+  },
+  {
+    traffar: ["kikärtor", "kikärt"],
+    alternativ: [
+      { namn: "röda linser", varfor: "Kokar snabbt och tjocknar fint i grytor." },
+      { namn: "vita bönor", varfor: "Krämig konsistens, mycket fibrer." },
+      { namn: "quinoa", varfor: "Komplett protein och fullkornsfibrer." }
+    ]
+  },
+  {
+    traffar: ["nötfärs", "blandfärs", "fläskfärs", "köttfärs", "rött kött", "nötkött", "fläskkött"],
+    alternativ: [
+      { namn: "röda linser", varfor: "Minskar mängden rött kött, ökar fibrerna; tjocknar grytor." },
+      { namn: "svarta bönor", varfor: "Matig och mörk – passar i bolognese och chili." },
+      { namn: "kyckling", varfor: "Magrare än rött kött." },
+      { namn: "lax eller annan fet fisk", varfor: "Tillför omega-3 i stället för mättat fett." },
+      { namn: "sojafärs eller crumbles av tofu", varfor: "Växtbaserat protein utan mättat fett." }
+    ]
+  },
+  {
+    traffar: ["vitt ris", "jasminris", "basmatiris", "ris"],
+    alternativ: [
+      { namn: "fullkornsris", varfor: "Mer fibrer, jämnare blodsocker." },
+      { namn: "quinoa", varfor: "Snabb, komplett protein." },
+      { namn: "matvete eller korn", varfor: "Sega fullkornskärnor, mättar bra." },
+      { namn: "blomkålsris", varfor: "Mycket grönsaker, lite kolhydrater." }
+    ]
+  },
+  {
+    traffar: ["pasta", "spaghetti", "makaroner", "penne"],
+    alternativ: [
+      { namn: "fullkornspasta", varfor: "Mer fibrer; koka al dente för lägre blodsockersvar." },
+      { namn: "linspasta eller kikärtspasta", varfor: "Mer protein och fibrer." },
+      { namn: "zucchini- eller morotsstrimlor", varfor: "Byt en del mot grönsaker." }
+    ]
+  },
+  {
+    traffar: ["potatis"],
+    alternativ: [
+      { namn: "sötpotatis", varfor: "Mer fibrer och betakaroten." },
+      { namn: "morot och palsternacka", varfor: "Rotfrukter med mer fibrer." },
+      { namn: "blomkål", varfor: "Lättare, mer grönsaker." }
+    ]
+  },
+  {
+    traffar: ["grädde", "vispgrädde", "matlagningsgrädde"],
+    alternativ: [
+      { namn: "naturell yoghurt (grekisk/turkisk)", varfor: "Fermenterad mejeriprodukt, mindre mättat fett – rör i mot slutet så det inte skär sig." },
+      { namn: "kokosmjölk light", varfor: "Krämigt utan mejeri." },
+      { namn: "inkokt cashew eller silken tofu, mixad", varfor: "Mild gräddighet helt växtbaserad." }
+    ]
+  },
+  {
+    traffar: ["smör"],
+    alternativ: [
+      { namn: "olivolja", varfor: "Omättat fett med egna inflammationsdämpande ämnen." },
+      { namn: "rapsolja", varfor: "Mild smak, bra fettsammansättning." }
+    ]
+  },
+  {
+    traffar: ["vetemjöl", "vitt mjöl"],
+    alternativ: [
+      { namn: "fullkornsmjöl (vete eller dinkel)", varfor: "Mer fibrer." },
+      { namn: "bovetemjöl", varfor: "Fiberrikt och glutenfritt." },
+      { namn: "havregryn, mixade till mjöl", varfor: "Fibrer och betaglukaner." }
+    ]
+  },
+  {
+    traffar: ["socker", "strösocker", "farinsocker"],
+    alternativ: [
+      { namn: "mosad banan", varfor: "Naturlig sötma plus fibrer." },
+      { namn: "mixade dadlar", varfor: "Söt 'pasta' med fibrer." },
+      { namn: "äpplemos utan tillsatt socker", varfor: "Mild sötma, mindre socker totalt." }
+    ]
+  },
+  {
+    traffar: ["fläsk", "bacon", "sidfläsk"],
+    alternativ: [
+      { namn: "rökt tofu eller tempeh", varfor: "Rökig smak utan processat kött." },
+      { namn: "soltorkade tomater + lite rökt paprikapulver", varfor: "Smakbomb utan kött." }
+    ]
+  }
+];
+
 // Snabbval: vanliga "mindre bra" ingredienser man kan bocka i för att lägga till
 // dem som rader i sitt recept. namn ska matcha någon "traffar" i BYTEN ovan.
 window.MINDRE_BRA_CHIPS = [
