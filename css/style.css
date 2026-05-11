@@ -167,6 +167,21 @@ p { margin: 0 0 1em; }
 }
 .callout strong { color: var(--terracotta-dark); }
 
+/* details / summary (faktaruta, "så här gör du") */
+.prose details, details.factbox { margin: 1.4rem 0; }
+details > summary {
+  cursor: pointer; font-weight: 600; color: var(--terracotta-dark);
+  list-style-position: inside;
+}
+details.factbox {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 1rem 1.2rem; box-shadow: var(--shadow);
+}
+.deflist { margin: .8rem 0 0; }
+.deflist dt { font-weight: 600; margin-top: .7rem; }
+.deflist dd { margin: 0 0 .2rem; color: var(--ink-soft); }
+.prose h3 { color: var(--olive-dark); }
+
 .foodgroups { display: grid; gap: 1.1rem; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); margin-top: 1rem; }
 .foodgroups .card h3 { color: var(--olive-dark); }
 .avoid { border-left: 6px solid var(--terracotta); }
