@@ -231,6 +231,56 @@ window.LIKNANDE = [
   }
 ];
 
+/* ------------------------------------------------------------
+   STAPLE_GRANSER – stapelvaror som lätt blir för dominerande i en
+   rätt (framför allt baljväxter, men även ris/pasta/potatis). Om
+   "mängd ÷ antal portioner" ligger över gränsen för sin enhet
+   flaggas rätten som "tung på X" och man kan byta ut en del.
+     traffar         = ord (gemener) som känns igen i ett ingrediensnamn
+     etikett         = visningsnamn
+     typ             = "baljväxt" eller "stärkelse"
+     gransPerPortion = max rimlig mängd per portion, per enhet
+     alternativ      = rimliga ersättningar (samma familj)
+   ------------------------------------------------------------ */
+window.STAPLE_GRANSER = [
+  { traffar: ["röda linser", "gröna linser", "linser", "linsen"], etikett: "linser", typ: "baljväxt",
+    gransPerPortion: { dl: 0.7, burk: 0.4, g: 70 }, alternativ: ["kikärtor", "vita bönor", "svarta bönor", "quinoa"] },
+  { traffar: ["kikärtor", "kikärt", "kikartor", "kikart"], etikett: "kikärtor", typ: "baljväxt",
+    gransPerPortion: { dl: 0.7, burk: 0.4, g: 70 }, alternativ: ["röda linser", "vita bönor", "svarta bönor", "quinoa"] },
+  { traffar: ["svarta bönor", "vita bönor", "kidneybönor", "bönor", "bön", "bonor"], etikett: "bönor", typ: "baljväxt",
+    gransPerPortion: { dl: 0.7, burk: 0.4, g: 70 }, alternativ: ["röda linser", "kikärtor", "quinoa"] },
+  { traffar: ["fullkornspasta", "spaghetti", "makaroner", "penne", "pasta"], etikett: "pasta", typ: "stärkelse",
+    gransPerPortion: { g: 110, dl: 1.6 }, alternativ: ["fullkornspasta", "linspasta eller kikärtspasta", "zucchini- eller morotsstrimlor"] },
+  { traffar: ["fullkornsris", "jasminris", "basmatiris", "ris"], etikett: "ris", typ: "stärkelse",
+    gransPerPortion: { dl: 1, g: 90 }, alternativ: ["fullkornsris", "quinoa", "matvete eller korn", "blomkålsris"] },
+  { traffar: ["potatis"], etikett: "potatis", typ: "stärkelse",
+    gransPerPortion: { st: 1.6, g: 220 }, alternativ: ["sötpotatis", "morot och palsternacka", "blomkål", "kokt potatis med skal"] }
+];
+
+// Returnerar lista över stapelvaror som är "för mycket" i ett recept-objekt
+// (eller ett objekt med { ingredienser, portioner }).
+window.stapleFlags = function (recipe) {
+  var P = (recipe && recipe.portioner) ? recipe.portioner : 1;
+  var out = [];
+  (recipe && recipe.ingredienser || []).forEach(function (it) {
+    var label = (typeof window.ravaraLabel === "function") ? window.ravaraLabel(it.id) : null;
+    var nm = String(it.namn || label || it.id || "").toLowerCase();
+    for (var i = 0; i < window.STAPLE_GRANSER.length; i++) {
+      var g = window.STAPLE_GRANSER[i];
+      if (!g.traffar.some(function (t) { return nm.indexOf(t) !== -1; })) continue;
+      var lim = g.gransPerPortion[it.enhet || ""];
+      if (lim == null || it.mangd == null || isNaN(it.mangd)) break;
+      if (it.mangd / P > lim) out.push({ ingr: it, grans: g, perPortion: it.mangd / P });
+      break;
+    }
+  });
+  return out;
+};
+// True om receptet är "tungt" på en viss typ ("baljväxt" / "stärkelse") – eller på något alls om typ utelämnas.
+window.recipeStapleHeavy = function (recipe, typ) {
+  return window.stapleFlags(recipe).some(function (f) { return !typ || f.grans.typ === typ; });
+};
+
 // Snabbval: vanliga "mindre bra" ingredienser man kan bocka i för att lägga till
 // dem som rader i sitt recept. namn ska matcha någon "traffar" i BYTEN ovan.
 window.MINDRE_BRA_CHIPS = [

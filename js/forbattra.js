@@ -22,6 +22,8 @@
   var elAnalysera = document.getElementById("fb-analysera");
   var elResultat  = document.getElementById("fb-resultat");
   var elByten     = document.getElementById("fb-byten");
+  var elMycketBlk = document.getElementById("fb-mycket-block");
+  var elMycket    = document.getElementById("fb-mycket");
   var elLaggTill  = document.getElementById("fb-lagg-till");
   var elKok       = document.getElementById("fb-tillagning");
   var elLiknande  = document.getElementById("fb-liknande");
@@ -189,21 +191,8 @@
       confirm.addEventListener("click", function () {
         var repName = (repInput.value || "").trim();
         if (!repName) { repInput.focus(); return; }
-        if (Y != null && Y > 0 && keepVal != null && keepVal > 0 && keepVal < Y) {
-          var repAmt = Math.round((Y - keepVal) * 100) / 100;
-          row.mangd = Math.round(keepVal * 100) / 100;
-          if (row._mangdInput) row._mangdInput.value = row.mangd;
-          var newRow = { mangd: repAmt, enhet: row.enhet || "", namn: capitalize(repName), _swapped: false };
-          var idx = rows.indexOf(row);
-          rows.splice(idx + 1, 0, newRow);
-          wrap.after(makeRowEl(newRow));
-        } else {
-          // ingen vettig delning – byt hela raden
-          row.namn = capitalize(repName); row._swapped = false;
-          if (row._namnInput) row._namnInput.value = row.namn;
-        }
+        applySplit(row, (Y != null && Y > 0 ? keepVal : null), repName);
         panel.classList.add("hidden");
-        refreshIfShown();
       });
       btnRow.appendChild(confirm); btnRow.appendChild(cancel);
       panel.appendChild(btnRow);
@@ -222,6 +211,28 @@
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   elAddRad.addEventListener("click", function () { addRow({ mangd: null, enhet: "", namn: "" }, true); });
 
+  // Dela en rad: behåll keepAmt av ingrediensen, lägg en ny rad med resten som repName.
+  // keepAmt == null (eller raden saknar mängd) -> byt hela raden mot repName.
+  function applySplit(row, keepAmt, repName) {
+    repName = String(repName || "").trim();
+    if (!repName) return;
+    var Y = (row.mangd != null && !isNaN(row.mangd)) ? row.mangd : null;
+    if (Y != null && Y > 0 && keepAmt != null && keepAmt > 0 && keepAmt < Y) {
+      var repAmt = Math.round((Y - keepAmt) * 100) / 100;
+      row.mangd = Math.round(keepAmt * 100) / 100;
+      if (row._mangdInput) row._mangdInput.value = row.mangd;
+      var newRow = { mangd: repAmt, enhet: row.enhet || "", namn: capitalize(repName), _swapped: false };
+      var idx = rows.indexOf(row);
+      rows.splice(idx >= 0 ? idx + 1 : rows.length, 0, newRow);
+      var el = makeRowEl(newRow);
+      if (row._wrap && row._wrap.after) row._wrap.after(el); else elRows.appendChild(el);
+    } else {
+      row.namn = capitalize(repName); row._swapped = false;
+      if (row._namnInput) row._namnInput.value = row.namn;
+    }
+    refreshIfShown();
+  }
+
   /* ---------- analys ---------- */
   function findByte(namn) {
     var low = namn.toLowerCase();
@@ -230,6 +241,24 @@
       for (var j = 0; j < b.traffar.length; j++) { if (low.indexOf(b.traffar[j]) !== -1) return b; }
     }
     return null;
+  }
+  // Editor-rader som är "för mycket" av en stapelvara, givet antal portioner.
+  function heavyRows(P) {
+    var out = [];
+    var STAPLES = window.STAPLE_GRANSER || [];
+    nonEmptyRows().forEach(function (row) {
+      if (row.mangd == null || isNaN(row.mangd) || row.mangd <= 0) return;
+      var nm = String(row.namn || "").toLowerCase();
+      for (var i = 0; i < STAPLES.length; i++) {
+        var g = STAPLES[i];
+        if (!g.traffar.some(function (t) { return nm.indexOf(t) !== -1; })) continue;
+        var lim = g.gransPerPortion[row.enhet || ""];
+        if (lim == null) break;
+        if (row.mangd / P > lim) out.push({ row: row, grans: g, perPortion: row.mangd / P });
+        break;
+      }
+    });
+    return out;
   }
   function tag(text, cls) { var s = document.createElement("span"); s.className = "tag" + (cls ? " " + cls : ""); s.textContent = text; return s; }
 
@@ -265,6 +294,59 @@
       elByten.appendChild(card);
     });
     if (!foundAny) elByten.innerHTML = '<p class="help">Inga uppenbara "byt ut"-förslag utifrån det du skrivit – bra! Kolla gärna tilläggen nedan ändå.</p>';
+
+    /* 1b) "mycket av något?" – stapelvaror som dominerar */
+    if (elMycket) {
+      elMycket.innerHTML = "";
+      var portioner = stepper.getValue() || 1;
+      var flaggor = (window.STAPLE_GRANSER || []).length ? heavyRows(portioner) : [];
+      if (!flaggor.length) {
+        if (elMycketBlk) elMycketBlk.classList.add("hidden");
+      } else {
+        if (elMycketBlk) elMycketBlk.classList.remove("hidden");
+        flaggor.forEach(function (f) {
+          var row = f.row, g = f.grans, pp = f.perPortion;
+          var card = document.createElement("div"); card.className = "swap-card staple-card";
+          var head = document.createElement("p"); head.className = "swap-head";
+          head.innerHTML = (g.typ === "baljväxt" ? "🫘 " : "🍚 ") + "Rätten är tung på <strong>" + esc(g.etikett) + "</strong>";
+          card.appendChild(head);
+          var detail = document.createElement("p"); detail.className = "swap-why";
+          var perStr = window.niceNumber(Math.round(pp * 100) / 100) + (row.enhet ? " " + row.enhet : "");
+          var amtStr = window.formatAmount(row.mangd, row.enhet);
+          detail.textContent = (amtStr ? amtStr + " " : "") + (row.namn || g.etikett) + " – ungefär " + perStr + " per portion. " +
+            (g.typ === "baljväxt"
+              ? "Många äter redan mycket baljväxter – byt gärna en del mot något i samma familj för variation."
+              : "Mycket stärkelse – byt en del mot en fiberrikare variant eller mer grönsaker.");
+          card.appendChild(detail);
+
+          var half = Math.round((row.mangd / 2) * 100) / 100;
+          var firstAlt = (g.alternativ && g.alternativ[0]) || "kikärtor";
+          var btnRow = document.createElement("div"); btnRow.className = "btn-row";
+          var bHalf = document.createElement("button"); bHalf.type = "button"; bHalf.className = "btn btn-secondary";
+          bHalf.textContent = "Byt ut hälften mot " + firstAlt;
+          bHalf.addEventListener("click", function () { applySplit(row, half, firstAlt); });
+          var bAll = document.createElement("button"); bAll.type = "button"; bAll.className = "btn btn-ghost";
+          bAll.textContent = "Byt ut allt mot " + firstAlt;
+          bAll.addEventListener("click", function () { applySplit(row, null, firstAlt); });
+          btnRow.appendChild(bHalf); btnRow.appendChild(bAll);
+          card.appendChild(btnRow);
+
+          // fler alternativ som chips: byter ut hälften mot det valda
+          if (g.alternativ && g.alternativ.length > 1) {
+            var altP = document.createElement("p"); altP.className = "help"; altP.style.margin = ".5rem 0 .2rem"; altP.textContent = "…eller byt ut hälften mot:";
+            card.appendChild(altP);
+            var chips = document.createElement("div"); chips.className = "chips";
+            g.alternativ.slice(1).forEach(function (alt) {
+              var c = document.createElement("button"); c.type = "button"; c.className = "chip"; c.textContent = alt;
+              c.addEventListener("click", function () { applySplit(row, half, alt); });
+              chips.appendChild(c);
+            });
+            card.appendChild(chips);
+          }
+          elMycket.appendChild(card);
+        });
+      }
+    }
 
     /* 2) lägg till */
     elLaggTill.innerHTML = "";

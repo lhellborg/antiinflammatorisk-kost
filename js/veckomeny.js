@@ -23,6 +23,7 @@
   var elPrint     = document.getElementById("vm-print");
   var elClear     = document.getElementById("vm-clear");
   var elCartMsg   = document.getElementById("vm-cart-msg");
+  var elStapleNotice = document.getElementById("vm-staple-notice");
   if (!elGrid) return;
 
   var MEAL_ORDER = ["frukost", "lunch", "middag", "mellanmal"];
@@ -192,7 +193,8 @@
   }
 
   /* ---------- byt ut en enskild ruta ---------- */
-  function rerollSlot(p, dayIdx, meal) {
+  // avoidFn (valfri): r => true om receptet ska undvikas (t.ex. baljväxttunga rätter)
+  function rerollSlot(p, dayIdx, meal, avoidFn) {
     var key = dayIdx + "-" + meal;
     var usedCount = {};
     Object.keys(p.slots).forEach(function (k) {
@@ -201,17 +203,20 @@
       usedCount[sl.recipeId] = (usedCount[sl.recipeId] || 0) + 1;
     });
     var current = p.slots[key] && p.slots[key].recipeId;
-    var pool = poolFor(meal, p.exclude).filter(function (r) {
+    var basePool = poolFor(meal, p.exclude).filter(function (r) {
       if ((usedCount[r.id] || 0) >= maxUses(meal)) return false;
       if (meal === "middag" && dayIdx <= 4 && p.vardagsmax > 0 && (r.tid || 0) > p.vardagsmax) return false;
       return true;
     });
+    var pool = basePool;
+    if (avoidFn) { var pref = basePool.filter(function (r) { return !avoidFn(r); }); if (pref.length) pool = pref; }
     var pick;
     var notSame = pool.filter(function (r) { return r.id !== current; });
     if (notSame.length) pick = notSame[Math.floor(Math.random() * notSame.length)];
     else if (pool.length) pick = pool[Math.floor(Math.random() * pool.length)];
     else {
       var any = poolFor(meal, p.exclude).filter(function (r) { return r.id !== current; });
+      if (avoidFn) { var ap = any.filter(function (r) { return !avoidFn(r); }); if (ap.length) any = ap; }
       if (!any.length) any = poolFor(meal, p.exclude);
       if (!any.length) return;
       pick = any[Math.floor(Math.random() * any.length)];
@@ -282,8 +287,45 @@
       elGrid.appendChild(card);
     }
     elCartMsg.textContent = "";
+    renderStapleNotice();
   }
   function save() { window.WeekPlan.set(plan); }
+
+  // notis om veckan blir tung på baljväxter
+  function isLegumeHeavy(r) { return window.recipeStapleHeavy ? window.recipeStapleHeavy(r, "baljväxt") : false; }
+  function legumeHeavySlots() {
+    var arr = [];
+    Object.keys(plan.slots).forEach(function (k) {
+      var sl = plan.slots[k]; if (!sl || sl.leftoverFrom) return;
+      var r = window.recipeById(sl.recipeId);
+      if (r && isLegumeHeavy(r)) {
+        var parts = k.split("-"); arr.push({ key: k, dayIdx: parseInt(parts[0], 10), meal: parts[1], pinned: !!sl.pinned });
+      }
+    });
+    return arr;
+  }
+  function renderStapleNotice() {
+    if (!elStapleNotice) return;
+    if (!plan || !window.recipeStapleHeavy) { elStapleNotice.classList.add("hidden"); return; }
+    var heavy = legumeHeavySlots();
+    if (heavy.length < 4) { elStapleNotice.classList.add("hidden"); return; }
+    elStapleNotice.classList.remove("hidden");
+    elStapleNotice.innerHTML = "";
+    var p = document.createElement("p");
+    p.innerHTML = "🫘 <strong>Veckan blir ganska baljväxttung</strong> – " + heavy.length + " mål med linser/kikärtor/bönor som bas. Vill du variera?";
+    elStapleNotice.appendChild(p);
+    var btnRow = document.createElement("div"); btnRow.className = "btn-row"; btnRow.style.marginTop = ".6rem";
+    var b = document.createElement("button"); b.type = "button"; b.className = "btn btn-secondary"; b.textContent = "Byt ut en av dem";
+    b.addEventListener("click", function () {
+      var cur = legumeHeavySlots().filter(function (x) { return !x.pinned; });
+      if (!cur.length) { alert("Alla baljväxttunga rutor är låsta – lås upp någon först."); return; }
+      var pickSlot = cur[Math.floor(Math.random() * cur.length)];
+      rerollSlot(plan, pickSlot.dayIdx, pickSlot.meal, isLegumeHeavy);
+      save(); render();
+    });
+    btnRow.appendChild(b);
+    elStapleNotice.appendChild(btnRow);
+  }
 
   /* ---------- knappar ---------- */
   elGenerate.addEventListener("click", function () { plan = generate(readSettings(), plan); save(); render(); elPlanWrap.scrollIntoView({ behavior: "smooth", block: "start" }); });

@@ -72,11 +72,19 @@ Egna recept (inkl. versioner) lagras i besökarens egen webbläsare
 beskrivningen "Egen version av «…»"), kan läggas i inköpslistan och skalas efter
 portioner precis som de inbyggda. Inget skickas till någon server.
 
+**"Mycket av något?":** när en rätt lutar sig tungt på en stapelvara (linser,
+kikärtor, bönor – eller ris/pasta/potatis) flaggas det automatiskt på
+"Förbättra ett recept", med ett klick för att byta ut hälften (eller allt) mot
+något i samma familj. Gränserna ("rimlig mängd per portion") ligger i
+`data/byten.js` → `STAPLE_GRANSER`. I veckomenyn dyker det också upp en notis
+om hela veckan blir baljväxttung, med en knapp som byter ut en av de rätterna.
+
 Vill du fylla på förslagen: redigera `data/byten.js` – `BYTEN` (byt-ut-förslag),
-`LIKNANDE` (ersättningar i samma familj), `LAGG_TILL_TIPS`, `TILLAGNINGSTIPS`,
-`MINDRE_BRA_CHIPS` (formatet står högst upp i filen). "Skicka in"-knappen öppnar
-ett mejl till adressen i `js/forbattra.js` (sök efter `mailto:`) – byt den eller
-koppla in ett formulärverktyg om du vill ha inskicken någon annanstans.
+`LIKNANDE` (ersättningar i samma familj), `STAPLE_GRANSER` (vad som flaggas som
+"för mycket"), `LAGG_TILL_TIPS`, `TILLAGNINGSTIPS`, `MINDRE_BRA_CHIPS` (formatet
+står i filen). "Skicka in"-knappen öppnar ett mejl till adressen i
+`js/forbattra.js` (sök efter `mailto:`) – byt den eller koppla in ett
+formulärverktyg om du vill ha inskicken någon annanstans.
 
 ## Lägga till eller ändra ett recept
 
