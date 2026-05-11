@@ -308,6 +308,10 @@ details.factbox {
 .onpage-nav { font-size: .95rem; color: var(--ink-soft); background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; padding: .5rem 1rem; display: inline-block; }
 .onpage-nav a { white-space: nowrap; }
 
+/* ---------- Källista ---------- */
+ul.sources { padding-left: 1.2rem; margin-top: .2rem; }
+ul.sources li { margin-bottom: .4rem; }
+
 /* ---------- Förbättra ett recept: formulär ---------- */
 .fb-block {
   border: 1px solid var(--line); border-radius: var(--radius);
