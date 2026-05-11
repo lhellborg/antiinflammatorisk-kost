@@ -103,6 +103,21 @@
     return p;
   }
 
+  function cartButton(id) {
+    var btn = document.createElement("button");
+    btn.type = "button"; btn.className = "btn cart-toggle";
+    function paint() {
+      var on = window.Cart.has(id);
+      btn.classList.toggle("btn-secondary", on);
+      btn.classList.toggle("btn-ghost", !on);
+      btn.textContent = on ? "✓ I inköpslistan" : "+ Lägg till i inköpslistan";
+    }
+    btn.addEventListener("click", function () { window.Cart.toggle(id); });
+    document.addEventListener("cart:changed", paint);
+    paint();
+    return btn;
+  }
+
   function renderHero(r, haveFoods) {
     var box = document.createElement("div");
     box.className = "result-hero";
@@ -119,7 +134,15 @@
       r.steg.forEach(function (s) { var li = document.createElement("li"); li.textContent = s; ol.appendChild(li); });
       box.appendChild(ol);
     }
+    var row = document.createElement("div"); row.className = "btn-row";
+    row.appendChild(cartButton(r.id));
+    row.appendChild(linkTo("recept.html", "Se alla recept", "btn-ghost"));
+    box.appendChild(row);
     return box;
+  }
+
+  function linkTo(href, text, cls) {
+    var a = document.createElement("a"); a.href = href; a.className = "btn " + cls; a.textContent = text; return a;
   }
 
   function renderAltCard(r, haveFoods) {
@@ -129,6 +152,7 @@
     c.appendChild(h);
     c.appendChild(metaRow(r, haveFoods));
     c.appendChild(d);
+    c.appendChild(cartButton(r.id));
     return c;
   }
 

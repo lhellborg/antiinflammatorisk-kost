@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inköpslista – Antiinflammatorisk kost</title>
+  <meta name="description" content="Din inköpslista – samlade ingredienser för de recept du har markerat.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html"><span class="leaf">🌿</span> Antiinflammatorisk kost</a>
+      <nav class="site-nav">
+        <a data-page="hem" href="index.html">Hem</a>
+        <a data-page="recept" href="recept.html">Recept</a>
+        <a data-page="om" href="om-kosten.html">Om kosten</a>
+        <a data-page="inkop" href="inkopslista.html">Inköpslista<span data-cart-badge></span></a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <h1>Inköpslista</h1>
+      <p class="lead">Här samlas ingredienserna för de recept du markerat på <a href="recept.html">receptsidan</a> eller bland förslagen på startsidan. Listan sparas i den här webbläsaren.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div id="inkop-empty" class="hidden">
+        <p class="help">Du har inte lagt till några recept än.</p>
+        <div class="btn-row"><a class="btn btn-primary" href="recept.html">Bläddra bland recept</a><a class="btn btn-ghost" href="index.html#valj">Få ett förslag</a></div>
+      </div>
+
+      <div id="inkop-content" class="hidden">
+        <div class="btn-row no-print" style="margin-top:0;margin-bottom:1.6rem;">
+          <button type="button" class="btn btn-primary" id="inkop-print">Skriv ut listan</button>
+          <button type="button" class="btn btn-ghost" id="inkop-clear">Töm hela listan</button>
+        </div>
+
+        <h2 class="mt-0">Valda recept</h2>
+        <div class="card-grid" id="inkop-recept"></div>
+
+        <h2>Det här behöver du handla</h2>
+        <p class="help no-print">Bocka av medan du handlar. (Avbockningen sparas inte om du laddar om sidan.) Antalet inom parentes är hur många av recepten som använder ingrediensen.</p>
+        <div id="inkop-ingredienser"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>Antiinflammatorisk kost – tips på frukost, lunch, middag och mellanmål.</p>
+    </div>
+  </footer>
+
+  <script src="data/recept.js"></script>
+  <script src="js/labels.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/inkopslista-sida.js"></script>
+  <script>window.markNav("inkop");</script>
+</body>
+</html>

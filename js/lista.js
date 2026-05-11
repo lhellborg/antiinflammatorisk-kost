@@ -93,6 +93,20 @@
       r.allergener.forEach(function (a) { am.appendChild(tag("innehåller " + window.labelFor(window.ALLERGENER, a).toLowerCase(), "warn")); });
       c.appendChild(am);
     }
+
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "btn cart-toggle";
+    function paint() {
+      var on = window.Cart.has(r.id);
+      btn.classList.toggle("btn-secondary", on);
+      btn.classList.toggle("btn-ghost", !on);
+      btn.textContent = on ? "✓ I inköpslistan" : "+ Lägg till i inköpslistan";
+    }
+    btn.addEventListener("click", function () { window.Cart.toggle(r.id); });
+    document.addEventListener("cart:changed", paint);
+    paint();
+    c.appendChild(btn);
     return c;
   }
 
@@ -117,4 +131,16 @@
 
   document.getElementById("recept-filters").addEventListener("change", render);
   render();
+
+  /* ---------- liten "X recept i listan"-bar längst ner ---------- */
+  var bar = document.getElementById("cartbar");
+  var barText = document.getElementById("cartbar-text");
+  function updateBar() {
+    var n = window.Cart.count();
+    if (!bar) return;
+    bar.classList.toggle("hidden", n === 0);
+    if (n > 0) barText.textContent = n + " recept i inköpslistan";
+  }
+  document.addEventListener("cart:changed", updateBar);
+  updateBar();
 })();

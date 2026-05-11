@@ -179,8 +179,48 @@ p { margin: 0 0 1em; }
 }
 .site-footer .wrap { padding-top: 1.6rem; padding-bottom: 1.6rem; }
 
+/* ---------- Inköpslista: knapp på kort ---------- */
+.cart-toggle { margin-top: 1rem; align-self: flex-start; }
+.card .cart-toggle { width: 100%; text-align: center; }
+
+/* ---------- Inköpslista: flytande bar längst ner ---------- */
+.cartbar {
+  position: sticky; bottom: 0; z-index: 20;
+  background: var(--ink); color: #fff;
+  box-shadow: 0 -6px 20px rgba(58,50,43,.18);
+}
+.cartbar .wrap {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; padding-top: .8rem; padding-bottom: .8rem; flex-wrap: wrap;
+}
+.cartbar #cartbar-text { font-weight: 600; }
+
+/* ---------- Inköpslista: själva listan ---------- */
+.shop-cat { color: var(--olive-dark); margin: 1.6rem 0 .4rem; }
+.shop-list { list-style: none; padding: 0; margin: 0; }
+.shop-item {
+  display: flex; align-items: baseline; gap: .6rem; flex-wrap: wrap;
+  padding: .5rem 0; border-bottom: 1px solid var(--line);
+}
+.shop-item label { display: inline-flex; align-items: baseline; gap: .55rem; cursor: pointer; }
+.shop-item input { width: 1.05rem; height: 1.05rem; accent-color: var(--olive); }
+.shop-name { font-size: 1.05rem; }
+.shop-src { font-size: .85rem; color: var(--ink-soft); }
+.shop-item.done .shop-name { text-decoration: line-through; color: var(--ink-soft); }
+.shop-item.done { opacity: .6; }
+
 /* ---------- Småsaker ---------- */
 .hidden { display: none !important; }
 .center { text-align: center; }
 .mt-0 { margin-top: 0; }
 .disclaimer { font-size: .85rem; color: var(--ink-soft); }
+
+/* ---------- Utskrift ---------- */
+@media print {
+  .site-header, .site-footer, .hero, .cartbar, .no-print,
+  .cart-toggle, details summary { display: none !important; }
+  body { background: #fff; color: #000; }
+  .section { padding: 0; }
+  .card { box-shadow: none; border: 1px solid #bbb; break-inside: avoid; }
+  a { color: #000; text-decoration: none; }
+}

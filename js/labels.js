@@ -68,11 +68,29 @@ window.ALLERGENER = [
   { id: "soja",   label: "Soja" }
 ];
 
+// Grova butiksavdelningar – används för att gruppera inköpslistan.
+// Ingredienser som inte finns med hamnar under "Övrigt".
+window.KATEGORIER = [
+  { namn: "Frukt & grönt", ids: ["spenat","broccoli","tomat","paprika","lok","vitlok","avokado","bar","banan","apple","citron","morot","rodbeta","ingefara"] },
+  { namn: "Kött & fisk",   ids: ["kyckling","lax"] },
+  { namn: "Mejeri & ägg",  ids: ["agg","naturell yoghurt"] },
+  { namn: "Bröd",          ids: ["ragbrod","tortilla"] },
+  { namn: "Skafferi",      ids: ["havregryn","linser","kikartor","quinoa","ris","fullkorn","fullkornspasta","valnotter","mandel","chiafron","linfro","olivolja","gurkmeja","kanel"] }
+];
+
+window.categoryFor = function (id) {
+  var hit = window.KATEGORIER.find(function (k) { return k.ids.indexOf(id) !== -1; });
+  return hit ? hit.namn : "Övrigt";
+};
+
 // Slå upp etikett från id i en lista. Faller tillbaka på id:t självt.
 window.labelFor = function (list, id) {
   var hit = list.find(function (x) { return x.id === id; });
   return hit ? hit.label : id;
 };
+
+// Etikett för en råvara (med fallback)
+window.ravaraLabel = function (id) { return window.labelFor(window.RAVAROR, id); };
 
 // Sätt "active" på rätt länk i menyn (anropas från varje sida)
 window.markNav = function (page) {
