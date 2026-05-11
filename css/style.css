@@ -386,6 +386,28 @@ ul.sources li { margin-bottom: .4rem; }
 
 .fb-skicka-text { margin-top: 1rem; font-size: .9rem; }
 
+/* ---------- Veckomeny ---------- */
+.week-grid {
+  display: grid; gap: .8rem; margin: 1.6rem 0;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+}
+.day-card {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); box-shadow: var(--shadow);
+  padding: .9rem 1rem; display: flex; flex-direction: column; gap: .7rem;
+}
+.day-card.weekend { background: var(--surface-2); }
+.day-name { margin: 0; font-size: 1.1rem; color: var(--terracotta-dark); }
+.meal-slot {
+  border-top: 1px solid var(--line); padding-top: .55rem;
+  display: flex; flex-direction: column; gap: .3rem;
+}
+.meal-slot:first-of-type { border-top: none; padding-top: 0; }
+.meal-name { font-family: var(--serif); font-size: 1.02rem; }
+.leftover-note { margin: 0; color: var(--olive-dark); font-style: italic; }
+.slot-actions { gap: .35rem; margin-top: .15rem; }
+.slot-actions .btn { padding: .3rem .65rem; font-size: .82rem; }
+
 /* ---------- Utskrift ---------- */
 @media print {
   .site-header, .site-footer, .hero, .cartbar, .no-print,
@@ -393,8 +415,8 @@ ul.sources li { margin-bottom: .4rem; }
   body { background: #fff; color: #000; }
   .section { padding: 0; }
   .card { box-shadow: none; border: 1px solid #bbb; break-inside: avoid; }
-  .card-grid { display: block; }
-  .card { margin-bottom: .8rem; }
+  .card-grid, .week-grid { display: block; }
+  .card, .day-card { margin-bottom: .8rem; break-inside: avoid; box-shadow: none; border: 1px solid #bbb; background: #fff; }
   .ingr-amt, .shop-name { color: #000; }
   a { color: #000; text-decoration: none; }
 }

@@ -14,8 +14,9 @@ Inköpslistan sparas i besökarens egen webbläsare (localStorage).
 ```
 index.html             Startsida + "Vad ska jag äta?"
 recept.html            Alla recept (inbyggda + egna), filtrerbara på måltid, tid, allergener
+veckomeny.html         "Smart veckomeny" – genererar en veckas matsedel + inköpslista
 om-kosten.html         "Ät mer / mindre av" + fakta om inflammation (klickbara delar) + ätordning
-forbattra.html         "Förbättra ett recept" – mata in en rätt, få byten, spara som eget recept
+forbattra.html         "Förbättra ett recept" – mata in en rätt, få byten, spara som eget recept (nås via Recept-sidan/-korten, ej i toppmenyn)
 fakta.html             Liten omdirigering till om-kosten.html (sidan slogs ihop dit)
 inkopslista.html       Inköpslista för de recept man markerat
 css/style.css          Utseende (färgerna ligger högst upp i filen, under :root)
@@ -23,16 +24,34 @@ js/labels.js           Gemensamma listor + mängd-/portions-/matchningsfunktione
 js/ui.js               Portionsväljare och ingredienslista (återanvänds)
 js/store.js            Inköpslistan – lagras i webbläsaren (localStorage)
 js/myrecipes.js        Egna recept – lagras i webbläsaren; allRecipes() = inbyggda + egna
+js/weekplan.js         Veckomenyn – lagras i webbläsaren
 js/forslag.js          Logiken bakom "Vad ska jag äta?"
 js/lista.js            Logiken bakom receptlistan
 js/inkopslista-sida.js Logiken bakom inköpslistan
 js/forbattra.js        Logiken bakom "Förbättra ett recept"
+js/veckomeny.js        Logiken/generatorn bakom veckomenyn
 data/recept.js         ALLA INBYGGDA RECEPT – det är den här filen du redigerar
 data/byten.js          Bytestabell + tilläggstips för "Förbättra ett recept"
 ```
 
+Toppmenyn (5 flikar): Hem · Recept · Veckomeny · Om kosten · Inköpslista.
+"Förbättra recept" nås via en knapp på Recept-sidan och "Gör en egen
+version"-knapparna på receptkorten.
+
 "Om kosten" är vanlig HTML – ändra texten direkt i filen. De "klickbara
 delarna" är vanliga `<details>`-element.
+
+### Smart veckomeny
+
+`veckomeny.html` genererar en veckas matsedel av recepten (inbyggda + egna):
+varierad (ingen middag/lunch upprepas), balanserad (siktar på minst ett par
+fiskmiddagar, mest växtbaserat, högst en med rött kött), med valbar tidsgräns
+på vardagsmiddagar och möjlighet att laga större sats (grytor/soppor o.d.) som
+"rester" till lunch dagen efter. Du kan byta ut/låsa enskilda rutor, slumpa om
+hela veckan, lägga hela veckan i inköpslistan (skalat till antal personer) och
+skriva ut den. Veckan sparas i besökarens webbläsare. Generatorn ligger i
+`js/veckomeny.js` – t.ex. balansreglerna (`recipeTyp`, `score`) och vilka
+rätter som räknas som "lagar-en-gång-i-större-sats" (`isBatchFriendly`).
 
 ### Förbättra ett recept / egna recept
 

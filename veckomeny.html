@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Veckomeny – Antiinflammatorisk kost</title>
+  <meta name="description" content="Skapa en smart veckomatsedel av recepten – varierad, balanserad, med storkok och inköpslista för hela veckan.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html"><span class="leaf">🌿</span> Antiinflammatorisk kost</a>
+      <nav class="site-nav">
+        <a data-page="hem" href="index.html">Hem</a>
+        <a data-page="recept" href="recept.html">Recept</a>
+        <a data-page="veckomeny" href="veckomeny.html">Veckomeny</a>
+        <a data-page="om" href="om-kosten.html">Om kosten</a>
+        <a data-page="inkop" href="inkopslista.html">Inköpslista<span data-cart-badge></span></a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <h1>Smart veckomeny</h1>
+      <p class="lead">Tryck på knappen så pusslar vi ihop en hel veckas matsedel av recepten – varierad, balanserad (gärna fisk ett par gånger, mest växtbaserat), med möjlighet till storkok. När du är nöjd kan du lägga hela veckan i inköpslistan.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+
+      <fieldset class="fb-block">
+        <legend>Inställningar</legend>
+        <div class="fb-grid">
+          <div class="fb-field">
+            <span>Måltider att planera</span>
+            <div class="chips" id="vm-meals"></div>
+          </div>
+          <div class="fb-field">
+            <span>Antal personer</span>
+            <div id="vm-personer"></div>
+          </div>
+          <div class="fb-field">
+            <span>Tid på vardagsmiddagar</span>
+            <div class="chips" id="vm-vardagsmax"></div>
+          </div>
+        </div>
+        <div class="fb-grid" style="margin-top:1rem;">
+          <div class="fb-field">
+            <span>Uteslut allergener</span>
+            <div class="chips" id="vm-allergen"></div>
+          </div>
+          <div class="fb-field">
+            <span>Storkok</span>
+            <label class="chip is-checked" id="vm-rester-chip"><input type="checkbox" id="vm-rester" checked> Laga större sats och ät som lunch dagen efter</label>
+          </div>
+        </div>
+        <details class="factbox" style="margin-top:1rem;">
+          <summary>Vad har du hemma? (valfritt – viktar menyn mot rätter du redan kan laga)</summary>
+          <div class="acc-body"><div class="chips" id="vm-foods"></div></div>
+        </details>
+        <div class="btn-row">
+          <button type="button" class="btn btn-primary btn-lg" id="vm-generate">Skapa veckomeny</button>
+          <button type="button" class="btn btn-ghost" id="vm-reroll-all">Slumpa om hela veckan</button>
+        </div>
+      </fieldset>
+
+      <div id="vm-empty" class="hidden">
+        <p class="help">Ingen veckomeny ännu – ställ in ovan och tryck <strong>Skapa veckomeny</strong>.</p>
+      </div>
+
+      <div id="vm-plan" class="hidden">
+        <div class="week-grid" id="vm-grid"></div>
+
+        <div class="btn-row" id="vm-actions">
+          <button type="button" class="btn btn-primary" id="vm-to-cart">Lägg hela veckan i inköpslistan</button>
+          <button type="button" class="btn btn-ghost" id="vm-print">Skriv ut veckan</button>
+          <button type="button" class="btn btn-ghost" id="vm-clear">Töm veckomenyn</button>
+        </div>
+        <p class="help" id="vm-cart-msg"></p>
+      </div>
+
+      <p class="disclaimer">Veckomenyn sparas bara i din egen webbläsare. Det här är inspiration, inte näringsberäknad kostplanering – anpassa efter dig själv, ekonomi och eventuell allergi.</p>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>Antiinflammatorisk kost – tips på frukost, lunch, middag och mellanmål.</p>
+    </div>
+  </footer>
+
+  <script src="data/recept.js"></script>
+  <script src="js/labels.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/myrecipes.js"></script>
+  <script src="js/weekplan.js"></script>
+  <script src="js/veckomeny.js"></script>
+  <script>window.markNav("veckomeny");</script>
+</body>
+</html>
