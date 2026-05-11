@@ -1,0 +1,186 @@
+/* ============================================================
+   Antiinflammatorisk kost – stilmall
+   Varm & jordnära färgpalett. Ändra färgerna i :root nedan.
+   ============================================================ */
+
+:root {
+  --bg:        #faf4ec;   /* varm off-white bakgrund */
+  --surface:   #ffffff;   /* kort och rutor */
+  --surface-2: #f1e7d8;   /* beige accentyta */
+  --ink:       #3a322b;   /* mörkbrun text */
+  --ink-soft:  #6c6051;   /* dämpad text */
+  --terracotta:#bd5d3a;   /* huvudaccent */
+  --terracotta-dark:#9c4a2c;
+  --olive:     #6f7c4c;   /* sekundär accent */
+  --olive-dark:#566036;
+  --line:      #e3d6c2;   /* tunna linjer */
+  --shadow:    0 6px 24px rgba(58, 50, 43, 0.10);
+  --radius:    14px;
+  --maxw:      1080px;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { font-family: var(--serif); line-height: 1.2; font-weight: 600; }
+h1 { font-size: clamp(2rem, 4vw, 2.9rem); margin: 0 0 .4em; }
+h2 { font-size: clamp(1.5rem, 3vw, 2rem); margin: 1.8em 0 .6em; }
+h3 { font-size: 1.2rem; margin: 1.4em 0 .4em; }
+
+a { color: var(--terracotta-dark); }
+
+p { margin: 0 0 1em; }
+
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 1.25rem; }
+
+/* ---------- Header / nav ---------- */
+.site-header {
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--line);
+}
+.site-header .wrap {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; padding-top: .9rem; padding-bottom: .9rem; flex-wrap: wrap;
+}
+.brand {
+  font-family: var(--serif); font-size: 1.3rem; font-weight: 600;
+  color: var(--ink); text-decoration: none; white-space: nowrap;
+}
+.brand .leaf { color: var(--olive); }
+.site-nav { display: flex; gap: .35rem; flex-wrap: wrap; }
+.site-nav a {
+  text-decoration: none; color: var(--ink-soft);
+  padding: .35rem .7rem; border-radius: 999px; font-size: .98rem;
+}
+.site-nav a:hover { background: rgba(189, 93, 58, 0.10); color: var(--terracotta-dark); }
+.site-nav a.active { background: var(--terracotta); color: #fff; }
+
+/* ---------- Hero ---------- */
+.hero {
+  background:
+    radial-gradient(120% 120% at 80% 0%, rgba(111,124,76,0.18), transparent 55%),
+    radial-gradient(120% 120% at 0% 100%, rgba(189,93,58,0.16), transparent 55%),
+    var(--surface-2);
+  border-bottom: 1px solid var(--line);
+}
+.hero .wrap { padding-top: 3rem; padding-bottom: 3rem; }
+.hero p.lead { font-size: 1.2rem; color: var(--ink-soft); max-width: 36rem; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-block; cursor: pointer; border: none;
+  font: inherit; font-weight: 600; text-decoration: none;
+  padding: .8rem 1.4rem; border-radius: 999px;
+  transition: transform .05s ease, background .15s ease;
+}
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: var(--terracotta); color: #fff; }
+.btn-primary:hover { background: var(--terracotta-dark); }
+.btn-secondary { background: var(--olive); color: #fff; }
+.btn-secondary:hover { background: var(--olive-dark); }
+.btn-ghost { background: transparent; color: var(--terracotta-dark); box-shadow: inset 0 0 0 1.5px var(--terracotta); }
+.btn-ghost:hover { background: rgba(189,93,58,0.08); }
+.btn-lg { padding: 1rem 1.8rem; font-size: 1.1rem; }
+.btn-row { display: flex; gap: .75rem; flex-wrap: wrap; margin-top: 1.4rem; }
+
+/* ---------- Cards / grid ---------- */
+.section { padding: 2.6rem 0; }
+.section.tint { background: var(--surface-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+
+.card-grid {
+  display: grid; gap: 1.1rem;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+.card {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); box-shadow: var(--shadow);
+  padding: 1.2rem 1.25rem; display: flex; flex-direction: column;
+}
+.card h3 { margin-top: 0; }
+.card .desc { color: var(--ink-soft); flex: 1; }
+
+.meta { display: flex; flex-wrap: wrap; gap: .4rem; margin: .5rem 0 .2rem; }
+.tag {
+  font-size: .78rem; padding: .15rem .55rem; border-radius: 999px;
+  background: var(--surface-2); color: var(--ink-soft); white-space: nowrap;
+}
+.tag.meal { background: rgba(111,124,76,0.16); color: var(--olive-dark); }
+.tag.time { background: rgba(189,93,58,0.12); color: var(--terracotta-dark); }
+.tag.plus { background: #eef3e4; color: var(--olive-dark); }
+.tag.warn { background: #f6e3da; color: var(--terracotta-dark); }
+
+/* ---------- "Vad ska jag äta?" formulär ---------- */
+.picker { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.5rem; }
+.picker fieldset { border: none; margin: 0 0 1.4rem; padding: 0; }
+.picker legend { font-family: var(--serif); font-size: 1.15rem; font-weight: 600; margin-bottom: .6rem; padding: 0; }
+.chips { display: flex; flex-wrap: wrap; gap: .5rem; }
+.chip {
+  position: relative; display: inline-flex; align-items: center;
+  padding: .4rem .8rem; border-radius: 999px; cursor: pointer;
+  background: var(--surface-2); color: var(--ink); font-size: .95rem;
+  border: 1.5px solid transparent; user-select: none;
+}
+.chip:hover { border-color: var(--line); }
+.chip input { position: absolute; opacity: 0; width: 0; height: 0; }
+.chip.is-checked { background: var(--terracotta); color: #fff; }
+.chip.is-checked.olive { background: var(--olive); }
+.help { color: var(--ink-soft); font-size: .92rem; margin: .2rem 0 .7rem; }
+
+/* ---------- Resultat ---------- */
+.result { margin-top: 2rem; }
+.result-hero {
+  background: var(--surface); border: 1px solid var(--line);
+  border-left: 6px solid var(--terracotta);
+  border-radius: var(--radius); box-shadow: var(--shadow);
+  padding: 1.5rem;
+}
+.result-hero .eyebrow { text-transform: uppercase; letter-spacing: .08em; font-size: .8rem; color: var(--terracotta-dark); font-weight: 700; }
+.result-hero h2 { margin: .2rem 0 .4rem; }
+.steps { padding-left: 1.2rem; margin: .8rem 0 0; }
+.steps li { margin-bottom: .35rem; }
+.alts { margin-top: 1.6rem; }
+
+/* ---------- Filterbar ---------- */
+.filterbar { display: flex; flex-wrap: wrap; gap: 1.4rem; align-items: flex-start; margin-bottom: 1.6rem; }
+.filterbar .group { display: flex; flex-direction: column; gap: .4rem; }
+.filterbar .group > span { font-size: .82rem; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-soft); }
+.count { color: var(--ink-soft); margin-bottom: 1rem; }
+
+/* ---------- Fakta-sida ---------- */
+.prose { max-width: 46rem; }
+.prose ul { padding-left: 1.2rem; }
+.prose li { margin-bottom: .3rem; }
+.callout {
+  background: var(--surface-2); border: 1px dashed var(--line);
+  border-radius: var(--radius); padding: 1.2rem 1.3rem; margin: 1.6rem 0;
+}
+.callout strong { color: var(--terracotta-dark); }
+
+.foodgroups { display: grid; gap: 1.1rem; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); margin-top: 1rem; }
+.foodgroups .card h3 { color: var(--olive-dark); }
+.avoid { border-left: 6px solid var(--terracotta); }
+
+/* ---------- Footer ---------- */
+.site-footer {
+  margin-top: 3rem; background: var(--surface-2);
+  border-top: 1px solid var(--line); color: var(--ink-soft);
+  font-size: .92rem;
+}
+.site-footer .wrap { padding-top: 1.6rem; padding-bottom: 1.6rem; }
+
+/* ---------- Småsaker ---------- */
+.hidden { display: none !important; }
+.center { text-align: center; }
+.mt-0 { margin-top: 0; }
+.disclaimer { font-size: .85rem; color: var(--ink-soft); }

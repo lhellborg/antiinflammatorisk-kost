@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Recept – Antiinflammatorisk kost</title>
+  <meta name="description" content="Bläddra bland recept för frukost, lunch, middag och mellanmål. Filtrera på måltid, tid och allergener.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html"><span class="leaf">🌿</span> Antiinflammatorisk kost</a>
+      <nav class="site-nav">
+        <a data-page="hem" href="index.html">Hem</a>
+        <a data-page="recept" href="recept.html">Recept</a>
+        <a data-page="om" href="om-kosten.html">Om kosten</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <h1>Recept</h1>
+      <p class="lead">Alla rätter på sidan, samlade. Filtrera fram det du är ute efter – eller gå tillbaka till startsidan och få ett förslag utifrån vad du har hemma.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div id="recept-filters" class="filterbar">
+        <div class="group">
+          <span>Måltid</span>
+          <div class="chips" id="f-meal"></div>
+        </div>
+        <div class="group">
+          <span>Tid</span>
+          <div class="chips" id="f-time"></div>
+        </div>
+        <div class="group">
+          <span>Uteslut</span>
+          <div class="chips" id="f-allergen"></div>
+        </div>
+      </div>
+
+      <p class="count" id="recept-count"></p>
+      <div class="card-grid" id="recept-list"></div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>Vill du lägga till ett recept? Öppna <code>data/recept.js</code> och kopiera ett block. Se <code>README.md</code> för hur du gör.</p>
+    </div>
+  </footer>
+
+  <script src="data/recept.js"></script>
+  <script src="js/labels.js"></script>
+  <script src="js/lista.js"></script>
+  <script>window.markNav("recept");</script>
+</body>
+</html>

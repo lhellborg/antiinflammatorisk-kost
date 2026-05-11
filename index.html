@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Antiinflammatorisk kost – tips på frukost, lunch, middag & mellanmål</title>
+  <meta name="description" content="Kort fakta om antiinflammatorisk mat plus snabba förslag på vad du ska äta utifrån vad du har hemma och hur du känner dig.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html"><span class="leaf">🌿</span> Antiinflammatorisk kost</a>
+      <nav class="site-nav">
+        <a data-page="hem" href="index.html">Hem</a>
+        <a data-page="recept" href="recept.html">Recept</a>
+        <a data-page="om" href="om-kosten.html">Om kosten</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <h1>Vad ska jag äta idag?</h1>
+      <p class="lead">Antiinflammatorisk kost handlar om att äta mycket naturlig, näringstät och växtbaserad mat. Berätta vad du har hemma och hur du känner dig – så får du ett förslag på frukost, lunch, middag eller mellanmål.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary btn-lg" href="#valj">Ge mig ett förslag</a>
+        <a class="btn btn-ghost btn-lg" href="recept.html">Bläddra bland recept</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="valj">
+    <div class="wrap">
+      <h2 class="mt-0">Vad ska jag äta?</h2>
+      <p class="help">Hoppa över det du inte bryr dig om – allt är frivilligt. Ju mer du fyller i, desto bättre träff.</p>
+
+      <form class="picker" id="forslag-form" onsubmit="return false;">
+        <fieldset>
+          <legend>Vilken måltid?</legend>
+          <div class="chips" id="pick-meals"></div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Hur känner du dig?</legend>
+          <div class="chips" id="pick-moods"></div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Vad har du hemma?</legend>
+          <p class="help">Kryssa i det du har – förslaget viktas mot rätter du redan kan laga.</p>
+          <div class="chips" id="pick-foods"></div>
+        </fieldset>
+
+        <div class="btn-row">
+          <button type="button" class="btn btn-primary btn-lg" id="forslag-go">Ge mig ett förslag</button>
+          <button type="button" class="btn btn-ghost" id="forslag-clear">Rensa</button>
+        </div>
+      </form>
+
+      <div class="result" id="forslag-result"></div>
+    </div>
+  </section>
+
+  <section class="section tint">
+    <div class="wrap">
+      <h2 class="mt-0">Grunden i korthet</h2>
+      <div class="card-grid">
+        <article class="card">
+          <h3>Ät mer av</h3>
+          <p class="desc">Grönsaker, frukt och bär, fet fisk, olivolja, nötter och frön, fullkorn, baljväxter och kryddor som gurkmeja och ingefära.</p>
+        </article>
+        <article class="card">
+          <h3>Ät mindre av</h3>
+          <p class="desc">Socker och söta drycker, vitt bröd och raffinerade kolhydrater, processat och mycket rött kött, snabbmat och färdigmat.</p>
+        </article>
+        <article class="card">
+          <h3>Varför då?</h3>
+          <p class="desc">Kronisk inflammation kopplas till bl.a. hjärt-kärlsjukdom, diabetes och övervikt. En kost som liknar medelhavskosten kan hjälpa till att dämpa den.</p>
+        </article>
+      </div>
+      <div class="btn-row">
+        <a class="btn btn-secondary" href="om-kosten.html">Läs mer om antiinflammatorisk kost</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>Antiinflammatorisk kost – tips och inspiration, inte medicinsk rådgivning. Har du en sjukdom eller särskild kosthållning, prata med vården eller en dietist.</p>
+    </div>
+  </footer>
+
+  <script src="data/recept.js"></script>
+  <script src="js/labels.js"></script>
+  <script src="js/forslag.js"></script>
+  <script>window.markNav("hem");</script>
+</body>
+</html>
