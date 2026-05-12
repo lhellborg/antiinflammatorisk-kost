@@ -15,6 +15,7 @@ Inköpslistan sparas i besökarens egen webbläsare (localStorage).
 index.html             Startsida + "Vad ska jag äta?"
 recept.html            Alla recept (inbyggda + egna), filtrerbara på måltid, tid, allergener
 veckomeny.html         "Smart veckomeny" – genererar en veckas matsedel + inköpslista
+festmaltid.html        "Festmåltid" – välj förrätt/huvudrätt/efterrätt var för sig eller alla tre
 om-kosten.html         "Ät mer / mindre av" + fakta om inflammation (klickbara delar) + ätordning
 forbattra.html         "Förbättra ett recept" – mata in en rätt, få byten, spara som eget recept (nås via Recept-sidan/-korten, ej i toppmenyn)
 fakta.html             Liten omdirigering till om-kosten.html (sidan slogs ihop dit)
@@ -30,6 +31,7 @@ js/lista.js            Logiken bakom receptlistan
 js/inkopslista-sida.js Logiken bakom inköpslistan
 js/forbattra.js        Logiken bakom "Förbättra ett recept"
 js/veckomeny.js        Logiken/generatorn bakom veckomenyn
+js/festmaltid.js       Logiken bakom festmåltidssidan
 data/recept.js         ALLA INBYGGDA RECEPT – det är den här filen du redigerar
 data/byten.js          Bytestabell + tilläggstips för "Förbättra ett recept"
 ```
@@ -52,6 +54,16 @@ hela veckan, lägga hela veckan i inköpslistan (skalat till antal personer) och
 skriva ut den. Veckan sparas i besökarens webbläsare. Generatorn ligger i
 `js/veckomeny.js` – t.ex. balansreglerna (`recipeTyp`, `score`) och vilka
 rätter som räknas som "lagar-en-gång-i-större-sats" (`isBatchFriendly`).
+
+### Festmåltid
+
+`festmaltid.html` låter besökaren välja förrätt, huvudrätt och/eller efterrätt
+var för sig – eller alla tre på en gång ("Hela festmenyn") – och slumpar ihop en
+festmeny av recepten. Byt ut per rätt, justera antal gäster, lägg hela menyn i
+inköpslistan, skriv ut. Måltidstyperna `forratt` och `efterratt` finns i
+`window.MALTIDER` (i `js/labels.js`), och festrätter taggas med moodet `fest`.
+Huvudrätten väljs bland `middag`-recept som är märkta `fest` eller `vill-bjuda`.
+Festmenyn sparas i besökarens webbläsare.
 
 ### Förbättra ett recept / egna recept
 

@@ -7,7 +7,16 @@ window.MALTIDER = [
   { id: "frukost",  label: "Frukost"  },
   { id: "lunch",    label: "Lunch"    },
   { id: "middag",   label: "Middag"   },
-  { id: "mellanmal",label: "Mellanmål"}
+  { id: "mellanmal",label: "Mellanmål"},
+  { id: "forratt",  label: "Förrätt"  },
+  { id: "efterratt",label: "Efterrätt"}
+];
+
+// Festmenyns rätter -> vilken måltidstyp som används för respektive
+window.FESTRATTER = [
+  { id: "forratt",   label: "Förrätt",   maltid: "forratt"   },
+  { id: "huvudratt", label: "Huvudrätt", maltid: "middag"    },
+  { id: "efterratt", label: "Efterrätt", maltid: "efterratt" }
 ];
 
 // Hur man kan känna sig -> matchas mot recept.mood
@@ -23,6 +32,7 @@ window.MOODS = [
   { id: "varmt-och-matigt", label: "Vill ha något varmt & matigt" },
   { id: "vill-ata-latt",    label: "Vill äta lätt & lagom" },
   { id: "vill-bjuda",       label: "Vill ha något lite extra / bjuda" },
+  { id: "fest",             label: "Fest! – något festligt" },
   { id: "snabbt",           label: "Bara något snabbt" }
 ];
 
@@ -73,7 +83,12 @@ window.RAVAROR = [
   { id: "pumpafron",      label: "Pumpafrön" },
   { id: "kokosmjolk",     label: "Kokosmjölk" },
   { id: "proteinpulver",  label: "Proteinpulver" },
-  { id: "morkchoklad",    label: "Mörk choklad (70%+)" }
+  { id: "morkchoklad",    label: "Mörk choklad (70%+)" },
+  { id: "ruccola",        label: "Ruccola" },
+  { id: "fankal",         label: "Fänkål" },
+  { id: "rakor",          label: "Räkor" },
+  { id: "knackebrod",     label: "Rågknäcke / knäckebröd" },
+  { id: "dadlar",         label: "Dadlar" }
 ];
 
 window.ALLERGENER = [
@@ -88,11 +103,11 @@ window.ALLERGENER = [
 // Grova butiksavdelningar – används för att gruppera inköpslistan.
 // Ingredienser som inte finns med hamnar under "Övrigt".
 window.KATEGORIER = [
-  { namn: "Frukt & grönt", ids: ["spenat","broccoli","tomat","paprika","lok","vitlok","avokado","bar","banan","apple","citron","morot","rodbeta","ingefara","gronkal","sotpotatis","granatapple"] },
-  { namn: "Kött & fisk",   ids: ["kyckling","lax","sardiner"] },
+  { namn: "Frukt & grönt", ids: ["spenat","broccoli","tomat","paprika","lok","vitlok","avokado","bar","banan","apple","citron","morot","rodbeta","ingefara","gronkal","sotpotatis","granatapple","ruccola","fankal"] },
+  { namn: "Kött & fisk",   ids: ["kyckling","lax","sardiner","rakor"] },
   { namn: "Mejeri & ägg",  ids: ["agg","naturell yoghurt","kefir","vaxtdryck"] },
-  { namn: "Bröd",          ids: ["ragbrod","tortilla"] },
-  { namn: "Skafferi",      ids: ["havregryn","linser","kikartor","quinoa","ris","fullkorn","fullkornspasta","valnotter","mandel","chiafron","linfro","olivolja","gurkmeja","kanel","tofu","tahini","pumpafron","kokosmjolk","proteinpulver","morkchoklad"] }
+  { namn: "Bröd",          ids: ["ragbrod","tortilla","knackebrod"] },
+  { namn: "Skafferi",      ids: ["havregryn","linser","kikartor","quinoa","ris","fullkorn","fullkornspasta","valnotter","mandel","chiafron","linfro","olivolja","gurkmeja","kanel","tofu","tahini","pumpafron","kokosmjolk","proteinpulver","morkchoklad","dadlar"] }
 ];
 
 window.categoryFor = function (id) {

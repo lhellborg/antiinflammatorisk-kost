@@ -554,7 +554,7 @@ window.RECEPT = [
       { id: "olivolja",    mangd: 2,   enhet: "msk" },
       { id: "gurkmeja",    mangd: 1,   enhet: "tsk" }
     ],
-    mood: ["sugen-pa-gront", "vill-ata-latt", "vill-bjuda", "varmt-och-matigt"],
+    mood: ["sugen-pa-gront", "vill-ata-latt", "vill-bjuda", "varmt-och-matigt", "fest"],
     allergener: [],
     plus: ["kikärtor", "grönkål", "rödbeta", "avokado", "olivolja", "gurkmeja", "granatäpple"],
     beskrivning: "En tallrik i regnbågens färger – mycket grönt, bra fetter och en krämig tahinidressing.",
@@ -660,7 +660,7 @@ window.RECEPT = [
       { id: "gurkmeja",   mangd: 1,   enhet: "tsk" },
       { id: "citron",     mangd: 0.5, enhet: "st" }
     ],
-    mood: ["varmt-och-matigt", "vill-bjuda", "efter-traning"],
+    mood: ["varmt-och-matigt", "vill-bjuda", "efter-traning", "fest"],
     allergener: ["fisk"],
     plus: ["lax", "rödbeta", "sötpotatis", "morot", "olivolja", "gurkmeja"],
     beskrivning: "En plåt: omega-3-rik lax tillsammans med färgglada rotsaker kryddade med gurkmeja.",
@@ -788,6 +788,228 @@ window.RECEPT = [
       "Skär morot och paprika i stavar.",
       "Rör ihop tahini med pressad vitlök, citron, en nypa salt och lite vatten tills dippig.",
       "Servera stavarna med dippen."
+    ]
+  },
+
+  /* ---------- FESTMÅLTID (förrätt / huvudrätt / efterrätt + tilltugg) ---------- */
+  {
+    id: "rodbetscarpaccio-valnotter",
+    namn: "Rödbetscarpaccio med valnötter, ruccola & citron",
+    maltid: ["forratt"],
+    tid: 15,
+    portioner: 4,
+    ingredienser: [
+      { id: "rodbeta",     mangd: 3,   enhet: "st" },
+      { id: "ruccola",     mangd: 2,   enhet: "näve" },
+      { id: "valnotter",   mangd: 1,   enhet: "dl" },
+      { id: "granatapple", mangd: 0.5, enhet: "st" },
+      { id: "olivolja",    mangd: 2,   enhet: "msk" },
+      { id: "citron",      mangd: 0.5, enhet: "st" }
+    ],
+    mood: ["fest", "sugen-pa-gront", "vill-bjuda", "vill-ata-latt"],
+    allergener: ["notter"],
+    plus: ["rödbeta", "valnötter", "olivolja", "granatäpple"],
+    beskrivning: "Vacker förrätt: tunt skivad rödbeta med ruccola, rostade valnötter och granatäpple.",
+    steg: [
+      "Koka rödbetorna mjuka (eller använd färdigkokta), skala och skiva mycket tunt – lägg ut på ett fat.",
+      "Rosta valnötterna torra i en panna och hacka grovt.",
+      "Strö ruccola, valnötter och granatäpplekärnor över. Ringla olivolja, pressa citron och toppa med flingsalt och svartpeppar."
+    ]
+  },
+  {
+    id: "avokado-rakrora-knacke",
+    namn: "Avokado- och räkröra på rågknäcke",
+    maltid: ["forratt", "mellanmal"],
+    tid: 12,
+    portioner: 4,
+    ingredienser: [
+      { id: "rakor",       mangd: 200, enhet: "g" },
+      { id: "avokado",     mangd: 1,   enhet: "st" },
+      { id: "citron",      mangd: 0.5, enhet: "st" },
+      { id: "ruccola",     mangd: 1,   enhet: "näve" },
+      { id: "knackebrod",  mangd: 8,   enhet: "st" }
+    ],
+    mood: ["fest", "snabbt", "vill-bjuda", "efter-traning"],
+    allergener: ["fisk", "gluten"],
+    plus: ["räkor", "avokado"],
+    beskrivning: "En lättare räkröra på avokado i stället för majonnäs – klickas på rågknäcke.",
+    steg: [
+      "Mosa avokadon med pressad citron, salt och svartpeppar.",
+      "Vänd försiktigt ner de avrunna räkorna.",
+      "Klicka på rågknäcke, toppa med lite ruccola och en extra skvätt citron."
+    ]
+  },
+  {
+    id: "hummus-rodbeta-granatapple",
+    namn: "Rödbetshummus med granatäpple & grönsaksstavar",
+    maltid: ["forratt", "mellanmal"],
+    tid: 20,
+    portioner: 4,
+    ingredienser: [
+      { id: "kikartor",    mangd: 1,   enhet: "burk" },
+      { id: "rodbeta",     mangd: 1,   enhet: "st" },
+      { id: "tahini",      mangd: 2,   enhet: "msk" },
+      { id: "vitlok",      mangd: 1,   enhet: "klyfta" },
+      { id: "citron",      mangd: 0.5, enhet: "st" },
+      { id: "olivolja",    mangd: 2,   enhet: "msk" },
+      { id: "granatapple", mangd: 0.5, enhet: "st" },
+      { id: "morot",       mangd: 2,   enhet: "st" },
+      { id: "paprika",     mangd: 1,   enhet: "st" }
+    ],
+    mood: ["fest", "sugen-pa-gront", "vill-ata-latt", "vill-bjuda"],
+    allergener: [],
+    plus: ["kikärtor", "rödbeta", "olivolja", "vitlök", "granatäpple"],
+    beskrivning: "Knallrosa hummus att doppa grönsaksstavar i – festlig och full av fibrer.",
+    steg: [
+      "Riv eller koka rödbetan mjuk. Mixa kikärtor, rödbeta, tahini, vitlök, citron, olivolja och salt slätt – späd med lite vatten.",
+      "Lägg upp i en skål, gröp ur en liten brunn och ringla i olivolja, strö över granatäpplekärnor.",
+      "Servera med morots- och paprikastavar."
+    ]
+  },
+  {
+    id: "helstekt-ugnslax-fankal",
+    namn: "Helstekt ugnslax med citron, fänkål & rotsaksfat",
+    maltid: ["middag"],
+    tid: 45,
+    portioner: 6,
+    ingredienser: [
+      { id: "lax",      mangd: 800, enhet: "g" },
+      { id: "fankal",   mangd: 2,   enhet: "st" },
+      { id: "morot",    mangd: 4,   enhet: "st" },
+      { id: "rodbeta",  mangd: 2,   enhet: "st" },
+      { id: "lok",      mangd: 1,   enhet: "st" },
+      { id: "vitlok",   mangd: 3,   enhet: "klyfta" },
+      { id: "citron",   mangd: 1,   enhet: "st" },
+      { id: "olivolja", mangd: 4,   enhet: "msk" }
+    ],
+    mood: ["fest", "vill-bjuda", "varmt-och-matigt", "efter-traning"],
+    allergener: ["fisk"],
+    plus: ["lax", "fänkål", "rödbeta", "morot", "olivolja"],
+    beskrivning: "En hel laxsida i ugnen tillsammans med ett fat av rostad fänkål och rotsaker – enkelt men festligt.",
+    steg: [
+      "Skär fänkål, morot, rödbeta och lök i bitar. Blanda med 3 msk olivolja, hackad vitlök och salt på en plåt. Rosta i 220°C ca 20 min.",
+      "Lägg laxsidan ovanpå (eller på en egen plåt) med citronskivor, resten av olivoljan, salt och peppar. Baka ytterligare 15–18 min tills laxen precis är genomgången.",
+      "Pressa lite citron över och servera direkt från plåten."
+    ]
+  },
+  {
+    id: "fyllda-spetspaprikor-quinoa-kikartor",
+    namn: "Fyllda spetspaprikor med quinoa, kikärtor & granatäpple",
+    maltid: ["middag"],
+    tid: 40,
+    portioner: 4,
+    ingredienser: [
+      { id: "paprika",     mangd: 6,   enhet: "st" },
+      { id: "quinoa",      mangd: 2,   enhet: "dl" },
+      { id: "kikartor",    mangd: 1,   enhet: "burk" },
+      { id: "spenat",      mangd: 2,   enhet: "näve" },
+      { id: "vitlok",      mangd: 2,   enhet: "klyfta" },
+      { id: "granatapple", mangd: 0.5, enhet: "st" },
+      { id: "olivolja",    mangd: 2,   enhet: "msk" },
+      { id: "citron",      mangd: 0.5, enhet: "st" },
+      { id: "gurkmeja",    mangd: 0.5, enhet: "tsk" }
+    ],
+    mood: ["fest", "vill-bjuda", "varmt-och-matigt", "sugen-pa-gront"],
+    allergener: [],
+    plus: ["quinoa", "kikärtor", "spenat", "olivolja", "granatäpple"],
+    beskrivning: "Färgglad vegetarisk festrätt – spetspaprikor fyllda med kryddig quinoa och kikärtor, toppade med granatäpple.",
+    steg: [
+      "Koka quinoan enligt paketet. Fräs hackad vitlök i hälften av olivoljan, vänd ner spenaten tills den faller ihop.",
+      "Blanda quinoa, kikärtor, spenatfräset, gurkmeja, citron och salt.",
+      "Dela spetspaprikorna på längden, gröp ur kärnorna och fyll med blandningen. Lägg i en ugnsform och baka i 200°C ca 20 min.",
+      "Toppa med granatäpplekärnor och resten av olivoljan."
+    ]
+  },
+  {
+    id: "bakade-applen-kanel-valnotter",
+    namn: "Bakade äpplen med dadlar, kanel & yoghurt",
+    maltid: ["efterratt"],
+    tid: 30,
+    portioner: 4,
+    ingredienser: [
+      { id: "apple",            mangd: 4, enhet: "st" },
+      { id: "dadlar",           mangd: 4, enhet: "st" },
+      { id: "valnotter",        mangd: 1, enhet: "dl" },
+      { id: "kanel",            mangd: 1, enhet: "tsk" },
+      { id: "naturell yoghurt", mangd: 2, enhet: "dl" }
+    ],
+    mood: ["fest", "sugen-pa-sott", "vill-bjuda", "varmt-och-matigt", "dalig-somn"],
+    allergener: ["notter", "mjolk"],
+    plus: ["äpple", "kanel", "valnötter"],
+    beskrivning: "Varm efterrätt utan tillsatt socker – ugnsbakade äpplen fyllda med dadlar och valnötter, med en klick yoghurt.",
+    steg: [
+      "Kärna ur äpplena (men låt botten vara kvar). Hacka dadlar och valnötter, blanda med kanel.",
+      "Fyll äpplena med blandningen och ställ i en ugnsform med en skvätt vatten i botten.",
+      "Baka i 180°C ca 25 min tills äpplena är mjuka. Servera ljumna med naturell yoghurt vid sidan."
+    ]
+  },
+  {
+    id: "chokladmousse-avokado-bar",
+    namn: "Chokladmousse på avokado med bär",
+    maltid: ["efterratt", "mellanmal"],
+    tid: 15,
+    portioner: 4,
+    ingredienser: [
+      { id: "avokado",     mangd: 2,  enhet: "st" },
+      { id: "morkchoklad", mangd: 60, enhet: "g" },
+      { id: "dadlar",      mangd: 4,  enhet: "st" },
+      { id: "vaxtdryck",   mangd: 1,  enhet: "dl" },
+      { id: "bar",         mangd: 2,  enhet: "dl" },
+      { id: "valnotter",   mangd: 1,  enhet: "msk" }
+    ],
+    mood: ["fest", "sugen-pa-sott", "snabbt", "vill-bjuda"],
+    allergener: ["notter"],
+    plus: ["avokado", "bär"],
+    beskrivning: "Len, mörk chokladmousse där avokado och dadlar gör jobbet i stället för grädde och socker.",
+    steg: [
+      "Smält chokladen försiktigt över vattenbad eller i mikron.",
+      "Mixa avokado, smält choklad, urkärnade dadlar och växtdryck riktigt slätt – smaka av (en nypa salt lyfter chokladen).",
+      "Fördela i glas och ställ kallt minst 30 min. Toppa med bär och hackade valnötter innan servering."
+    ]
+  },
+  {
+    id: "bar-havrecrumble-dadel",
+    namn: "Bär- och havrecrumble (dadelsötad)",
+    maltid: ["efterratt"],
+    tid: 30,
+    portioner: 4,
+    ingredienser: [
+      { id: "bar",              mangd: 4, enhet: "dl" },
+      { id: "havregryn",        mangd: 2, enhet: "dl" },
+      { id: "valnotter",        mangd: 1, enhet: "dl" },
+      { id: "dadlar",           mangd: 6, enhet: "st" },
+      { id: "olivolja",         mangd: 2, enhet: "msk" },
+      { id: "kanel",            mangd: 1, enhet: "tsk" },
+      { id: "naturell yoghurt", mangd: 2, enhet: "dl" }
+    ],
+    mood: ["fest", "sugen-pa-sott", "varmt-och-matigt", "vill-bjuda"],
+    allergener: ["gluten", "notter", "mjolk"],
+    plus: ["bär", "havre", "valnötter", "kanel"],
+    beskrivning: "Knaprig smuldeg på havre, valnötter och dadlar över varma bär – sötman kommer från frukten.",
+    steg: [
+      "Lägg bären i en ugnsform.",
+      "Mixa eller finhacka dadlarna och blanda med havregryn, hackade valnötter, kanel och olivolja till en grynig smuldeg.",
+      "Strö smuldegen över bären och baka i 200°C ca 20 min tills den fått färg. Servera ljum med naturell yoghurt."
+    ]
+  },
+  {
+    id: "rostade-mandlar-rosmarin",
+    namn: "Rostade mandlar med rosmarin & olivolja",
+    maltid: ["mellanmal"],
+    tid: 12,
+    portioner: 4,
+    ingredienser: [
+      { id: "mandel",   mangd: 2, enhet: "dl" },
+      { id: "olivolja", mangd: 1, enhet: "msk" }
+    ],
+    mood: ["fest", "snabbt", "sugen-pa-sott", "vill-bjuda"],
+    allergener: ["notter"],
+    plus: ["mandel", "olivolja"],
+    beskrivning: "Litet tilltugg till festen – ljumma mandlar rostade med olivolja, rosmarin och flingsalt.",
+    steg: [
+      "Blanda mandlarna med olivolja, finhackad färsk (eller torkad) rosmarin och flingsalt.",
+      "Rosta i 175°C ca 8–10 min, rör om en gång, tills de doftar.",
+      "Servera ljumma."
     ]
   }
 

@@ -410,6 +410,18 @@ ul.sources li { margin-bottom: .4rem; }
 .slot-actions { gap: .35rem; margin-top: .15rem; }
 .slot-actions .btn { padding: .3rem .65rem; font-size: .82rem; }
 
+/* ---------- Festmåltid ---------- */
+.fm-menu {
+  display: grid; gap: 1rem; margin: 1.6rem 0;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+.course-card { border-top: 4px solid var(--terracotta); }
+.course-label {
+  font-family: var(--serif); text-transform: uppercase; letter-spacing: .08em;
+  font-size: .82rem; font-weight: 700; color: var(--terracotta-dark); margin-bottom: .2rem;
+}
+.course-card h3 { margin-top: 0; }
+
 /* ---------- Utskrift ---------- */
 @media print {
   .site-header, .site-footer, .hero, .cartbar, .no-print,
@@ -417,8 +429,9 @@ ul.sources li { margin-bottom: .4rem; }
   body { background: #fff; color: #000; }
   .section { padding: 0; }
   .card { box-shadow: none; border: 1px solid #bbb; break-inside: avoid; }
-  .card-grid, .week-grid { display: block; }
-  .card, .day-card { margin-bottom: .8rem; break-inside: avoid; box-shadow: none; border: 1px solid #bbb; background: #fff; }
+  .card-grid, .week-grid, .fm-menu { display: block; }
+  .card, .day-card, .course-card { margin-bottom: .8rem; break-inside: avoid; box-shadow: none; border: 1px solid #bbb; background: #fff; }
+  .course-card { border-top: 3px solid #bbb; }
   .ingr-amt, .shop-name { color: #000; }
   a { color: #000; text-decoration: none; }
 }

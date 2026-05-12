@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Festmåltid – Antiinflammatorisk kost</title>
+  <meta name="description" content="Planera en festmåltid – välj förrätt, huvudrätt eller efterrätt var för sig, eller hela festmenyn på en gång. Med inköpslista.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html"><span class="leaf">🌿</span> Antiinflammatorisk kost</a>
+      <nav class="site-nav">
+        <a data-page="hem" href="index.html">Hem</a>
+        <a data-page="recept" href="recept.html">Recept</a>
+        <a data-page="veckomeny" href="veckomeny.html">Veckomeny</a>
+        <a data-page="om" href="om-kosten.html">Om kosten</a>
+        <a data-page="inkop" href="inkopslista.html">Inköpslista<span data-cart-badge></span></a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <h1>Planera en festmåltid</h1>
+      <p class="lead">Välj en eller flera rätter – förrätt, huvudrätt, efterrätt – eller tryck på <strong>Hela festmenyn</strong> så får du alla tre. Vi plockar ihop festliga rätter i antiinflammatorisk anda (mycket grönt, fisk, baljväxter, nötter, olivolja och dadel-/bärsötat). Sen kan du lägga hela menyn i inköpslistan.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+
+      <fieldset class="fb-block">
+        <legend>Vad vill du laga?</legend>
+        <div class="fb-grid">
+          <div class="fb-field">
+            <span>Rätter (välj fritt)</span>
+            <div class="chips" id="fm-courses"></div>
+            <div class="btn-row" style="margin-top:.5rem;">
+              <button type="button" class="btn btn-ghost" id="fm-preset-all">Hela festmenyn (alla tre)</button>
+            </div>
+          </div>
+          <div class="fb-field">
+            <span>Antal gäster</span>
+            <div id="fm-personer"></div>
+          </div>
+          <div class="fb-field">
+            <span>Uteslut allergener</span>
+            <div class="chips" id="fm-allergen"></div>
+          </div>
+        </div>
+        <div class="btn-row">
+          <button type="button" class="btn btn-primary btn-lg" id="fm-generate">Slumpa en festmeny</button>
+        </div>
+      </fieldset>
+
+      <div id="fm-empty" class="hidden">
+        <p class="help">Välj rätter ovan och tryck <strong>Slumpa en festmeny</strong>.</p>
+      </div>
+
+      <div id="fm-result" class="hidden">
+        <div class="fm-menu" id="fm-menu"></div>
+        <div class="btn-row">
+          <button type="button" class="btn btn-primary" id="fm-to-cart">Lägg hela menyn i inköpslistan</button>
+          <button type="button" class="btn btn-ghost" id="fm-print">Skriv ut menyn</button>
+        </div>
+        <p class="help" id="fm-cart-msg"></p>
+      </div>
+
+      <p class="disclaimer">Festmenyn sparas bara i din egen webbläsare. Inspiration, inte näringsberäknad kostplanering – anpassa efter dig själv och eventuell allergi.</p>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>Antiinflammatorisk kost – tips på frukost, lunch, middag och mellanmål.</p>
+    </div>
+  </footer>
+
+  <script src="data/recept.js"></script>
+  <script src="js/labels.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/myrecipes.js"></script>
+  <script src="js/festmaltid.js"></script>
+  <script>window.markNav("recept");</script>
+</body>
+</html>
