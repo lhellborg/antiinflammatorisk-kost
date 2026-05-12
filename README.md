@@ -59,8 +59,8 @@ rätter som räknas som "lagar-en-gång-i-större-sats" (`isBatchFriendly`).
 "Vad har du hemma?" på veckomenyn viktar inte bara förslagen utan sparas också
 i `window.Pantry` (`js/pantry.js`). På inköpslistan flyttas de råvarorna då till
 en egen sektion – "Det du sa att du har hemma – kolla att mängden räcker" – med
-den totala mängd som behövs, så man ser om man behöver köpa mer. Inköpslistan
-har dessutom en egen "Vad har du hemma?"-väljare (samma `Pantry`).
+den totala mängd som behövs, så man ser om man behöver köpa mer. (Markeringen
+görs på veckomenyn; inköpslistan visar bara resultatet.)
 
 ### Festmåltid
 

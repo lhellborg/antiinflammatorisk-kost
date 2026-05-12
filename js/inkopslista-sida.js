@@ -10,7 +10,6 @@
   var elContent = document.getElementById("inkop-content");
   var elRecept  = document.getElementById("inkop-recept");
   var elIngr    = document.getElementById("inkop-ingredienser");
-  var elFoods   = document.getElementById("inkop-foods");
   var elHarBlk  = document.getElementById("inkop-harhemma-block");
   var elHarHemma= document.getElementById("inkop-harhemma");
   if (!elEmpty) return;
@@ -146,23 +145,6 @@
     renderIngredients(sels);
   }
 
-  /* ---------- "vad har du hemma"-väljare (delas med veckomenyn via Pantry) ---------- */
-  function buildFoodPicker() {
-    if (!elFoods) return;
-    elFoods.innerHTML = "";
-    var have = pantryIds();
-    window.RAVAROR.forEach(function (r) {
-      var l = document.createElement("label"); l.className = "chip olive" + (have.indexOf(r.id) !== -1 ? " is-checked" : "");
-      var i = document.createElement("input"); i.type = "checkbox"; i.value = r.id; if (have.indexOf(r.id) !== -1) i.checked = true;
-      i.addEventListener("change", function () { l.classList.toggle("is-checked", i.checked); });
-      l.appendChild(i); l.appendChild(document.createTextNode(r.label));
-      elFoods.appendChild(l);
-    });
-    elFoods.addEventListener("change", function () {
-      if (window.Pantry) window.Pantry.set(Array.prototype.map.call(elFoods.querySelectorAll("input:checked"), function (i) { return i.value; }));
-    });
-  }
-  if (elFoods && window.Pantry) buildFoodPicker();
 
   document.getElementById("inkop-print").addEventListener("click", function () { window.print(); });
   document.getElementById("inkop-clear").addEventListener("click", function () {
@@ -170,6 +152,6 @@
   });
   document.addEventListener("cart:changed", render);
   document.addEventListener("myrecipes:changed", render);
-  document.addEventListener("pantry:changed", function () { render(); /* OBS: bygg inte om pickern (skulle nollställa fokus) – chip-klasserna är redan i synk via change-lyssnaren */ });
+  document.addEventListener("pantry:changed", render); // "vad har du hemma" sätts på veckomenyn; rendera om så rätt saker hamnar i "kolla mängden"-listan
   render();
 })();
