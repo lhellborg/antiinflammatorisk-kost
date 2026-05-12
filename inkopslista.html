@@ -37,14 +37,17 @@
       </div>
 
       <div id="inkop-content" class="hidden">
+        <h1 class="print-only">Inköpslista</h1>
         <div class="btn-row no-print" style="margin-top:0;margin-bottom:1.6rem;">
-          <button type="button" class="btn btn-primary" id="inkop-print">Skriv ut listan</button>
+          <button type="button" class="btn btn-primary" id="inkop-print">Skriv ut inköpslistan</button>
           <button type="button" class="btn btn-ghost" id="inkop-clear">Töm hela listan</button>
         </div>
 
-        <h2 class="mt-0">Valda recept</h2>
-        <p class="help no-print">Ändra antal portioner per recept med − och + – mängderna och inköpslistan räknas om.</p>
-        <div class="card-grid" id="inkop-recept"></div>
+        <div class="no-print">
+          <h2 class="mt-0">Valda recept</h2>
+          <p class="help">Ändra antal portioner per recept med − och + – mängderna och inköpslistan räknas om. (Recepten kommer inte med när du skriver ut – då blir det bara själva inköpslistan.)</p>
+          <div class="card-grid" id="inkop-recept"></div>
+        </div>
 
         <details class="factbox no-print" id="inkop-foods-box">
           <summary>Vad har du redan hemma? (markerade råvaror flyttas till en egen "kolla mängden"-lista i stället för handlingslistan)</summary>

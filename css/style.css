@@ -294,6 +294,7 @@ details.factbox {
 
 /* ---------- Småsaker ---------- */
 .hidden { display: none !important; }
+.print-only { display: none; }
 .center { text-align: center; }
 .mt-0 { margin-top: 0; }
 .disclaimer { font-size: .85rem; color: var(--ink-soft); }
@@ -426,6 +427,7 @@ ul.sources li { margin-bottom: .4rem; }
 @media print {
   .site-header, .site-footer, .hero, .cartbar, .no-print,
   .cart-toggle, .stepper, details summary { display: none !important; }
+  .print-only { display: block; }
   body { background: #fff; color: #000; }
   .section { padding: 0; }
   .card { box-shadow: none; border: 1px solid #bbb; break-inside: avoid; }
