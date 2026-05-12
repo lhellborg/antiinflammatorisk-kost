@@ -26,6 +26,7 @@ js/ui.js               Portionsväljare och ingredienslista (återanvänds)
 js/store.js            Inköpslistan – lagras i webbläsaren (localStorage)
 js/myrecipes.js        Egna recept – lagras i webbläsaren; allRecipes() = inbyggda + egna
 js/weekplan.js         Veckomenyn – lagras i webbläsaren
+js/pantry.js           "Vad har du hemma?" – råvaror man har hemma; lagras i webbläsaren (delas av veckomeny + inköpslista)
 js/forslag.js          Logiken bakom "Vad ska jag äta?"
 js/lista.js            Logiken bakom receptlistan
 js/inkopslista-sida.js Logiken bakom inköpslistan
@@ -54,6 +55,12 @@ hela veckan, lägga hela veckan i inköpslistan (skalat till antal personer) och
 skriva ut den. Veckan sparas i besökarens webbläsare. Generatorn ligger i
 `js/veckomeny.js` – t.ex. balansreglerna (`recipeTyp`, `score`) och vilka
 rätter som räknas som "lagar-en-gång-i-större-sats" (`isBatchFriendly`).
+
+"Vad har du hemma?" på veckomenyn viktar inte bara förslagen utan sparas också
+i `window.Pantry` (`js/pantry.js`). På inköpslistan flyttas de råvarorna då till
+en egen sektion – "Det du sa att du har hemma – kolla att mängden räcker" – med
+den totala mängd som behövs, så man ser om man behöver köpa mer. Inköpslistan
+har dessutom en egen "Vad har du hemma?"-väljare (samma `Pantry`).
 
 ### Festmåltid
 

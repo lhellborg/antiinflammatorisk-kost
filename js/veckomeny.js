@@ -41,6 +41,25 @@
   window.ALLERGENER.forEach(function (a) { checkChip(elAllergen, a.id, a.label, false, false); });
   window.RAVAROR.forEach(function (r) { checkChip(elFoods, r.id, r.label, true, false); });
 
+  // "vad har du hemma" delas med inköpslistan via window.Pantry
+  function setFoodChips(ids) {
+    elFoods.querySelectorAll("input").forEach(function (i) {
+      i.checked = (ids || []).indexOf(i.value) !== -1;
+      i.closest(".chip").classList.toggle("is-checked", i.checked);
+    });
+  }
+  function checkedFoods() { return Array.prototype.map.call(elFoods.querySelectorAll("input:checked"), function (i) { return i.value; }); }
+  if (window.Pantry) {
+    setFoodChips(window.Pantry.list());
+    elFoods.addEventListener("change", function () { window.Pantry.set(checkedFoods()); });
+    document.addEventListener("pantry:changed", function (e) {
+      var ids = (e.detail && e.detail.ids) || (window.Pantry ? window.Pantry.list() : []);
+      // undvik oändlig loop: sätt bara om det skiljer sig
+      var cur = checkedFoods();
+      if (cur.length !== ids.length || cur.some(function (x) { return ids.indexOf(x) === -1; })) setFoodChips(ids);
+    });
+  }
+
   var persStepper = window.makeStepper(4, 1, function () {});
   elPersHold.appendChild(persStepper);
 
@@ -75,7 +94,7 @@
     elAllergen.querySelectorAll("input").forEach(function (i) { i.checked = (s.exclude || []).indexOf(i.value) !== -1; i.closest(".chip").classList.toggle("is-checked", i.checked); });
     elVardag.querySelectorAll("input").forEach(function (i) { i.checked = String(s.vardagsmax) === i.value; i.closest(".chip").classList.toggle("is-checked", i.checked); });
     elResterCb.checked = (s.rester !== false); elResterChip.classList.toggle("is-checked", elResterCb.checked);
-    elFoods.querySelectorAll("input").forEach(function (i) { i.checked = (s.haveFoods || []).indexOf(i.value) !== -1; i.closest(".chip").classList.toggle("is-checked", i.checked); });
+    // "vad har du hemma" hämtas alltid från Pantry, inte från den sparade planen
   }
 
   /* ---------- recept-typ (för balansreglerna) ---------- */
@@ -346,6 +365,10 @@
   (function init() {
     var saved = window.WeekPlan.get();
     if (saved) { plan = saved; applySettings(saved); }
+    // migrera ev. "haveFoods" från en sparad plan till Pantry om Pantry är tom
+    if (window.Pantry && !window.Pantry.list().length && saved && (saved.haveFoods || []).length) {
+      window.Pantry.set(saved.haveFoods); setFoodChips(saved.haveFoods);
+    }
     render();
   })();
 })();

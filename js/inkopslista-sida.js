@@ -10,7 +10,12 @@
   var elContent = document.getElementById("inkop-content");
   var elRecept  = document.getElementById("inkop-recept");
   var elIngr    = document.getElementById("inkop-ingredienser");
+  var elFoods   = document.getElementById("inkop-foods");
+  var elHarBlk  = document.getElementById("inkop-harhemma-block");
+  var elHarHemma= document.getElementById("inkop-harhemma");
   if (!elEmpty) return;
+
+  function pantryIds() { return window.Pantry ? window.Pantry.list() : []; }
 
   function tag(text, cls) { var s = document.createElement("span"); s.className = "tag" + (cls ? " " + cls : ""); s.textContent = text; return s; }
 
@@ -89,15 +94,12 @@
     return li;
   }
 
-  function renderIngredients(sels) {
-    var idx = aggregate(sels);
-    elIngr.innerHTML = "";
+  // Rendera en lista av ingrediens-id grupperade efter butiksavdelning till en container.
+  function renderCategoryGroups(idx, ids, container) {
+    container.innerHTML = "";
     var order = window.KATEGORIER.map(function (k) { return k.namn; }).concat(["Övrigt"]);
     var groups = {};
-    Object.keys(idx).forEach(function (id) {
-      var cat = window.categoryFor(id);
-      (groups[cat] = groups[cat] || []).push(id);
-    });
+    ids.forEach(function (id) { var cat = window.categoryFor(id); (groups[cat] = groups[cat] || []).push(id); });
     order.forEach(function (cat) {
       var items = groups[cat];
       if (!items || !items.length) return;
@@ -105,8 +107,29 @@
       var hh = document.createElement("h3"); hh.className = "shop-cat"; hh.textContent = cat;
       var ul = document.createElement("ul"); ul.className = "shop-list";
       items.forEach(function (id) { ul.appendChild(ingredientRow(id, idx[id])); });
-      elIngr.appendChild(hh); elIngr.appendChild(ul);
+      container.appendChild(hh); container.appendChild(ul);
     });
+  }
+
+  function renderIngredients(sels) {
+    var idx = aggregate(sels);
+    var harHemma = pantryIds();
+    var allIds = Object.keys(idx);
+    var attHandla = allIds.filter(function (id) { return harHemma.indexOf(id) === -1; });
+    var harIds   = allIds.filter(function (id) { return harHemma.indexOf(id) !== -1; });
+
+    renderCategoryGroups(idx, attHandla, elIngr);
+    if (!attHandla.length) elIngr.innerHTML = '<p class="help">Allt som behövs säger du att du redan har hemma – kolla mängderna nedan!</p>';
+
+    if (elHarBlk) {
+      if (harIds.length) {
+        elHarBlk.classList.remove("hidden");
+        renderCategoryGroups(idx, harIds, elHarHemma);
+      } else {
+        elHarBlk.classList.add("hidden");
+        elHarHemma.innerHTML = "";
+      }
+    }
   }
 
   function render() {
@@ -123,11 +146,30 @@
     renderIngredients(sels);
   }
 
+  /* ---------- "vad har du hemma"-väljare (delas med veckomenyn via Pantry) ---------- */
+  function buildFoodPicker() {
+    if (!elFoods) return;
+    elFoods.innerHTML = "";
+    var have = pantryIds();
+    window.RAVAROR.forEach(function (r) {
+      var l = document.createElement("label"); l.className = "chip olive" + (have.indexOf(r.id) !== -1 ? " is-checked" : "");
+      var i = document.createElement("input"); i.type = "checkbox"; i.value = r.id; if (have.indexOf(r.id) !== -1) i.checked = true;
+      i.addEventListener("change", function () { l.classList.toggle("is-checked", i.checked); });
+      l.appendChild(i); l.appendChild(document.createTextNode(r.label));
+      elFoods.appendChild(l);
+    });
+    elFoods.addEventListener("change", function () {
+      if (window.Pantry) window.Pantry.set(Array.prototype.map.call(elFoods.querySelectorAll("input:checked"), function (i) { return i.value; }));
+    });
+  }
+  if (elFoods && window.Pantry) buildFoodPicker();
+
   document.getElementById("inkop-print").addEventListener("click", function () { window.print(); });
   document.getElementById("inkop-clear").addEventListener("click", function () {
     if (confirm("Töm hela inköpslistan?")) window.Cart.clear();
   });
   document.addEventListener("cart:changed", render);
   document.addEventListener("myrecipes:changed", render);
+  document.addEventListener("pantry:changed", function () { render(); /* OBS: bygg inte om pickern (skulle nollställa fokus) – chip-klasserna är redan i synk via change-lyssnaren */ });
   render();
 })();

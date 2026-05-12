@@ -46,9 +46,20 @@
         <p class="help no-print">Ändra antal portioner per recept med − och + – mängderna och inköpslistan räknas om.</p>
         <div class="card-grid" id="inkop-recept"></div>
 
+        <details class="factbox no-print" id="inkop-foods-box">
+          <summary>Vad har du redan hemma? (markerade råvaror flyttas till en egen "kolla mängden"-lista i stället för handlingslistan)</summary>
+          <div class="acc-body"><div class="chips" id="inkop-foods"></div></div>
+        </details>
+
         <h2>Det här behöver du handla</h2>
         <p class="help no-print">Summerat och skalat efter dina portioner. Bocka av medan du handlar (avbockningen sparas inte om du laddar om sidan). "Till: …" visar vilka recept ingrediensen används i.</p>
         <div id="inkop-ingredienser"></div>
+
+        <div id="inkop-harhemma-block" class="hidden">
+          <h2>Det du sa att du har hemma – kolla att mängden räcker</h2>
+          <p class="help no-print">Här ser du hur mycket av varje sak som behövs totalt. Räcker det du har? Annars: bocka av och köp lite till.</p>
+          <div id="inkop-harhemma"></div>
+        </div>
       </div>
     </div>
   </section>
@@ -64,6 +75,7 @@
   <script src="js/ui.js"></script>
   <script src="js/store.js"></script>
   <script src="js/myrecipes.js"></script>
+  <script src="js/pantry.js"></script>
   <script src="js/inkopslista-sida.js"></script>
   <script>window.markNav("inkop");</script>
 </body>
