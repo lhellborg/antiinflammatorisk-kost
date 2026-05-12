@@ -1035,6 +1035,271 @@ window.RECEPT = [
       "Grädda i 150°C ca 1 timme tills knäcket är torrt och fått fin färg. Halvvägs kan du dra bort det övre pappret och bryta upp i bitar så det torkar jämnt.",
       "Låt svalna på galler. Bryt i bitar – håller torrt i burk i flera veckor."
     ]
+  },
+
+  /* ---------- FLER RECEPT UTAN BALJVÄXTER (fisk, fågel, ägg, grönsaker, fullkorn, nötter) ---------- */
+  {
+    id: "aggmuffins-spenat-tomat",
+    namn: "Äggmuffins med spenat och tomat",
+    maltid: ["frukost", "mellanmal", "lunch"],
+    tid: 25,
+    portioner: 3,
+    ingredienser: [
+      { id: "agg",      mangd: 6, enhet: "st" },
+      { id: "spenat",   mangd: 2, enhet: "näve" },
+      { id: "tomat",    mangd: 2, enhet: "st" },
+      { id: "lok",      mangd: 0.5, enhet: "st" },
+      { id: "olivolja", mangd: 1, enhet: "msk" }
+    ],
+    mood: ["efter-traning", "snabbt", "trott", "vill-ata-latt"],
+    allergener: ["agg"],
+    plus: ["spenat", "tomat", "olivolja"],
+    beskrivning: "Små äggmuffins att baka i förväg – bra till frukost eller matlådan, helt utan baljväxter.",
+    steg: [
+      "Hacka spenat, tomat och lök fint, fräs hastigt i olivoljan.",
+      "Vispa äggen löst med salt och peppar, rör i grönsakerna.",
+      "Fördela i 6 oljade muffinsformar och grädda i 180°C ca 18–20 min tills de stannat."
+    ]
+  },
+  {
+    id: "chiapudding-bar-kokos",
+    namn: "Chiapudding med bär och kokos",
+    maltid: ["frukost", "mellanmal"],
+    tid: 5,
+    portioner: 1,
+    ingredienser: [
+      { id: "chiafron",   mangd: 2,   enhet: "msk" },
+      { id: "kokosmjolk", mangd: 1,   enhet: "dl" },
+      { id: "vaxtdryck",  mangd: 1,   enhet: "dl" },
+      { id: "bar",        mangd: 1,   enhet: "dl" },
+      { id: "valnotter",  mangd: 1,   enhet: "msk" },
+      { id: "kanel",      mangd: 1,   enhet: "krm" }
+    ],
+    mood: ["snabbt", "ont-i-magen", "sugen-pa-sott", "dalig-somn"],
+    allergener: ["notter"],
+    plus: ["chiafrön", "bär", "valnötter", "kanel"],
+    beskrivning: "Krämig chiapudding (rör ihop kvällen innan) toppad med bär – mycket fibrer, inga baljväxter.",
+    steg: [
+      "Rör ihop chiafrön, kokosmjölk och växtdryck. Låt stå i kylen minst 2 timmar eller över natten, rör om en gång.",
+      "Toppa med bär, hackade valnötter och en nypa kanel."
+    ]
+  },
+  {
+    id: "kycklingsallad-avokado-apple",
+    namn: "Kycklingsallad med avokado, äpple & valnötter",
+    maltid: ["lunch"],
+    tid: 15,
+    portioner: 2,
+    ingredienser: [
+      { id: "kyckling",  mangd: 250,  enhet: "g" },
+      { id: "spenat",    mangd: 2,    enhet: "näve" },
+      { id: "ruccola",   mangd: 1,    enhet: "näve" },
+      { id: "avokado",   mangd: 1,    enhet: "st" },
+      { id: "apple",     mangd: 1,    enhet: "st" },
+      { id: "valnotter", mangd: 1,    enhet: "dl" },
+      { id: "olivolja",  mangd: 2,    enhet: "msk" },
+      { id: "citron",    mangd: 0.5,  enhet: "st" }
+    ],
+    mood: ["sugen-pa-gront", "vill-ata-latt", "efter-traning", "snabbt"],
+    allergener: ["notter"],
+    plus: ["spenat", "avokado", "äpple", "valnötter", "olivolja"],
+    beskrivning: "Fräsch och mättande sallad utan baljväxter – stekt eller kall kyckling, krispigt äpple och rostade valnötter.",
+    steg: [
+      "Stek kycklingen i lite av olivoljan tills genomstekt (eller använd kall, kokt kyckling). Skär i bitar.",
+      "Lägg spenat och ruccola i en skål, toppa med kyckling, avokado- och äppelklyftor.",
+      "Rosta valnötterna torra, strö över. Ringla resten av olivoljan och pressa citron, salt och peppar."
+    ]
+  },
+  {
+    id: "tomatsoppa-fullkornscrouton",
+    namn: "Tomatsoppa med basilika & fullkornscroutonger",
+    maltid: ["lunch", "middag"],
+    tid: 25,
+    portioner: 4,
+    ingredienser: [
+      { id: "tomat",            mangd: 2,   enhet: "burk" },
+      { id: "lok",              mangd: 1,   enhet: "st" },
+      { id: "vitlok",           mangd: 2,   enhet: "klyfta" },
+      { id: "olivolja",         mangd: 2,   enhet: "msk" },
+      { id: "ragbrod",          mangd: 4,   enhet: "skiva" },
+      { id: "naturell yoghurt", mangd: 1,   enhet: "dl" }
+    ],
+    mood: ["forkyld", "varmt-och-matigt", "ont-i-magen", "vill-ata-latt", "snabbt"],
+    allergener: ["gluten", "mjolk"],
+    plus: ["tomat", "vitlök", "olivolja"],
+    beskrivning: "Snabb krämig tomatsoppa med basilika – toppas med rostade fullkornscroutonger och en klick yoghurt.",
+    steg: [
+      "Fräs hackad lök och vitlök i hälften av olivoljan tills mjukt.",
+      "Tillsätt krossade tomater och lite vatten, sjud 10–15 min. Mixa slät, smaka av med salt, peppar och hackad basilika.",
+      "Tärna rågbrödet, ringla över resten av olivoljan och rosta i ugn 200°C ca 8 min tills krispigt.",
+      "Servera soppan med croutonger och en klick yoghurt."
+    ]
+  },
+  {
+    id: "sotpotatisbat-spenat-agg",
+    namn: "Ugnsbakad sötpotatis med spenat, avokado & ägg",
+    maltid: ["lunch", "middag"],
+    tid: 45,
+    portioner: 2,
+    ingredienser: [
+      { id: "sotpotatis", mangd: 2,   enhet: "st" },
+      { id: "spenat",     mangd: 2,   enhet: "näve" },
+      { id: "avokado",    mangd: 1,   enhet: "st" },
+      { id: "agg",        mangd: 2,   enhet: "st" },
+      { id: "olivolja",   mangd: 2,   enhet: "msk" },
+      { id: "citron",     mangd: 0.5, enhet: "st" }
+    ],
+    mood: ["sugen-pa-gront", "vill-ata-latt", "varmt-och-matigt"],
+    allergener: ["agg"],
+    plus: ["sötpotatis", "spenat", "avokado", "olivolja"],
+    beskrivning: "Hel ugnsbakad sötpotatis fylld med spenat, avokado och ett pocherat eller stekt ägg – mättande och baljväxtfri.",
+    steg: [
+      "Halvera sötpotatisarna på längden, ringla över hälften av olivoljan, salt och peppar. Baka snittytan uppåt i 200°C ca 30–35 min tills mjuka.",
+      "Fräs spenaten hastigt. Stek eller pochera äggen.",
+      "Toppa sötpotatisarna med spenat, avokado i klyftor och ägget. Resten av olivoljan, citron, flingsalt och svartpeppar över."
+    ]
+  },
+  {
+    id: "citronkyckling-rostgronsaker",
+    namn: "Citronkyckling i ugn med rostade rotsaker",
+    maltid: ["middag"],
+    tid: 45,
+    portioner: 4,
+    ingredienser: [
+      { id: "kyckling",  mangd: 600, enhet: "g" },
+      { id: "morot",     mangd: 4,   enhet: "st" },
+      { id: "rodbeta",   mangd: 2,   enhet: "st" },
+      { id: "lok",       mangd: 1,   enhet: "st" },
+      { id: "vitlok",    mangd: 3,   enhet: "klyfta" },
+      { id: "citron",    mangd: 1,   enhet: "st" },
+      { id: "olivolja",  mangd: 3,   enhet: "msk" }
+    ],
+    mood: ["varmt-och-matigt", "vill-bjuda", "efter-traning"],
+    allergener: [],
+    plus: ["morot", "rödbeta", "vitlök", "olivolja"],
+    beskrivning: "En plåt – kycklinglår med citron och vitlök tillsammans med rostade rotsaker. Inga baljväxter, mycket grönsaker.",
+    steg: [
+      "Skär rotsaker och lök i bitar, blanda med 2 msk olivolja, hackad vitlök, salt och peppar på en plåt.",
+      "Lägg kycklingbitarna ovanpå, ringla över resten av olivoljan och pressad citron, lägg dit citronskal.",
+      "Rosta i 200°C ca 35–40 min tills kycklingen är genomstekt och rotsakerna mjuka. Pressa lite extra citron över."
+    ]
+  },
+  {
+    id: "wokad-kyckling-broccoli-ingefara",
+    namn: "Wokad kyckling med broccoli, paprika & ingefära",
+    maltid: ["middag", "lunch"],
+    tid: 20,
+    portioner: 3,
+    ingredienser: [
+      { id: "kyckling",  mangd: 450, enhet: "g" },
+      { id: "broccoli",  mangd: 1,   enhet: "st" },
+      { id: "paprika",   mangd: 1,   enhet: "st" },
+      { id: "lok",       mangd: 1,   enhet: "st" },
+      { id: "vitlok",    mangd: 2,   enhet: "klyfta" },
+      { id: "ingefara",  mangd: 1,   enhet: "msk" },
+      { id: "ris",       mangd: 3,   enhet: "dl" },
+      { id: "olivolja",  mangd: 2,   enhet: "msk" }
+    ],
+    mood: ["varmt-och-matigt", "efter-traning", "forkyld", "snabbt"],
+    allergener: [],
+    plus: ["broccoli", "ingefära", "vitlök"],
+    beskrivning: "Snabb wok med massor av grönsaker, värmande ingefära och fullkornsris – baljväxtfri vardagsmiddag.",
+    steg: [
+      "Koka fullkornsriset. Skär kyckling, broccoli, paprika och lök i bitar.",
+      "Stek kycklingen hastigt på hög värme i hälften av olivoljan, ta upp.",
+      "Fräs lök, vitlök och riven ingefära i resten av oljan, tillsätt broccoli och paprika och woka ett par minuter. Lägg tillbaka kycklingen, smaka av med lite citron eller en skvätt vatten.",
+      "Servera med riset."
+    ]
+  },
+  {
+    id: "spenatfrittata-tomat-valnotter",
+    namn: "Spenatfrittata med tomat & valnötter",
+    maltid: ["middag", "lunch"],
+    tid: 25,
+    portioner: 4,
+    ingredienser: [
+      { id: "agg",       mangd: 8,   enhet: "st" },
+      { id: "spenat",    mangd: 3,   enhet: "näve" },
+      { id: "tomat",     mangd: 3,   enhet: "st" },
+      { id: "lok",       mangd: 1,   enhet: "st" },
+      { id: "valnotter", mangd: 1,   enhet: "dl" },
+      { id: "olivolja",  mangd: 2,   enhet: "msk" }
+    ],
+    mood: ["varmt-och-matigt", "efter-traning", "sugen-pa-gront", "vill-ata-latt"],
+    allergener: ["agg", "notter"],
+    plus: ["spenat", "tomat", "valnötter", "olivolja"],
+    beskrivning: "En matig ugnsfrittata med spenat, tomat och rostade valnötter – billig, baljväxtfri och bra som matlåda dagen efter.",
+    steg: [
+      "Fräs hackad lök och spenat i olivoljan i en ugnssäker panna tills spenaten faller ihop.",
+      "Vispa äggen med salt och peppar, häll i pannan. Lägg på tomatklyftor och hackade valnötter.",
+      "Sätt in i 180°C ca 15–18 min tills frittatan stannat. Servera ljum eller kall, gärna med en grön sallad."
+    ]
+  },
+  {
+    id: "fullkornspasta-broccoli-vitlok-valnotter",
+    namn: "Fullkornspasta med broccoli, vitlök, citron & valnötter",
+    maltid: ["middag", "lunch"],
+    tid: 20,
+    portioner: 3,
+    ingredienser: [
+      { id: "fullkornspasta", mangd: 240, enhet: "g" },
+      { id: "broccoli",       mangd: 1,   enhet: "st" },
+      { id: "vitlok",         mangd: 3,   enhet: "klyfta" },
+      { id: "citron",         mangd: 1,   enhet: "st" },
+      { id: "valnotter",      mangd: 1,   enhet: "dl" },
+      { id: "olivolja",       mangd: 3,   enhet: "msk" }
+    ],
+    mood: ["varmt-och-matigt", "snabbt", "vill-ata-latt", "sugen-pa-gront"],
+    allergener: ["gluten", "notter"],
+    plus: ["broccoli", "vitlök", "valnötter", "olivolja"],
+    beskrivning: "Snabb pasta där broccolin nästan smälter ihop med vitlök, citron och olivolja – rostade valnötter på toppen. Ingen baljväxt.",
+    steg: [
+      "Koka fullkornspastan al dente. Lägg i broccolibuketter de sista 3 minuterna.",
+      "Fräs tunt skivad vitlök i olivoljan på låg värme tills gyllene, dra av plattan och rör i rivet citronskal och citronsaft.",
+      "Vänd pastan och broccolin i vitlöksoljan med en skvätt pastavatten. Smaka av med salt och peppar.",
+      "Rosta valnötterna torra och strö över."
+    ]
+  },
+  {
+    id: "yoghurt-granatapple-pumpafron",
+    namn: "Yoghurt med granatäpple, pumpafrön & kanel",
+    maltid: ["mellanmal", "frukost"],
+    tid: 3,
+    portioner: 1,
+    ingredienser: [
+      { id: "naturell yoghurt", mangd: 2,   enhet: "dl" },
+      { id: "granatapple",      mangd: 0.5, enhet: "st" },
+      { id: "pumpafron",        mangd: 1,   enhet: "msk" },
+      { id: "kanel",            mangd: 1,   enhet: "krm" }
+    ],
+    mood: ["snabbt", "sugen-pa-gront", "ont-i-magen", "sugen-pa-sott"],
+    allergener: ["mjolk"],
+    plus: ["granatäpple", "kanel"],
+    beskrivning: "Det enklaste mellanmålet – yoghurt toppad med granatäpplekärnor, pumpafrön och kanel. Helt baljväxtfritt.",
+    steg: [
+      "Häll upp naturell yoghurt (gärna grekisk eller turkisk).",
+      "Toppa med granatäpplekärnor, pumpafrön och en nypa kanel."
+    ]
+  },
+  {
+    id: "kokta-agg-avokado",
+    namn: "Kokta ägg med avokado & flingsalt",
+    maltid: ["mellanmal", "frukost"],
+    tid: 10,
+    portioner: 1,
+    ingredienser: [
+      { id: "agg",      mangd: 2,    enhet: "st" },
+      { id: "avokado",  mangd: 0.5,  enhet: "st" },
+      { id: "citron",   mangd: 0.25, enhet: "st" }
+    ],
+    mood: ["snabbt", "efter-traning", "trott"],
+    allergener: ["agg"],
+    plus: ["avokado"],
+    beskrivning: "Snabbt och mättande tilltugg eller frukost – kokta ägg med avokado, citron och flingsalt. Inga baljväxter.",
+    steg: [
+      "Koka äggen 6–8 minuter, kyl och skala.",
+      "Halvera, lägg upp med avokado, pressa lite citron och toppa med flingsalt och svartpeppar."
+    ]
   }
 
 ];
