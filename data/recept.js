@@ -1011,6 +1011,30 @@ window.RECEPT = [
       "Rosta i 175°C ca 8–10 min, rör om en gång, tills de doftar.",
       "Servera ljumma."
     ]
+  },
+  {
+    id: "froknacke",
+    namn: "Fröknäcke (glutenfritt, helt på frön)",
+    maltid: ["mellanmal", "frukost"],
+    tid: 75,
+    portioner: 8,
+    ingredienser: [
+      { id: "pumpafron",  mangd: 1,   enhet: "dl" },
+      { id: "solrosfron", mangd: 1,   enhet: "dl" },
+      { id: "linfro",     mangd: 0.5, enhet: "dl" },
+      { id: "chiafron",   mangd: 2,   enhet: "msk" },
+      { id: "olivolja",   mangd: 0.5, enhet: "dl" }
+    ],
+    mood: ["vill-ata-latt", "vill-bjuda"],
+    allergener: [],
+    plus: ["chiafrön", "linfrö", "pumpafrön", "olivolja"],
+    beskrivning: "Knäckebröd helt på frön – inget mjöl, mycket fibrer och bra fetter. Bra att ha hemma till hummus, avokado eller bara så. (Aktiv tid ca 15 min, sen gräddar det sig självt.)",
+    steg: [
+      "Blanda pumpa-, solros-, lin- och chiafrön med ½ tsk salt i en skål. Rör i olivoljan och 2 dl kokande vatten. Låt svälla ca 15 min tills smeten tjocknar.",
+      "Bred ut smeten tunt på en plåt med bakplåtspapper. Lägg gärna ett papper över och kavla ut så jämnt och tunt som möjligt.",
+      "Grädda i 150°C ca 1 timme tills knäcket är torrt och fått fin färg. Halvvägs kan du dra bort det övre pappret och bryta upp i bitar så det torkar jämnt.",
+      "Låt svalna på galler. Bryt i bitar – håller torrt i burk i flera veckor."
+    ]
   }
 
 ];

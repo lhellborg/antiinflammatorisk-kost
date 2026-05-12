@@ -88,7 +88,8 @@ window.RAVAROR = [
   { id: "fankal",         label: "Fänkål" },
   { id: "rakor",          label: "Räkor" },
   { id: "knackebrod",     label: "Rågknäcke / knäckebröd" },
-  { id: "dadlar",         label: "Dadlar" }
+  { id: "dadlar",         label: "Dadlar" },
+  { id: "solrosfron",     label: "Solrosfrön" }
 ];
 
 window.ALLERGENER = [
@@ -107,7 +108,7 @@ window.KATEGORIER = [
   { namn: "Kött & fisk",   ids: ["kyckling","lax","sardiner","rakor"] },
   { namn: "Mejeri & ägg",  ids: ["agg","naturell yoghurt","kefir","vaxtdryck"] },
   { namn: "Bröd",          ids: ["ragbrod","tortilla","knackebrod"] },
-  { namn: "Skafferi",      ids: ["havregryn","linser","kikartor","quinoa","ris","fullkorn","fullkornspasta","valnotter","mandel","chiafron","linfro","olivolja","gurkmeja","kanel","tofu","tahini","pumpafron","kokosmjolk","proteinpulver","morkchoklad","dadlar"] }
+  { namn: "Skafferi",      ids: ["havregryn","linser","kikartor","quinoa","ris","fullkorn","fullkornspasta","valnotter","mandel","chiafron","linfro","olivolja","gurkmeja","kanel","tofu","tahini","pumpafron","solrosfron","kokosmjolk","proteinpulver","morkchoklad","dadlar"] }
 ];
 
 window.categoryFor = function (id) {
