@@ -64,7 +64,7 @@ window.RECEPT = [
   {
     id: "gron-smoothie",
     namn: "Grön smoothie med spenat och banan",
-    maltid: ["frukost", "mellanmal"],
+    maltid: ["smoothies", "frukost", "mellanmal"],
     tid: 5,
     portioner: 1,
     ingredienser: [
@@ -467,7 +467,7 @@ window.RECEPT = [
   {
     id: "protein-smoothie-blabar",
     namn: "Proteinsmoothie med blåbär, mandel och frön",
-    maltid: ["frukost", "mellanmal"],
+    maltid: ["smoothies", "frukost", "mellanmal"],
     tid: 5,
     portioner: 1,
     ingredienser: [
@@ -1299,6 +1299,151 @@ window.RECEPT = [
     steg: [
       "Koka äggen 6–8 minuter, kyl och skala.",
       "Halvera, lägg upp med avokado, pressa lite citron och toppa med flingsalt och svartpeppar."
+    ]
+  },
+
+  /* ---------- SMOOTHIES (egen kategori – en för varje veckodag och lite till) ---------- */
+  {
+    id: "gyllene-smoothie-gurkmeja-ingefara",
+    namn: "Gyllene smoothie med gurkmeja, ingefära & banan",
+    maltid: ["smoothies", "frukost", "mellanmal"],
+    tid: 5,
+    portioner: 1,
+    ingredienser: [
+      { id: "vaxtdryck", mangd: 2.5, enhet: "dl" },
+      { id: "banan",     mangd: 1,   enhet: "st" },
+      { id: "ingefara",  mangd: 1,   enhet: "tsk" },
+      { id: "gurkmeja",  mangd: 0.5, enhet: "tsk" },
+      { id: "kanel",     mangd: 1,   enhet: "krm" },
+      { id: "chiafron",  mangd: 1,   enhet: "msk" },
+      { id: "mandel",    mangd: 1,   enhet: "msk" }
+    ],
+    mood: ["forkyld", "ont-i-magen", "snabbt", "dalig-somn"],
+    allergener: ["notter"],
+    plus: ["banan", "ingefära", "gurkmeja", "kanel", "chiafrön", "mandel"],
+    beskrivning: "Värmande smoothie i gula toner – som en flytande golden milk. Glöm inte en nypa svartpeppar som gör gurkmejan mer tillgänglig.",
+    steg: [
+      "Lägg banan, växtdryck, gurkmeja, riven ingefära, kanel, en nypa svartpeppar, chiafrön och mandel (eller 1 tsk mandelsmör) i en mixer.",
+      "Mixa slätt. Smaka av – mer gurkmeja för djupare färg, mer ingefära för mer värme."
+    ]
+  },
+  {
+    id: "avokado-gronkalssmoothie",
+    namn: "Avokado- och grönkålssmoothie med banan & citron",
+    maltid: ["smoothies", "frukost", "mellanmal"],
+    tid: 5,
+    portioner: 1,
+    ingredienser: [
+      { id: "gronkal",   mangd: 1,    enhet: "näve" },
+      { id: "spenat",    mangd: 1,    enhet: "näve" },
+      { id: "avokado",   mangd: 0.5,  enhet: "st" },
+      { id: "banan",     mangd: 1,    enhet: "st" },
+      { id: "vaxtdryck", mangd: 2,    enhet: "dl" },
+      { id: "chiafron",  mangd: 1,    enhet: "msk" },
+      { id: "citron",    mangd: 0.5,  enhet: "st" }
+    ],
+    mood: ["sugen-pa-gront", "vill-ata-latt", "efter-traning", "snabbt"],
+    allergener: [],
+    plus: ["grönkål", "spenat", "avokado", "chiafrön"],
+    beskrivning: "Krämig grön smoothie med rejält bladgrönt – avokado och banan gör den sammetslen.",
+    steg: [
+      "Skölj grönkålen, dra bort grova nerver.",
+      "Mixa grönkål, spenat, avokado, banan, växtdryck, chiafrön och saften av en halv citron slätt.",
+      "Tillsätt mer växtdryck eller en isbit om du vill ha den tunnare/kallare."
+    ]
+  },
+  {
+    id: "bar-rodbetssmoothie",
+    namn: "Bär- och rödbetssmoothie med ingefära",
+    maltid: ["smoothies", "frukost", "mellanmal"],
+    tid: 5,
+    portioner: 1,
+    ingredienser: [
+      { id: "bar",       mangd: 1.5,  enhet: "dl" },
+      { id: "rodbeta",   mangd: 1,    enhet: "st" },
+      { id: "banan",     mangd: 1,    enhet: "st" },
+      { id: "vaxtdryck", mangd: 2,    enhet: "dl" },
+      { id: "chiafron",  mangd: 1,    enhet: "msk" },
+      { id: "ingefara",  mangd: 1,    enhet: "tsk" },
+      { id: "citron",    mangd: 0.25, enhet: "st" }
+    ],
+    mood: ["forkyld", "trott", "sugen-pa-sott", "efter-traning"],
+    allergener: [],
+    plus: ["bär", "rödbeta", "ingefära", "chiafrön"],
+    beskrivning: "Klarröd smoothie där kokt rödbeta möter bär och en touch ingefära – mycket antioxidanter, mild jordig sötma.",
+    steg: [
+      "Använd en färdigkokt (eller vakuumförpackad) rödbeta. Skär i bitar.",
+      "Mixa rödbeta, bär, banan, växtdryck, riven ingefära, chiafrön och citron slätt."
+    ]
+  },
+  {
+    id: "choklad-banansmoothie-mandel",
+    namn: "Choklad- och banansmoothie med mandel",
+    maltid: ["smoothies", "frukost", "mellanmal"],
+    tid: 5,
+    portioner: 1,
+    ingredienser: [
+      { id: "vaxtdryck",   mangd: 2.5, enhet: "dl" },
+      { id: "banan",       mangd: 1,   enhet: "st" },
+      { id: "morkchoklad", mangd: 10,  enhet: "g" },
+      { id: "mandel",      mangd: 2,   enhet: "msk" },
+      { id: "chiafron",    mangd: 1,   enhet: "msk" },
+      { id: "kanel",       mangd: 1,   enhet: "krm" }
+    ],
+    mood: ["sugen-pa-sott", "snabbt", "vill-bjuda", "efter-traning"],
+    allergener: ["notter"],
+    plus: ["banan", "mandel", "kanel"],
+    beskrivning: "Krämig chokladsmoothie utan tillsatt socker – sötman kommer från bananen och en bit mörk choklad.",
+    steg: [
+      "Riv eller smält chokladen (eller använd 1 msk osötat kakao om du har).",
+      "Mixa växtdryck, banan, choklad, mandel (eller mandelsmör), chiafrön och kanel slätt.",
+      "Smaka av – en extra nypa kanel eller en dadel kan lyfta den."
+    ]
+  },
+  {
+    id: "granatapple-bar-kefirsmoothie",
+    namn: "Granatäpple- och bärsmoothie med kefir",
+    maltid: ["smoothies", "frukost", "mellanmal"],
+    tid: 5,
+    portioner: 1,
+    ingredienser: [
+      { id: "kefir",       mangd: 2,    enhet: "dl" },
+      { id: "bar",         mangd: 1.5,  enhet: "dl" },
+      { id: "granatapple", mangd: 0.5,  enhet: "st" },
+      { id: "banan",       mangd: 0.5,  enhet: "st" },
+      { id: "chiafron",    mangd: 1,    enhet: "tsk" },
+      { id: "ingefara",    mangd: 0.5,  enhet: "tsk" }
+    ],
+    mood: ["snabbt", "ont-i-magen", "sugen-pa-sott", "sugen-pa-gront"],
+    allergener: ["mjolk"],
+    plus: ["bär", "granatäpple", "kefir"],
+    beskrivning: "Probiotisk smoothie där kefir möter granatäpple och bär – mild syrlighet, snäll mot magen.",
+    steg: [
+      "Mixa kefir, bär, granatäpplekärnor, banan, chiafrön och riven ingefära tills slät.",
+      "Häll upp och toppa gärna med extra granatäpple."
+    ]
+  },
+  {
+    id: "havre-mandelsmoothie-banan-kanel",
+    namn: "Havre- och mandelsmoothie med banan & kanel",
+    maltid: ["smoothies", "frukost", "mellanmal"],
+    tid: 5,
+    portioner: 1,
+    ingredienser: [
+      { id: "vaxtdryck", mangd: 2.5, enhet: "dl" },
+      { id: "banan",     mangd: 1,   enhet: "st" },
+      { id: "havregryn", mangd: 1,   enhet: "msk" },
+      { id: "mandel",    mangd: 1,   enhet: "msk" },
+      { id: "chiafron",  mangd: 1,   enhet: "msk" },
+      { id: "kanel",     mangd: 1,   enhet: "krm" }
+    ],
+    mood: ["trott", "ont-i-magen", "dalig-somn", "snabbt"],
+    allergener: ["gluten", "notter"],
+    plus: ["banan", "havre", "mandel", "kanel", "chiafrön"],
+    beskrivning: "Mättande frukostsmoothie – havren och mandeln gör att den håller lite längre än en vanlig smoothie.",
+    steg: [
+      "Mixa växtdryck, banan, havregryn, mandel (eller mandelsmör), chiafrön och kanel slätt.",
+      "Låt stå en minut – chiafröna sväller och konsistensen blir krämigare."
     ]
   }
 

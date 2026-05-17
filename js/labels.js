@@ -5,6 +5,7 @@
 // Måltider i den ordning de ska visas
 window.MALTIDER = [
   { id: "frukost",  label: "Frukost"  },
+  { id: "smoothies",label: "Smoothies"},
   { id: "lunch",    label: "Lunch"    },
   { id: "middag",   label: "Middag"   },
   { id: "mellanmal",label: "Mellanmål"},

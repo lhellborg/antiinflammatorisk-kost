@@ -26,7 +26,7 @@
   var elStapleNotice = document.getElementById("vm-staple-notice");
   if (!elGrid) return;
 
-  var MEAL_ORDER = ["frukost", "lunch", "middag", "mellanmal"];
+  var MEAL_ORDER = ["frukost", "smoothies", "lunch", "middag", "mellanmal"];
 
   /* ---------- inställnings-UI ---------- */
   function checkChip(container, value, label, olive, checked) {
@@ -125,7 +125,7 @@
   function poolFor(meal, exclude) {
     return window.allRecipes().filter(function (r) { return (r.maltid || []).indexOf(meal) !== -1 && allowed(r, exclude); });
   }
-  function maxUses(meal) { return meal === "frukost" ? 3 : (meal === "mellanmal" ? 4 : 1); }
+  function maxUses(meal) { return meal === "frukost" ? 3 : (meal === "mellanmal" ? 4 : 1); /* smoothies/lunch/middag = 1 = unik per vecka */ }
 
   /* ---------- generator ---------- */
   function generate(s, keepPinnedFrom) {
@@ -195,7 +195,7 @@
     }
     // 2) övriga måltider (frukost, lunch, mellanmål) – hoppa över rutor som redan
     //    fyllts av en rester-lunch ovan
-    ["frukost", "lunch", "mellanmal"].forEach(function (meal) {
+    ["frukost", "smoothies", "lunch", "mellanmal"].forEach(function (meal) {
       if (s.meals.indexOf(meal) === -1) return;
       for (var d3 = 0; d3 < 7; d3++) {
         var k3 = d3 + "-" + meal;
