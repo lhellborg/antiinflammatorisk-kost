@@ -144,6 +144,24 @@ listorna i `js/labels.js`. Lägger du till en ny råvara: ta gärna med den i
 rätt grupp i `KATEGORIER` (samma fil) så hamnar den under rätt rubrik i
 inköpslistan.
 
+## Köra testerna
+
+```bash
+node test.js
+```
+
+Kör datavalidering (unika recept-id, alla ingredienser i `RAVAROR`,
+kategoriserade, giltiga måltider/moods/allergener), hjälpfunktioner
+(`scaleAmount`, `formatAmount`, `combineAmounts`, `matchRavara` m.fl.),
+stapelvaru-flaggning (`stapleFlags` / `recipeStapleHeavy`) och alla
+fyra storerna (`Cart`, `MyRecipes`, `WeekPlan` inkl. att
+`setSlotRecipeFromEdit` följer rester-relationen, `Pantry`). UI-flöden
+(modaler, knappar, formulär) testas inte – kör dem manuellt på sidan.
+
+Lägger du till ett nytt recept, en ny mood eller en ny råvara: kör
+`node test.js` så fångar testerna typiska misstag (saknad kategori,
+felstavat mood, ingrediens-id som inte finns i `RAVAROR` osv.).
+
 ## Titta på sidan lokalt
 
 Dubbelklicka på `index.html` så öppnas den i webbläsaren. (Det fungerar eftersom
