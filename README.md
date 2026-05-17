@@ -62,6 +62,15 @@ en egen sektion – "Det du sa att du har hemma – kolla att mängden räcker" 
 den totala mängd som behövs, så man ser om man behöver köpa mer. (Markeringen
 görs på veckomenyn; inköpslistan visar bara resultatet.)
 
+Varje rätt i veckomenyn har också:
+- **Receptnamnet som länk** – klick öppnar "Förbättra ett recept" med rätt
+  parametrar (`?from=…&slot=…` eller `?edit=…&slot=…`). När du sparar sparas
+  receptet i din receptbok OCH rutan i veckomenyn pekas om till det. Inbyggda
+  recept ändras aldrig – det blir alltid en egen version. `WeekPlan.setSlotRecipeFromEdit`
+  i `js/weekplan.js` håller eventuella rester-rutor i synk.
+- **"Välj …"-knapp** – öppnar en dialog där du själv kan välja vilken rätt
+  som ska in i rutan (söker i alla recept som passar måltiden + dina allergenfilter).
+
 ### Festmåltid
 
 `festmaltid.html` låter besökaren välja förrätt, huvudrätt och/eller efterrätt

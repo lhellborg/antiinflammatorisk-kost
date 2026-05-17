@@ -272,7 +272,12 @@
       rb0.addEventListener("click", function () { rerollSlot(plan, dayIdx, meal); save(); render(); }); box.appendChild(rb0);
       return box;
     }
-    var nm = document.createElement("div"); nm.className = "meal-name"; nm.textContent = r.namn; box.appendChild(nm);
+    // klickbart receptnamn -> öppnar "Förbättra ett recept" med slot-kontext
+    var nm = document.createElement("a"); nm.className = "meal-name meal-link";
+    nm.href = "forbattra.html?" + (r.egen ? "edit=" : "from=") + encodeURIComponent(r.id) + "&slot=" + encodeURIComponent(key);
+    nm.textContent = r.namn;
+    nm.title = "Öppna receptet (gå till Förbättra ett recept – ändringar sparas både som ditt recept och i rutan här)";
+    box.appendChild(nm);
     var meta = document.createElement("div"); meta.className = "meta";
     if (r.tid) meta.appendChild(tag("≈ " + r.tid + " min", "time"));
     if (r.egen) meta.appendChild(tag("Eget recept", "own"));
@@ -287,12 +292,97 @@
     }
     var actions = document.createElement("div"); actions.className = "btn-row slot-actions no-print";
     var rb = document.createElement("button"); rb.type = "button"; rb.className = "btn btn-ghost"; rb.textContent = "Byt ut";
-    rb.addEventListener("click", function () { rerollSlot(plan, dayIdx, meal); save(); render(); });
+    rb.title = "Slumpa fram en annan rätt"; rb.addEventListener("click", function () { rerollSlot(plan, dayIdx, meal); save(); render(); });
+    var pickB = document.createElement("button"); pickB.type = "button"; pickB.className = "btn btn-ghost"; pickB.textContent = "Välj …";
+    pickB.title = "Välj själv vilken rätt som ska in i den här rutan"; pickB.addEventListener("click", function () { openPicker(dayIdx, meal); });
     var pin = document.createElement("button"); pin.type = "button"; pin.className = "btn btn-ghost"; pin.textContent = sl.pinned ? "🔒 Låst" : "Lås";
     pin.addEventListener("click", function () { sl.pinned = !sl.pinned; save(); render(); });
-    actions.appendChild(rb); actions.appendChild(pin);
+    actions.appendChild(rb); actions.appendChild(pickB); actions.appendChild(pin);
     box.appendChild(actions);
     return box;
+  }
+
+  /* ---------- "Välj själv"-modal ---------- */
+  var pickContext = null;
+  var elPickModal  = document.getElementById("vm-pick-modal");
+  var elPickTitle  = document.getElementById("vm-pick-title");
+  var elPickSearch = document.getElementById("vm-pick-search");
+  var elPickList   = document.getElementById("vm-pick-list");
+  var elPickClose  = document.getElementById("vm-pick-close");
+
+  function openPicker(dayIdx, meal) {
+    if (!elPickModal || !plan) return;
+    pickContext = { dayIdx: dayIdx, meal: meal, key: dayIdx + "-" + meal };
+    elPickTitle.textContent = "Välj " + window.labelFor(window.MALTIDER, meal).toLowerCase() + " till " + DAGAR[dayIdx];
+    elPickSearch.value = "";
+    renderPickList("");
+    elPickModal.classList.remove("hidden");
+    setTimeout(function () { elPickSearch.focus(); }, 0);
+  }
+  function closePicker() { if (!elPickModal) return; elPickModal.classList.add("hidden"); pickContext = null; }
+
+  function renderPickList(filter) {
+    if (!plan || !pickContext) return;
+    elPickList.innerHTML = "";
+    var pool = poolFor(pickContext.meal, plan.exclude || []);
+    var f = String(filter || "").toLowerCase().trim();
+    if (f) pool = pool.filter(function (r) { return r.namn.toLowerCase().indexOf(f) !== -1; });
+    // använd-redan-info
+    var used = {};
+    Object.keys(plan.slots).forEach(function (k) {
+      var s = plan.slots[k]; if (!s) return;
+      (used[s.recipeId] = used[s.recipeId] || []).push(k);
+    });
+    if (!pool.length) {
+      var empty = document.createElement("li"); empty.className = "help";
+      empty.style.padding = "1rem 1.2rem";
+      empty.textContent = f ? "Inga recept matchade sökningen." : "Inga recept passar – lätta på allergenfiltret i inställningarna.";
+      elPickList.appendChild(empty);
+      return;
+    }
+    pool.sort(function (a, b) { return a.namn.localeCompare(b.namn, "sv"); });
+    pool.forEach(function (r) {
+      var li = document.createElement("li");
+      var btn = document.createElement("button"); btn.type = "button"; btn.className = "pick-item";
+      var nm = document.createElement("div"); nm.className = "pick-name"; nm.textContent = r.namn; btn.appendChild(nm);
+      var meta = document.createElement("div"); meta.className = "meta";
+      if (r.tid) meta.appendChild(tag("≈ " + r.tid + " min", "time"));
+      if (r.egen) meta.appendChild(tag("Eget recept", "own"));
+      (r.maltid || []).filter(function (m) { return m !== pickContext.meal; }).forEach(function (m) { meta.appendChild(tag(window.labelFor(window.MALTIDER, m), "meal")); });
+      btn.appendChild(meta);
+      var usage = (used[r.id] || []).filter(function (k) { return k !== pickContext.key; });
+      if (usage.length) {
+        var u = document.createElement("div"); u.className = "pick-usage";
+        u.textContent = "används redan på " + usage.map(function (k) { var parts = k.split("-"); return DAGAR[parseInt(parts[0], 10)].toLowerCase() + " (" + window.labelFor(window.MALTIDER, parts[1]).toLowerCase() + ")"; }).join(", ");
+        btn.appendChild(u);
+      }
+      btn.addEventListener("click", function () { pickForSlot(pickContext.dayIdx, pickContext.meal, r.id); closePicker(); });
+      li.appendChild(btn); elPickList.appendChild(li);
+    });
+  }
+
+  // Sätter rutan till ett specifikt recept (samma rester-städning som rerollSlot)
+  function pickForSlot(dayIdx, meal, recipeId) {
+    var pick = window.recipeById(recipeId); if (!pick) return;
+    var key = dayIdx + "-" + meal;
+    Object.keys(plan.slots).forEach(function (k) {
+      var sl = plan.slots[k];
+      if (sl && sl.leftoverFrom === key && !sl.pinned) delete plan.slots[k];
+    });
+    plan.slots[key] = { recipeId: pick.id, pinned: false, leftoverFrom: null };
+    if (meal === "middag" && plan.rester && plan.meals.indexOf("lunch") !== -1 && dayIdx < 6) {
+      var lk = (dayIdx + 1) + "-lunch";
+      var lex = plan.slots[lk];
+      if (!lex && canMakeLeftovers(pick, plan.personer)) plan.slots[lk] = { recipeId: pick.id, pinned: false, leftoverFrom: key };
+    }
+    save(); render();
+  }
+
+  if (elPickModal) {
+    elPickClose.addEventListener("click", closePicker);
+    elPickModal.addEventListener("click", function (e) { if (e.target === elPickModal) closePicker(); });
+    elPickSearch.addEventListener("input", function () { renderPickList(elPickSearch.value); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !elPickModal.classList.contains("hidden")) closePicker(); });
   }
 
   function render() {

@@ -36,6 +36,7 @@
   var rows = [];          // [{mangd:Number|null, enhet, namn, _wrap, _namnInput, _mangdInput, _enhetSel, _swapped}]
   var editId = null;      // sätts om vi redigerar ett befintligt eget recept
   var baseradPa = null;   // recept-id om detta är en "egen version av" ett annat recept
+  var weekSlot = null;    // <dagindex>-<måltid> om vi kom hit från en veckomeny-ruta
   var fromName = null;    // originalreceptets namn (för beskrivningstexten)
   var baseMood = [];      // mood-taggar som ärvs från originalet
 
@@ -494,16 +495,25 @@
     var r = buildRecipeObject();
     window.MyRecipes.add(r);
     editId = r.id; // fortsatt sparande uppdaterar samma recept
+    if (weekSlot && window.WeekPlan && window.WeekPlan.setSlotRecipeFromEdit) {
+      window.WeekPlan.setSlotRecipeFromEdit(weekSlot, r.id);
+    }
     return r;
   }
   function showSaved(r) {
     elSparad.innerHTML = "";
     var h = document.createElement("h3"); h.textContent = "✓ Sparat: " + r.namn; elSparad.appendChild(h);
     var p = document.createElement("p");
-    p.textContent = "Receptet finns nu under Recept (märkt “Eget recept”). Du kan filtrera fram det, ändra antal portioner och lägga det i inköpslistan.";
+    p.textContent = weekSlot
+      ? "Receptet finns nu under Recept (märkt “Eget recept”), och rutan i veckomenyn pekar nu på det här receptet i stället."
+      : "Receptet finns nu under Recept (märkt “Eget recept”). Du kan filtrera fram det, ändra antal portioner och lägga det i inköpslistan.";
     elSparad.appendChild(p);
     var row = document.createElement("div"); row.className = "btn-row";
     var a1 = document.createElement("a"); a1.href = "recept.html"; a1.className = "btn btn-primary"; a1.textContent = "Visa i receptlistan"; row.appendChild(a1);
+    if (weekSlot) {
+      var avm = document.createElement("a"); avm.href = "veckomeny.html"; avm.className = "btn btn-secondary"; avm.textContent = "Tillbaka till veckomenyn";
+      row.appendChild(avm);
+    }
     var b2 = document.createElement("button"); b2.type = "button"; b2.className = "btn btn-secondary"; b2.textContent = "Lägg i inköpslistan";
     b2.addEventListener("click", function () { window.Cart.add(r.id, r.portioner); b2.textContent = "✓ Tillagd"; b2.disabled = true; });
     row.appendChild(b2);
@@ -612,5 +622,20 @@
       seedEmpty(3);
     }
     lastPortioner = stepper.getValue();
+
+    // slot-kontext: rätten kom från en ruta i veckomenyn
+    var slotParam = params.get("slot");
+    if (slotParam && /^\d+-\w+$/.test(slotParam)) {
+      weekSlot = slotParam;
+      var parts = slotParam.split("-");
+      var di = parseInt(parts[0], 10), me = parts[1];
+      var DAGAR = ["Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"];
+      var mealLabel = window.labelFor(window.MALTIDER, me);
+      var note = document.getElementById("fb-slot-note");
+      if (note) {
+        note.innerHTML = "🗓️ <strong>Du redigerar en rätt från veckomenyn</strong> – " + (DAGAR[di] || "?") + ", " + mealLabel.toLowerCase() + ". När du sparar uppdateras både dina recept och rutan i veckomenyn.";
+        note.classList.remove("hidden");
+      }
+    }
   })();
 })();

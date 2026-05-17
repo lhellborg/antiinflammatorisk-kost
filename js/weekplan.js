@@ -30,9 +30,25 @@ window.WeekPlan = (function () {
     try { localStorage.setItem(KEY, JSON.stringify(o)); } catch (e) {}
     document.dispatchEvent(new CustomEvent("weekplan:changed", { detail: o }));
   }
+  // Uppdaterar en slots recept till newId. Om slotten är en rester-ruta
+  // (eller har rester-rutor som pekar på sig) följer alla relaterade rutor
+  // med – samma recept tillagas ju en gång och äts på flera ställen.
+  function setSlotRecipeFromEdit(slotKey, newId) {
+    var p = read(); if (!p || !p.slots) return;
+    var sl = p.slots[slotKey]; if (!sl) return;
+    var anchor = sl.leftoverFrom || slotKey;
+    if (!p.slots[anchor]) anchor = slotKey;
+    Object.keys(p.slots).forEach(function (k) {
+      var s = p.slots[k];
+      if (s && (k === anchor || s.leftoverFrom === anchor)) s.recipeId = newId;
+    });
+    write(p);
+  }
+
   return {
     get: read,
     set: write,
+    setSlotRecipeFromEdit: setSlotRecipeFromEdit,
     clear: function () { try { localStorage.removeItem(KEY); } catch (e) {} document.dispatchEvent(new CustomEvent("weekplan:changed", { detail: null })); }
   };
 })();

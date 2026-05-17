@@ -88,6 +88,21 @@
     </div>
   </section>
 
+  <div class="modal-backdrop hidden" id="vm-pick-modal" aria-modal="true" role="dialog">
+    <div class="modal">
+      <div class="modal-head">
+        <h3 id="vm-pick-title">Välj rätt</h3>
+        <button type="button" class="modal-close" id="vm-pick-close" aria-label="Stäng">×</button>
+      </div>
+      <div class="modal-search">
+        <input type="text" id="vm-pick-search" placeholder="Sök i receptnamn …" autocomplete="off">
+      </div>
+      <div class="modal-body">
+        <ul id="vm-pick-list" class="pick-list"></ul>
+      </div>
+    </div>
+  </div>
+
   <footer class="site-footer">
     <div class="wrap">
       <p>Antiinflammatorisk kost – tips på frukost, lunch, middag och mellanmål.</p>
