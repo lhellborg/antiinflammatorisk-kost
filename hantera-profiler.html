@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hantera profiler – Antiinflammatorisk kost</title>
+  <meta name="description" content="Hantera profiler – byt namn, färg, PIN, exportera eller ta bort.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html"><span class="leaf">🌿</span> Antiinflammatorisk kost</a>
+      <nav class="site-nav">
+        <a data-page="hem" href="index.html">Hem</a>
+        <a data-page="recept" href="recept.html">Recept</a>
+        <a data-page="veckomeny" href="veckomeny.html">Veckomeny</a>
+        <a data-page="om" href="om-kosten.html">Om kosten</a>
+        <a data-page="inkop" href="inkopslista.html">Inköpslista<span data-cart-badge></span></a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <h1>Hantera profiler</h1>
+      <p class="lead">Profiler håller isär flera personers data i den här webbläsaren – varje profil har sin egen kundvagn, veckomeny, "har hemma"-lista och egna recept. Recepten i katalogen är samma för alla profiler.</p>
+      <p class="help"><strong>Obs:</strong> profiler är inte en säkerhetsspärr – den som har tillgång till enheten kan byta profil (även med PIN, som bara skyddar mot oavsiktliga byten). Vill du ha riktigt privata sessioner mellan olika personer – använd olika webbläsarprofiler eller olika enheter.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div id="profile-list"></div>
+
+      <div class="btn-row">
+        <button type="button" class="btn btn-primary" id="add-profile">+ Lägg till profil</button>
+        <button type="button" class="btn btn-ghost" id="import-profile">Importera profil från fil …</button>
+        <input type="file" id="import-file" accept=".json,application/json" style="display:none">
+      </div>
+
+      <p class="help" style="margin-top:1.4rem;">
+        <strong>Tips:</strong> "Exportera" sparar profilens data som en JSON-fil. Använd "Importera profil från fil" för att flytta över din profil till en annan dator/telefon eller säkerhetskopiera den.
+      </p>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>Antiinflammatorisk kost – profiler sparas bara i den här webbläsaren.</p>
+    </div>
+  </footer>
+
+  <script src="js/profiles.js"></script>
+  <script src="js/labels.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/myrecipes.js"></script>
+  <script src="js/weekplan.js"></script>
+  <script src="js/pantry.js"></script>
+  <script src="js/hantera-profiler.js"></script>
+  <script src="js/profiles-ui.js"></script>
+  <script>window.markNav && window.markNav("hem");</script>
+</body>
+</html>

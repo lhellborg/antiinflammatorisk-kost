@@ -21,13 +21,13 @@
 window.VECKODAGAR = ["Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"];
 
 window.WeekPlan = (function () {
-  var KEY = "aik_veckomeny_v1";
+  function KEY() { return window.nsKey ? window.nsKey("aik_veckomeny_v1") : "aik_veckomeny_v1"; }
   function read() {
-    try { var o = JSON.parse(localStorage.getItem(KEY) || "null"); return (o && typeof o === "object" && o.slots) ? o : null; }
+    try { var o = JSON.parse(localStorage.getItem(KEY()) || "null"); return (o && typeof o === "object" && o.slots) ? o : null; }
     catch (e) { return null; }
   }
   function write(o) {
-    try { localStorage.setItem(KEY, JSON.stringify(o)); } catch (e) {}
+    try { localStorage.setItem(KEY(), JSON.stringify(o)); } catch (e) {}
     document.dispatchEvent(new CustomEvent("weekplan:changed", { detail: o }));
   }
   // Uppdaterar en slots recept till newId. Om slotten är en rester-ruta
@@ -49,6 +49,6 @@ window.WeekPlan = (function () {
     get: read,
     set: write,
     setSlotRecipeFromEdit: setSlotRecipeFromEdit,
-    clear: function () { try { localStorage.removeItem(KEY); } catch (e) {} document.dispatchEvent(new CustomEvent("weekplan:changed", { detail: null })); }
+    clear: function () { try { localStorage.removeItem(KEY()); } catch (e) {} document.dispatchEvent(new CustomEvent("weekplan:changed", { detail: null })); }
   };
 })();

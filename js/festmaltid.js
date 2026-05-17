@@ -10,7 +10,7 @@
     { id: "huvudratt", label: "Huvudrätt", maltid: "middag" },
     { id: "efterratt", label: "Efterrätt", maltid: "efterratt" }
   ];
-  var KEY = "aik_festmeny_v1";
+  function KEY() { return window.nsKey ? window.nsKey("aik_festmeny_v1") : "aik_festmeny_v1"; }
 
   var elCourses   = document.getElementById("fm-courses");
   var elPresetAll = document.getElementById("fm-preset-all");
@@ -68,8 +68,8 @@
 
   /* ---------- state ---------- */
   var state = null; // { courses:[...], personer:n, exclude:[...], menu:{ <courseId>: recipeId } }
-  function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
-  function load() { try { var o = JSON.parse(localStorage.getItem(KEY) || "null"); return (o && o.menu) ? o : null; } catch (e) { return null; } }
+  function save() { try { localStorage.setItem(KEY(), JSON.stringify(state)); } catch (e) {} }
+  function load() { try { var o = JSON.parse(localStorage.getItem(KEY()) || "null"); return (o && o.menu) ? o : null; } catch (e) { return null; } }
 
   function generate() {
     var courses = checkedCourses(); if (!courses.length) courses = ["huvudratt"];

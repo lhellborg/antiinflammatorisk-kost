@@ -6,16 +6,16 @@
    ============================================================ */
 
 window.MyRecipes = (function () {
-  var KEY = "aik_egna_recept_v1";
+  function KEY() { return window.nsKey ? window.nsKey("aik_egna_recept_v1") : "aik_egna_recept_v1"; }
 
   function read() {
     try {
-      var a = JSON.parse(localStorage.getItem(KEY) || "[]");
+      var a = JSON.parse(localStorage.getItem(KEY()) || "[]");
       return Array.isArray(a) ? a : [];
     } catch (e) { return []; }
   }
   function write(a) {
-    try { localStorage.setItem(KEY, JSON.stringify(a)); } catch (e) {}
+    try { localStorage.setItem(KEY(), JSON.stringify(a)); } catch (e) {}
     document.dispatchEvent(new CustomEvent("myrecipes:changed", { detail: { recept: a.slice() } }));
   }
   function idxOf(a, id) { for (var i = 0; i < a.length; i++) if (a[i].id === id) return i; return -1; }

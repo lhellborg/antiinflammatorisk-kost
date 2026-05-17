@@ -6,13 +6,13 @@
    ============================================================ */
 
 window.Pantry = (function () {
-  var KEY = "aik_har_hemma_v1";
+  function KEY() { return window.nsKey ? window.nsKey("aik_har_hemma_v1") : "aik_har_hemma_v1"; }
   function read() {
-    try { var a = JSON.parse(localStorage.getItem(KEY) || "[]"); return Array.isArray(a) ? a : []; }
+    try { var a = JSON.parse(localStorage.getItem(KEY()) || "[]"); return Array.isArray(a) ? a : []; }
     catch (e) { return []; }
   }
   function write(a) {
-    try { localStorage.setItem(KEY, JSON.stringify(a)); } catch (e) {}
+    try { localStorage.setItem(KEY(), JSON.stringify(a)); } catch (e) {}
     document.dispatchEvent(new CustomEvent("pantry:changed", { detail: { ids: a.slice() } }));
   }
   return {

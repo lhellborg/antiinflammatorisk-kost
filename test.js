@@ -24,6 +24,8 @@ function eq(a, b, msg) {
 /* ---------- Stubs för miljön (localStorage + document) ---------- */
 var __ls = {};
 global.localStorage = {
+  get length() { return Object.keys(__ls).length; },
+  key: function (i) { return Object.keys(__ls)[i] || null; },
   getItem: function (k) { return k in __ls ? __ls[k] : null; },
   setItem: function (k, v) { __ls[k] = String(v); },
   removeItem: function (k) { delete __ls[k]; },
@@ -41,6 +43,7 @@ global.window = global;
 /* ---------- Ladda moduler ---------- */
 require("./data/recept.js");
 require("./data/byten.js");
+require("./js/profiles.js");
 require("./js/labels.js");
 require("./js/ui.js");
 require("./js/store.js");
@@ -283,6 +286,75 @@ group("Veckomeny-store (weekplan.js)", function () {
     var p = W.WeekPlan.get();
     eq(p.slots["0-middag"].recipeId, "NY");
     eq(p.slots["2-middag"].recipeId, "B", "andra slots ska inte ändras");
+  });
+});
+
+group("Profiler (profiles.js)", function () {
+  test("default-profil skapas automatiskt vid första körningen", function () {
+    assert(W.Profiles.activeId(), "activeId saknas");
+    assert(W.Profiles.list().length >= 1, "minst en profil ska finnas");
+  });
+  test("nsKey ger en namespace-prefixad nyckel för aktiv profil", function () {
+    var k = W.nsKey("foo");
+    assert(/^aik:p_/.test(k), "förväntade 'aik:p_…:foo', fick: " + k);
+    assert(k.indexOf(":foo") !== -1, "saknar suffix");
+  });
+  test("nsKey ändras när man byter profil", function () {
+    var p2 = W.Profiles.add("Test 2");
+    var before = W.nsKey("foo");
+    W.Profiles.switch(p2.id);
+    var after = W.nsKey("foo");
+    assert(before !== after, "nyckeln ska skilja mellan profiler");
+    // städa upp så vi inte påverkar andra tester
+    W.Profiles.switch(W.Profiles.list()[0].id);
+    W.Profiles.remove(p2.id);
+  });
+  test("rename / setColor / setPin", function () {
+    var p = W.Profiles.add("Original");
+    W.Profiles.rename(p.id, "Bytt");
+    eq(W.Profiles.list().filter(function (x) { return x.id === p.id; })[0].namn, "Bytt");
+    W.Profiles.setColor(p.id, "blue");
+    eq(W.Profiles.list().filter(function (x) { return x.id === p.id; })[0].farg, "blue");
+    W.Profiles.setPin(p.id, "1234");
+    eq(W.Profiles.list().filter(function (x) { return x.id === p.id; })[0].pin, "1234");
+    W.Profiles.setPin(p.id, null);
+    assert(!("pin" in (W.Profiles.list().filter(function (x) { return x.id === p.id; })[0])));
+    W.Profiles.remove(p.id);
+  });
+  test("kan inte ta bort sista profilen", function () {
+    while (W.Profiles.list().length > 1) W.Profiles.remove(W.Profiles.list()[W.Profiles.list().length - 1].id);
+    eq(W.Profiles.remove(W.Profiles.list()[0].id), false, "ska returnera false när bara en profil finns");
+    assert(W.Profiles.list().length === 1, "minst en profil ska kvarstå");
+  });
+  test("varje profil har egen data (Cart-prov)", function () {
+    var p1 = W.Profiles.active().id;
+    W.Cart.clear(); W.Cart.add("r1", 4);
+    var p2 = W.Profiles.add("P2");
+    W.Profiles.switch(p2.id);
+    eq(W.Cart.count(), 0, "ny profil ska börja med tom kundvagn");
+    W.Cart.add("r2", 2);
+    eq(W.Cart.count(), 1);
+    W.Profiles.switch(p1);
+    eq(W.Cart.count(), 1, "första profilens kundvagn ska vara intakt");
+    assert(W.Cart.has("r1") && !W.Cart.has("r2"));
+    W.Profiles.remove(p2.id);
+    W.Cart.clear();
+  });
+  test("export + import roundtrip bevarar data", function () {
+    var p = W.Profiles.active();
+    W.Cart.clear(); W.Cart.add("xx", 3);
+    var payload = W.Profiles.exportProfile(p.id);
+    assert(payload && payload.profile && payload.data, "export-payload saknar fält");
+    W.Cart.remove("xx");
+    var p2 = W.Profiles.importProfile(payload);
+    assert(p2, "import returnerade null");
+    W.Profiles.switch(p2.id);
+    eq(W.Cart.count(), 1, "importerad cart ska ha 1 post");
+    assert(W.Cart.has("xx"));
+    // städa
+    W.Profiles.switch(p.id);
+    W.Profiles.remove(p2.id);
+    W.Cart.clear();
   });
 });
 

@@ -8,11 +8,11 @@
    ============================================================ */
 
 window.Cart = (function () {
-  var KEY = "aik_inkopslista_v2";
+  function KEY() { return window.nsKey ? window.nsKey("aik_inkopslista_v2") : "aik_inkopslista_v2"; }
 
   function read() {
     try {
-      var raw = localStorage.getItem(KEY);
+      var raw = localStorage.getItem(KEY());
       var arr = raw ? JSON.parse(raw) : [];
       if (!Array.isArray(arr)) return [];
       // tål gammalt format (bara strängar) – tolka som okänt antal portioner
@@ -24,7 +24,7 @@ window.Cart = (function () {
   }
 
   function write(arr) {
-    try { localStorage.setItem(KEY, JSON.stringify(arr)); } catch (e) {}
+    try { localStorage.setItem(KEY(), JSON.stringify(arr)); } catch (e) {}
     document.dispatchEvent(new CustomEvent("cart:changed", { detail: { items: arr.slice() } }));
   }
 

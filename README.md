@@ -27,6 +27,10 @@ js/store.js            Inköpslistan – lagras i webbläsaren (localStorage)
 js/myrecipes.js        Egna recept – lagras i webbläsaren; allRecipes() = inbyggda + egna
 js/weekplan.js         Veckomenyn – lagras i webbläsaren
 js/pantry.js           "Vad har du hemma?" – råvaror man har hemma; lagras i webbläsaren (delas av veckomeny + inköpslista)
+js/profiles.js         Lokala profiler – flera personer i samma webbläsare (varsin privat data); nsKey() namespace:ar storeskeys per profil
+js/profiles-ui.js      Profilväljare i sidhuvudet (injekteras automatiskt)
+js/hantera-profiler.js Logik för "Hantera profiler"-sidan
+hantera-profiler.html  Hantera profiler: byt namn/färg/PIN, exportera, ta bort, lägg till, importera
 js/forslag.js          Logiken bakom "Vad ska jag äta?"
 js/lista.js            Logiken bakom receptlistan
 js/inkopslista-sida.js Logiken bakom inköpslistan
@@ -55,6 +59,23 @@ hela veckan, lägga hela veckan i inköpslistan (skalat till antal personer) och
 skriva ut den. Veckan sparas i besökarens webbläsare. Generatorn ligger i
 `js/veckomeny.js` – t.ex. balansreglerna (`recipeTyp`, `score`) och vilka
 rätter som räknas som "lagar-en-gång-i-större-sats" (`isBatchFriendly`).
+
+### Profiler (flera användare i samma webbläsare)
+
+Varje besökare ser en **profilväljare** överst i sidhuvudet. Varje profil
+har sin egen privata data: kundvagn, veckomeny, "har hemma", egna recept,
+festmeny. Recepten i `data/recept.js` är gemensamma för alla profiler (du
+underhåller dem som idag via repot). Profilväljaren ger snabb byte;
+**"Hantera profiler"** ger byte av namn/färg/PIN, export till JSON-fil,
+import, och borttagning. Profiler är *inte* en säkerhetsspärr – PIN
+skyddar bara mot oavsiktliga byten. För riktig integritet mellan
+användare: olika webbläsarprofiler eller olika enheter.
+
+Tekniskt: `js/profiles.js` exponerar `window.Profiles` + en helper
+`window.nsKey(suffix)` som returnerar `aik:<profileId>:<suffix>`. Alla
+stores (`Cart`, `MyRecipes`, `WeekPlan`, `Pantry`, `festmeny`) använder
+`nsKey()` istället för hårdkodade nycklar. Tidigare data (från innan
+profiler infördes) migreras automatiskt till en standardprofil.
 
 "Vad har du hemma?" på veckomenyn viktar inte bara förslagen utan sparas också
 i `window.Pantry` (`js/pantry.js`). På inköpslistan flyttas de råvarorna då till

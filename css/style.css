@@ -66,6 +66,71 @@ p { margin: 0 0 1em; }
 .site-nav a:hover { background: rgba(189, 93, 58, 0.10); color: var(--terracotta-dark); }
 .site-nav a.active { background: var(--terracotta); color: #fff; }
 
+/* ---------- Profilväljare ---------- */
+.profile-switcher { position: relative; display: inline-flex; align-items: center; flex: 0 0 auto; }
+.profile-trigger {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 999px;
+  padding: .35rem .8rem .35rem .55rem; font: inherit; cursor: pointer; color: var(--ink);
+}
+.profile-trigger:hover { background: #fff; border-color: var(--terracotta); }
+.profile-dot {
+  width: .9rem; height: .9rem; border-radius: 999px;
+  background: var(--olive); display: inline-block; flex: 0 0 auto; box-shadow: inset 0 0 0 2px rgba(255,255,255,.7);
+}
+.profile-dot.terracotta { background: var(--terracotta); }
+.profile-dot.olive      { background: var(--olive); }
+.profile-dot.blue       { background: #5a85a8; }
+.profile-dot.pink       { background: #d28aa5; }
+.profile-dot.amber      { background: #d4a64e; }
+.profile-dot.purple     { background: #8a6aa8; }
+.profile-name { font-weight: 600; font-size: .92rem; max-width: 10rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.profile-chev { color: var(--ink-soft); font-size: .8rem; }
+
+.profile-menu {
+  position: absolute; right: 0; top: calc(100% + .35rem);
+  background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(58,50,43,.22);
+  min-width: 240px; padding: .35rem; z-index: 50;
+  display: flex; flex-direction: column;
+}
+.profile-menu.hidden { display: none; }
+.profile-menu-item {
+  display: flex; align-items: center; gap: .55rem;
+  padding: .55rem .7rem; border-radius: 8px; border: none; background: transparent;
+  cursor: pointer; font: inherit; color: var(--ink); text-decoration: none; text-align: left; width: 100%;
+}
+.profile-menu-item:hover, .profile-menu-item:focus { background: var(--surface-2); outline: none; }
+.profile-menu-item.current { font-weight: 600; }
+.profile-menu-item .check { margin-left: auto; color: var(--olive-dark); }
+.profile-menu-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.profile-lock { font-size: .85rem; opacity: .7; }
+.profile-menu-sep { height: 1px; background: var(--line); margin: .35rem 0; }
+@media (max-width: 520px) {
+  .profile-trigger .profile-name { max-width: 6rem; }
+}
+
+/* "Hantera profiler"-sidan */
+.profile-card {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  box-shadow: var(--shadow); padding: 1rem 1.2rem; margin-bottom: .8rem;
+  display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+}
+.profile-card .profile-dot { width: 1.4rem; height: 1.4rem; }
+.profile-card .profile-card-name { font-family: var(--serif); font-size: 1.1rem; font-weight: 600; flex: 1 1 8rem; }
+.profile-card .profile-card-tag { background: var(--terracotta); color: #fff; padding: .15rem .55rem; border-radius: 999px; font-size: .78rem; }
+.profile-card .profile-card-actions { display: flex; gap: .4rem; flex-wrap: wrap; }
+.profile-card .profile-card-actions .btn { padding: .35rem .8rem; font-size: .85rem; }
+.color-swatches { display: flex; gap: .3rem; flex-wrap: wrap; align-items: center; }
+.color-swatch {
+  width: 1.4rem; height: 1.4rem; border-radius: 999px; border: 2px solid transparent;
+  cursor: pointer; padding: 0; background-clip: padding-box;
+}
+.color-swatch.selected { border-color: var(--ink); }
+
+/* Don't print the profile-switcher */
+@media print { .profile-switcher { display: none !important; } }
+
 /* ---------- Hero ---------- */
 .hero {
   background:
