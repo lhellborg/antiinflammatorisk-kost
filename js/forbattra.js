@@ -535,41 +535,6 @@
     window.location.href = "inkopslista.html";
   });
 
-  /* ---------- skicka in (mailto + kopierbar text) ---------- */
-  function composeMail() {
-    var r = buildRecipeObject();
-    var L = [];
-    L.push("Hej! Här är ett recept jag gärna vill ha en antiinflammatorisk omskrivning på:");
-    L.push("");
-    L.push("Rätt: " + r.namn);
-    L.push("Måltid: " + r.maltid.map(function (m) { return window.labelFor(window.MALTIDER, m); }).join(", "));
-    L.push("Portioner: " + r.portioner);
-    L.push("");
-    L.push("Ingredienser:");
-    r.ingredienser.forEach(function (it) {
-      var amt = window.formatAmount(it.mangd, it.enhet);
-      L.push("- " + (amt ? amt + " " : "") + window.ingrLabel(it));
-    });
-    if (r.steg && r.steg.length) { L.push(""); L.push("Så här gör jag:"); r.steg.forEach(function (s, i) { L.push((i + 1) + ". " + s); }); }
-    L.push(""); L.push("Tack!");
-    return { recept: r, text: L.join("\n") };
-  }
-  var elSkickaText = document.getElementById("fb-skicka-text");
-  document.getElementById("fb-skicka").addEventListener("click", function () {
-    var m = composeMail();
-    elSkickaText.value = m.text;
-    /* OBS: byt e-postadressen nedan om du vill ha inskicken till en annan adress
-       (eller ersätt med ett formulär, t.ex. Formspree). */
-    window.location.href = "mailto:linda.hellborg@gmail.com?subject=" +
-      encodeURIComponent("Receptförslag: " + m.recept.namn) + "&body=" + encodeURIComponent(m.text);
-  });
-  document.getElementById("fb-kopiera").addEventListener("click", function () {
-    if (!elSkickaText.value) elSkickaText.value = composeMail().text;
-    elSkickaText.select();
-    try { document.execCommand("copy"); } catch (e) {}
-    var b = document.getElementById("fb-kopiera"); b.textContent = "✓ Kopierat"; setTimeout(function () { b.textContent = "Kopiera texten"; }, 2000);
-  });
-
   /* ---------- init / redigerings- och versionsläge ---------- */
   function loadIngredientRows(list) {
     (list || []).forEach(function (it) {

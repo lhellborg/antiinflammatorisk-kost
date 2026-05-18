@@ -389,12 +389,12 @@ ul.sources li { margin-bottom: .4rem; }
 .fb-field { display: flex; flex-direction: column; gap: .35rem; }
 .fb-field > span { font-size: .9rem; color: var(--ink-soft); }
 .fb-field.fb-wide { grid-column: 1 / -1; }
-.fb-block input[type="text"], .fb-block input[type="number"], .fb-block textarea, .fb-skicka-text {
+.fb-block input[type="text"], .fb-block input[type="number"], .fb-block textarea {
   font: inherit; padding: .55rem .7rem; border: 1px solid var(--line); border-radius: 10px;
   background: var(--bg); color: var(--ink); width: 100%;
 }
-.fb-block textarea, .fb-skicka-text { resize: vertical; }
-.fb-block input:focus, .fb-block textarea:focus, .fb-skicka-text:focus { outline: 2px solid var(--terracotta); outline-offset: 1px; }
+.fb-block textarea { resize: vertical; }
+.fb-block input:focus, .fb-block textarea:focus { outline: 2px solid var(--terracotta); outline-offset: 1px; }
 
 /* ingrediensrader */
 .ingr-rows { display: flex; flex-direction: column; gap: .6rem; }
@@ -451,8 +451,6 @@ ul.sources li { margin-bottom: .4rem; }
 .tip-row { display: flex; gap: .8rem; align-items: baseline; flex-wrap: wrap; }
 .tip-row .btn { white-space: nowrap; }
 .tip-txt { color: var(--ink-soft); font-size: .95rem; }
-
-.fb-skicka-text { margin-top: 1rem; font-size: .9rem; }
 
 /* ---------- Veckomeny ---------- */
 .week-grid {

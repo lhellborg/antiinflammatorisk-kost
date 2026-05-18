@@ -131,9 +131,7 @@ om hela veckan blir baljväxttung, med en knapp som byter ut en av de rätterna.
 Vill du fylla på förslagen: redigera `data/byten.js` – `BYTEN` (byt-ut-förslag),
 `LIKNANDE` (ersättningar i samma familj), `STAPLE_GRANSER` (vad som flaggas som
 "för mycket"), `LAGG_TILL_TIPS`, `TILLAGNINGSTIPS`, `MINDRE_BRA_CHIPS` (formatet
-står i filen). "Skicka in"-knappen öppnar ett mejl till adressen i
-`js/forbattra.js` (sök efter `mailto:`) – byt den eller koppla in ett
-formulärverktyg om du vill ha inskicken någon annanstans.
+står i filen).
 
 ## Lägga till eller ändra ett recept
 
