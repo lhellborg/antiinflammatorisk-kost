@@ -264,12 +264,68 @@
     var box = document.createElement("div"); box.className = "meal-slot";
     box.appendChild(tag(window.labelFor(window.MALTIDER, meal), "meal"));
 
-    if (!sl) { var e = document.createElement("p"); e.className = "help"; e.textContent = "—"; box.appendChild(e); return box; }
+    // Hjälpfunktioner för knappar
+    function ghostBtn(label, titleAttr, onClick, cls) {
+      var b = document.createElement("button"); b.type = "button"; b.className = "btn btn-ghost" + (cls ? " " + cls : "");
+      b.textContent = label; if (titleAttr) b.title = titleAttr;
+      b.addEventListener("click", onClick); return b;
+    }
+    function pinBtn() {
+      return ghostBtn(
+        (sl && sl.pinned) ? "🔒 Låst" : "Lås",
+        "Lås rutan så den inte slumpas om",
+        function () { if (!sl) return; sl.pinned = !sl.pinned; save(); render(); }
+      );
+    }
+    function freetextPrompt(currentText) {
+      var t = window.prompt("Skriv vad ni ska äta (t.ex. \"Pizza\", \"Vi äter ute\", \"Rester från igår\"):", currentText || "");
+      if (t === null) return; // cancel
+      if (!t.trim()) return;
+      setSlotFreeText(dayIdx, meal, t.trim());
+    }
+    function newRecipeHref() { return "forbattra.html?slot=" + encodeURIComponent(key); }
+    function newRecipeLink(label) {
+      var a = document.createElement("a"); a.href = newRecipeHref(); a.className = "btn btn-ghost"; a.textContent = label;
+      a.title = "Öppna 'Förbättra ett recept' tomt – det du sparar hamnar i Mina recept och i den här rutan.";
+      return a;
+    }
+
+    /* ---------- TOM RUTA ---------- */
+    if (!sl) {
+      var hint = document.createElement("p"); hint.className = "help"; hint.textContent = "—"; box.appendChild(hint);
+      var actEmpty = document.createElement("div"); actEmpty.className = "btn-row slot-actions no-print";
+      actEmpty.appendChild(ghostBtn("+ Välj recept", "Välj ett recept ur listan", function () { openPicker(dayIdx, meal); }));
+      actEmpty.appendChild(ghostBtn("+ Skriv text", "Skriv in en egen rad utan recept (t.ex. \"Vi äter ute\")", function () { freetextPrompt(""); }));
+      actEmpty.appendChild(newRecipeLink("+ Nytt recept"));
+      box.appendChild(actEmpty);
+      return box;
+    }
+
+    /* ---------- FRITEXT-RUTA ---------- */
+    if (sl.freeText) {
+      var ft = document.createElement("div"); ft.className = "meal-name meal-name-freetext"; ft.textContent = sl.freeText;
+      box.appendChild(ft);
+      var ftTag = document.createElement("div"); ftTag.className = "meta";
+      ftTag.appendChild(tag("Egen text", "own"));
+      box.appendChild(ftTag);
+      var actFt = document.createElement("div"); actFt.className = "btn-row slot-actions no-print";
+      actFt.appendChild(ghostBtn("Ändra text", "Ändra texten", function () { freetextPrompt(sl.freeText); }));
+      actFt.appendChild(ghostBtn("Välj recept …", "Ersätt texten med ett recept ur listan", function () { openPicker(dayIdx, meal); }));
+      actFt.appendChild(ghostBtn("Rensa", "Töm rutan", function () { clearSlot(dayIdx, meal); }));
+      actFt.appendChild(pinBtn());
+      box.appendChild(actFt);
+      return box;
+    }
+
+    /* ---------- RECEPT-RUTA ---------- */
     var r = window.recipeById(sl.recipeId);
     if (!r) {
       var miss = document.createElement("p"); miss.className = "help"; miss.textContent = "(recept borttaget)"; box.appendChild(miss);
-      var rb0 = document.createElement("button"); rb0.type = "button"; rb0.className = "btn btn-ghost no-print"; rb0.textContent = "Byt ut";
-      rb0.addEventListener("click", function () { rerollSlot(plan, dayIdx, meal); save(); render(); }); box.appendChild(rb0);
+      var actMiss = document.createElement("div"); actMiss.className = "btn-row slot-actions no-print";
+      actMiss.appendChild(ghostBtn("Byt ut", null, function () { rerollSlot(plan, dayIdx, meal); save(); render(); }));
+      actMiss.appendChild(ghostBtn("Välj …", null, function () { openPicker(dayIdx, meal); }));
+      actMiss.appendChild(ghostBtn("Rensa", null, function () { clearSlot(dayIdx, meal); }));
+      box.appendChild(actMiss);
       return box;
     }
     // klickbart receptnamn -> öppnar "Förbättra ett recept" med slot-kontext
@@ -290,16 +346,42 @@
       box.appendChild(lf);
       return box;
     }
+    // Primära knappar
     var actions = document.createElement("div"); actions.className = "btn-row slot-actions no-print";
-    var rb = document.createElement("button"); rb.type = "button"; rb.className = "btn btn-ghost"; rb.textContent = "Byt ut";
-    rb.title = "Slumpa fram en annan rätt"; rb.addEventListener("click", function () { rerollSlot(plan, dayIdx, meal); save(); render(); });
-    var pickB = document.createElement("button"); pickB.type = "button"; pickB.className = "btn btn-ghost"; pickB.textContent = "Välj …";
-    pickB.title = "Välj själv vilken rätt som ska in i den här rutan"; pickB.addEventListener("click", function () { openPicker(dayIdx, meal); });
-    var pin = document.createElement("button"); pin.type = "button"; pin.className = "btn btn-ghost"; pin.textContent = sl.pinned ? "🔒 Låst" : "Lås";
-    pin.addEventListener("click", function () { sl.pinned = !sl.pinned; save(); render(); });
-    actions.appendChild(rb); actions.appendChild(pickB); actions.appendChild(pin);
+    actions.appendChild(ghostBtn("Byt ut", "Slumpa fram en annan rätt", function () { rerollSlot(plan, dayIdx, meal); save(); render(); }));
+    actions.appendChild(ghostBtn("Välj …", "Välj själv vilken rätt som ska in", function () { openPicker(dayIdx, meal); }));
+    actions.appendChild(pinBtn());
     box.appendChild(actions);
+    // Sekundära "skriv text / nytt recept"-länkar
+    var extras = document.createElement("div"); extras.className = "btn-row slot-extras no-print";
+    extras.appendChild(ghostBtn("Skriv text …", "Ersätt rätten med en egen textrad (t.ex. \"Vi äter ute\")", function () { freetextPrompt(""); }, "btn-small"));
+    extras.appendChild(newRecipeLink("+ Nytt recept"));
+    box.appendChild(extras);
     return box;
+  }
+
+  // Sätt fritext på en ruta (rensar ev. recept och rester-länkar)
+  function setSlotFreeText(dayIdx, meal, text) {
+    if (!plan) return;
+    var key = dayIdx + "-" + meal;
+    // rensa rester-rutor som pekar hit (fritext kan inte ge rester)
+    Object.keys(plan.slots).forEach(function (k) {
+      var s = plan.slots[k];
+      if (s && s.leftoverFrom === key && !s.pinned) delete plan.slots[k];
+    });
+    plan.slots[key] = { freeText: text, recipeId: null, pinned: false, leftoverFrom: null };
+    save(); render();
+  }
+  // Töm rutan helt
+  function clearSlot(dayIdx, meal) {
+    if (!plan) return;
+    var key = dayIdx + "-" + meal;
+    Object.keys(plan.slots).forEach(function (k) {
+      var s = plan.slots[k];
+      if (s && s.leftoverFrom === key && !s.pinned) delete plan.slots[k];
+    });
+    delete plan.slots[key];
+    save(); render();
   }
 
   /* ---------- "Välj själv"-modal ---------- */

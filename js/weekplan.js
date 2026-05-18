@@ -33,14 +33,23 @@ window.WeekPlan = (function () {
   // Uppdaterar en slots recept till newId. Om slotten är en rester-ruta
   // (eller har rester-rutor som pekar på sig) följer alla relaterade rutor
   // med – samma recept tillagas ju en gång och äts på flera ställen.
+  // Om slotten inte finns ännu (tom ruta) skapas den.
   function setSlotRecipeFromEdit(slotKey, newId) {
     var p = read(); if (!p || !p.slots) return;
-    var sl = p.slots[slotKey]; if (!sl) return;
+    var sl = p.slots[slotKey];
+    if (!sl) {
+      // ruta saknades – skapa den från grunden
+      p.slots[slotKey] = { recipeId: newId, pinned: false, leftoverFrom: null };
+      write(p); return;
+    }
     var anchor = sl.leftoverFrom || slotKey;
     if (!p.slots[anchor]) anchor = slotKey;
     Object.keys(p.slots).forEach(function (k) {
       var s = p.slots[k];
-      if (s && (k === anchor || s.leftoverFrom === anchor)) s.recipeId = newId;
+      if (s && (k === anchor || s.leftoverFrom === anchor)) {
+        s.recipeId = newId;
+        delete s.freeText; // skriver vi över med ett riktigt recept får fritexten gå
+      }
     });
     write(p);
   }

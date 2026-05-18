@@ -287,6 +287,26 @@ group("Veckomeny-store (weekplan.js)", function () {
     eq(p.slots["0-middag"].recipeId, "NY");
     eq(p.slots["2-middag"].recipeId, "B", "andra slots ska inte ändras");
   });
+  test("setSlotRecipeFromEdit på en tom slot skapar slotten", function () {
+    W.WeekPlan.set({
+      meals: ["middag"], personer: 2, exclude: [], vardagsmax: 30, rester: false, haveFoods: [],
+      slots: { "0-middag": { recipeId: "A", pinned: false, leftoverFrom: null } }
+    });
+    W.WeekPlan.setSlotRecipeFromEdit("3-middag", "NY");
+    var p = W.WeekPlan.get();
+    assert(p.slots["3-middag"], "ny slot ska ha skapats");
+    eq(p.slots["3-middag"].recipeId, "NY");
+  });
+  test("setSlotRecipeFromEdit rensar bort freeText när man sparar ett recept dit", function () {
+    W.WeekPlan.set({
+      meals: ["middag"], personer: 2, exclude: [], vardagsmax: 30, rester: false, haveFoods: [],
+      slots: { "0-middag": { freeText: "Pizza", recipeId: null, pinned: false, leftoverFrom: null } }
+    });
+    W.WeekPlan.setSlotRecipeFromEdit("0-middag", "NY");
+    var p = W.WeekPlan.get();
+    eq(p.slots["0-middag"].recipeId, "NY");
+    assert(!p.slots["0-middag"].freeText, "freeText ska tas bort när ett recept skrivs in");
+  });
 });
 
 group("Profiler (profiles.js)", function () {

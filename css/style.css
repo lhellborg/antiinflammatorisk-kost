@@ -520,6 +520,11 @@ a.meal-name:hover, a.meal-link:hover { color: var(--terracotta-dark); text-decor
 .leftover-note { margin: 0; color: var(--olive-dark); font-style: italic; }
 .slot-actions { gap: .35rem; margin-top: .15rem; }
 .slot-actions .btn { padding: .3rem .65rem; font-size: .82rem; }
+.slot-extras { gap: .35rem; margin-top: .15rem; }
+.slot-extras .btn { padding: .2rem .55rem; font-size: .76rem; opacity: .85; }
+.slot-extras .btn:hover { opacity: 1; }
+.meal-name-freetext { font-family: var(--serif); font-style: italic; color: var(--ink); font-size: 1.02rem; }
+.meal-name-freetext::before { content: "✏️ "; opacity: .8; }
 
 /* ---------- Festmåltid ---------- */
 .fm-menu {
