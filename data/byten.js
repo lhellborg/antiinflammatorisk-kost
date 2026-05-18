@@ -167,6 +167,14 @@ window.LIKNANDE = [
     ]
   },
   {
+    traffar: ["växtbaserad färs", "vaxtbaserad fars", "anamma", "sojafärs", "sojafars", "vaxtfars"],
+    alternativ: [
+      { namn: "krossade röda linser + havregryn", varfor: "Heminstinkt växtbas – koka linser tjockt och blanda med lite havregryn för konsistens." },
+      { namn: "krossade svarta bönor + valnötter", varfor: "Maffigt och mustigt växtbaserat alternativ, lite knapprigt." },
+      { namn: "smulad tofu eller tempeh", varfor: "Funkar bra som färsersättning, suger upp smaker väl." }
+    ]
+  },
+  {
     traffar: ["vitt ris", "jasminris", "basmatiris", "ris"],
     alternativ: [
       { namn: "fullkornsris", varfor: "Mer fibrer, jämnare blodsocker." },

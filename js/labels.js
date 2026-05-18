@@ -98,7 +98,10 @@ window.RAVAROR = [
   { id: "torsk",          label: "Torsk (eller annan vit fisk)" },
   { id: "oliver",         label: "Oliver" },
   { id: "aubergine",      label: "Aubergine" },
-  { id: "zucchini",       label: "Zucchini" }
+  { id: "zucchini",       label: "Zucchini" },
+  { id: "bonor",          label: "Bönor (svarta/vita/kidney)" },
+  { id: "svamp",          label: "Svamp (champinjoner/skogssvamp)" },
+  { id: "vaxtfars",       label: "Växtbaserad färs (Anamma / sojafärs)" }
 ];
 
 window.ALLERGENER = [
@@ -113,11 +116,11 @@ window.ALLERGENER = [
 // Grova butiksavdelningar – används för att gruppera inköpslistan.
 // Ingredienser som inte finns med hamnar under "Övrigt".
 window.KATEGORIER = [
-  { namn: "Frukt & grönt", ids: ["spenat","broccoli","tomat","paprika","lok","vitlok","avokado","bar","banan","apple","citron","morot","rodbeta","ingefara","gronkal","sotpotatis","granatapple","ruccola","fankal","gurka","oliver","aubergine","zucchini"] },
+  { namn: "Frukt & grönt", ids: ["spenat","broccoli","tomat","paprika","lok","vitlok","avokado","bar","banan","apple","citron","morot","rodbeta","ingefara","gronkal","sotpotatis","granatapple","ruccola","fankal","gurka","oliver","aubergine","zucchini","svamp"] },
   { namn: "Kött & fisk",   ids: ["kyckling","lax","sardiner","rakor","notkott","notfars","bacon","torsk"] },
   { namn: "Mejeri & ägg",  ids: ["agg","naturell yoghurt","kefir","vaxtdryck"] },
   { namn: "Bröd",          ids: ["ragbrod","tortilla","knackebrod"] },
-  { namn: "Skafferi",      ids: ["havregryn","linser","kikartor","quinoa","ris","fullkorn","fullkornspasta","valnotter","mandel","chiafron","linfro","olivolja","gurkmeja","kanel","tofu","tahini","pumpafron","solrosfron","kokosmjolk","proteinpulver","morkchoklad","dadlar"] }
+  { namn: "Skafferi",      ids: ["havregryn","linser","kikartor","bonor","quinoa","ris","fullkorn","fullkornspasta","valnotter","mandel","chiafron","linfro","olivolja","gurkmeja","kanel","tofu","tahini","pumpafron","solrosfron","kokosmjolk","proteinpulver","morkchoklad","dadlar","vaxtfars"] }
 ];
 
 window.categoryFor = function (id) {

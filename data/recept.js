@@ -1747,6 +1747,98 @@ window.RECEPT = [
       "Tärna tomaterna fint och blanda med hackad färsk basilika, finhackad vitlök, olivolja, en skvätt citron, salt och svartpeppar.",
       "Klicka på rostat bröd precis innan servering så det inte blir blött. Ringla över extra olivolja."
     ]
+  },
+
+  /* ---------- KLASSIKER OMVANDLADE TILL ANTIINFLAMMATORISK STIL ---------- */
+  {
+    id: "enchiladas-kyckling-bonor",
+    namn: "Enchiladas med kyckling, svarta bönor & avokado",
+    maltid: ["middag"],
+    tid: 45,
+    portioner: 4,
+    ingredienser: [
+      { id: "kyckling",         mangd: 400, enhet: "g" },
+      { id: "bonor",            mangd: 1,   enhet: "burk" },
+      { id: "tomat",            mangd: 1,   enhet: "burk" },
+      { id: "paprika",          mangd: 1,   enhet: "st" },
+      { id: "lok",              mangd: 1,   enhet: "st" },
+      { id: "vitlok",           mangd: 2,   enhet: "klyfta" },
+      { id: "spenat",           mangd: 1,   enhet: "näve" },
+      { id: "tortilla",         mangd: 8,   enhet: "st" },
+      { id: "naturell yoghurt", mangd: 1,   enhet: "dl" },
+      { id: "avokado",          mangd: 1,   enhet: "st" },
+      { id: "olivolja",         mangd: 2,   enhet: "msk" },
+      { id: "citron",           mangd: 0.5, enhet: "st" }
+    ],
+    mood: ["varmt-och-matigt", "vill-bjuda", "fest"],
+    allergener: ["gluten", "mjolk"],
+    plus: ["bönor", "tomat", "paprika", "spenat", "vitlök", "avokado", "olivolja"],
+    beskrivning: "Vår snällare enchiladas-version – kyckling och svarta bönor i (gärna fullkorns-)tortillas, hemmagjord tomatsalsa istället för burkad, yoghurt istället för crème fraiche, gott om grönsaker och avokado i stället för ost. Vegetariskt: byt ut kycklingen mot mer bönor + grönsaker via \"Gör en egen version\".",
+    steg: [
+      "Fräs hackad lök, vitlök och paprika i hälften av olivoljan tills mjukt. Tillsätt strimlad kyckling och stek till genomstekt; krydda med spiskummin, paprikapulver, en nypa chili, salt och peppar.",
+      "Rör i sköljda svarta bönor och spenat. Stek vidare en minut.",
+      "Hemma-salsa: mixa eller hacka krossade tomater med vitlök, citron, salt och en nypa spiskummin. Dela – hälften till fyllningen, hälften till toppen.",
+      "Rulla fyllningen i tortillorna med lite salsa, lägg i ugnsform. Häll resten av salsan över. Baka 200°C ca 15 min.",
+      "Toppa med klickar yoghurt, avokado i klyftor och färsk koriander (om du har). Pressa lite citron över."
+    ]
+  },
+  {
+    id: "kornotto-svamp-spenat",
+    namn: "Kornotto med svamp & spenat (vår risotto)",
+    maltid: ["middag", "lunch"],
+    tid: 40,
+    portioner: 4,
+    ingredienser: [
+      { id: "fullkorn",  mangd: 3,   enhet: "dl" },
+      { id: "svamp",     mangd: 300, enhet: "g" },
+      { id: "spenat",    mangd: 2,   enhet: "näve" },
+      { id: "lok",       mangd: 1,   enhet: "st" },
+      { id: "vitlok",    mangd: 2,   enhet: "klyfta" },
+      { id: "olivolja",  mangd: 3,   enhet: "msk" },
+      { id: "citron",    mangd: 0.5, enhet: "st" },
+      { id: "valnotter", mangd: 1,   enhet: "dl" }
+    ],
+    mood: ["varmt-och-matigt", "vill-bjuda", "stressad", "fest"],
+    allergener: ["gluten", "notter"],
+    plus: ["svamp", "spenat", "fullkorn", "vitlök", "olivolja", "valnötter"],
+    beskrivning: "Vår variant av risotto – matvete eller korn (\"kornotto\") istället för arborioris ger mer fibrer och samma krämiga konsistens. Olivolja i stället för smör, svamp och spenat, och rostade valnötter på toppen för krispighet. Vill du ha lite parmesan: en matsked riven på slutet är okej i måttlig mängd.",
+    steg: [
+      "Skölj kornet/matvetet. Fräs hackad lök och vitlök i hälften av olivoljan tills mjukt. Tillsätt kornet och rosta en minut.",
+      "Häll på varmt vatten eller buljong, lite i taget, och rör som en risotto. Sjud tills kornet är mjukt men har lite tuggmotstånd, ca 25–30 min. Salta och peppra.",
+      "Skiva svampen och stek den separat i resten av olivoljan på hög värme tills den fått färg och vätskan avdunstat.",
+      "Vänd ner svampen i kornottot, sen spenaten på slutet tills den faller ihop. Smaka av med rivet citronskal och citronsaft.",
+      "Servera toppat med rostade hackade valnötter och en skvätt extra olivolja."
+    ]
+  },
+  {
+    id: "vegobullar-vaxtfars-tomatsas",
+    namn: "Vegobullar på växtbaserad färs i tomatsås",
+    maltid: ["middag", "lunch"],
+    tid: 35,
+    portioner: 4,
+    ingredienser: [
+      { id: "vaxtfars",       mangd: 500, enhet: "g" },
+      { id: "lok",            mangd: 1,   enhet: "st" },
+      { id: "vitlok",         mangd: 3,   enhet: "klyfta" },
+      { id: "linfro",         mangd: 1,   enhet: "msk" },
+      { id: "olivolja",       mangd: 3,   enhet: "msk" },
+      { id: "tomat",          mangd: 1,   enhet: "burk" },
+      { id: "paprika",        mangd: 1,   enhet: "st" },
+      { id: "spenat",         mangd: 1,   enhet: "näve" },
+      { id: "fullkornspasta", mangd: 320, enhet: "g" }
+    ],
+    mood: ["varmt-och-matigt", "snabbt", "vill-ata-latt"],
+    allergener: ["soja", "gluten"],
+    plus: ["tomat", "paprika", "vitlök", "spenat", "olivolja", "linfrö"],
+    beskrivning: "Mustiga vegobullar på växtbaserad färs (Anamma, sojafärs eller motsvarande) – linfrö som naturligt bindemedel, kryddiga av vitlök och oregano, badar i en hemkokt tomat- och paprikasås. Helt växtbaserat och fiberrikt.",
+    steg: [
+      "Rör linfrön med 3 msk vatten och låt svälla 5 min – fungerar som ägg-ersättning.",
+      "Blanda växtfärsen med linfrögelén, finhackad lök, pressad vitlök, 1 tsk torkad oregano, salt och peppar. Rulla bullar (ca 24 st).",
+      "Bryn bullarna i hälften av olivoljan tills de fått färg runt om. Ta upp.",
+      "Fräs hackad paprika i resten av oljan, häll i krossade tomater, en skvätt vatten och lite extra oregano. Sjud 5 min.",
+      "Lägg tillbaka bullarna i såsen och låt sjuda 8–10 min. Rör ner spenaten på slutet.",
+      "Koka fullkornspastan al dente under tiden och servera bullarna och såsen över."
+    ]
   }
 
 ];
