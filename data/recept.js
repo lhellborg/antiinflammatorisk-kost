@@ -1592,6 +1592,161 @@ window.RECEPT = [
       "Lägg ner fiskbitarna försiktigt och sjud på låg värme 6–8 min tills fisken precis faller isär.",
       "Pressa över citron strax innan servering. Servera grytan med riset."
     ]
+  },
+
+  /* ---------- MEDELHAVSRÄTTER (olivolja, tomat, vitlök, örter, grönsaker, fisk, baljväxter) ---------- */
+  {
+    id: "shakshuka",
+    namn: "Shakshuka – pocherade ägg i kryddig tomatsås",
+    maltid: ["frukost", "lunch", "middag"],
+    tid: 25,
+    portioner: 2,
+    ingredienser: [
+      { id: "agg",      mangd: 4, enhet: "st" },
+      { id: "tomat",    mangd: 1, enhet: "burk" },
+      { id: "paprika",  mangd: 1, enhet: "st" },
+      { id: "lok",      mangd: 1, enhet: "st" },
+      { id: "vitlok",   mangd: 2, enhet: "klyfta" },
+      { id: "olivolja", mangd: 2, enhet: "msk" },
+      { id: "ragbrod",  mangd: 2, enhet: "skiva" }
+    ],
+    mood: ["varmt-och-matigt", "snabbt", "sugen-pa-gront", "efter-traning", "vill-ata-latt"],
+    allergener: ["agg", "gluten"],
+    plus: ["tomat", "paprika", "vitlök", "olivolja"],
+    beskrivning: "Mustig nordafrikansk-medelhavsk rätt: ägg som pocheras direkt i en kryddig tomatsås med paprika och spiskummin. Mättande som frukost, lunch eller snabbmiddag.",
+    steg: [
+      "Hacka lök, vitlök och paprika; fräs i olivoljan i en stor stekpanna tills mjukt och paprikan börjar mörkna.",
+      "Tillsätt krossade tomater. Krydda med 1 tsk spiskummin, 1 tsk paprikapulver, en nypa chiliflakes, salt och peppar. Sjud 8–10 min så såsen tjocknar.",
+      "Gör fyra gropar i såsen och knäck ner ett ägg i varje. Lägg på lock och sjud på låg värme 5–7 min tills vitan stannat men gulan fortfarande är lite lös.",
+      "Strö över hackad färsk koriander eller persilja och servera direkt ur pannan med rostat rågbröd."
+    ]
+  },
+  {
+    id: "grekisk-sallad",
+    namn: "Grekisk-inspirerad sallad med oliver & rödlök",
+    maltid: ["lunch", "forratt", "mellanmal"],
+    tid: 10,
+    portioner: 2,
+    ingredienser: [
+      { id: "tomat",    mangd: 4,   enhet: "st" },
+      { id: "gurka",    mangd: 0.5, enhet: "st" },
+      { id: "lok",      mangd: 0.5, enhet: "st" },
+      { id: "oliver",   mangd: 1,   enhet: "dl" },
+      { id: "olivolja", mangd: 3,   enhet: "msk" },
+      { id: "citron",   mangd: 0.5, enhet: "st" }
+    ],
+    mood: ["sugen-pa-gront", "vill-ata-latt", "snabbt", "vill-bjuda", "fest"],
+    allergener: [],
+    plus: ["tomat", "olivolja", "oliver"],
+    beskrivning: "Snabb sallad med mogna tomater, gurka, rödlök och oliver – en generös skvätt olivolja och citron. Lägg gärna till en liten klick fetaost om du vill (i måttlig mängd).",
+    steg: [
+      "Skär tomater i klyftor, gurka i halvmånar och rödlöken i tunna ringar.",
+      "Blanda i en skål med oliverna.",
+      "Ringla över olivolja, pressa citron och toppa med en liten nypa flingsalt, svartpeppar och torkad oregano."
+    ]
+  },
+  {
+    id: "ratatouille",
+    namn: "Ratatouille – Provences grönsaksgryta",
+    maltid: ["middag", "lunch"],
+    tid: 50,
+    portioner: 4,
+    ingredienser: [
+      { id: "aubergine", mangd: 1, enhet: "st" },
+      { id: "zucchini",  mangd: 1, enhet: "st" },
+      { id: "paprika",   mangd: 2, enhet: "st" },
+      { id: "lok",       mangd: 1, enhet: "st" },
+      { id: "vitlok",    mangd: 3, enhet: "klyfta" },
+      { id: "tomat",     mangd: 1, enhet: "burk" },
+      { id: "olivolja",  mangd: 3, enhet: "msk" }
+    ],
+    mood: ["varmt-och-matigt", "sugen-pa-gront", "vill-ata-latt", "vill-bjuda"],
+    allergener: [],
+    plus: ["tomat", "vitlök", "olivolja"],
+    beskrivning: "Klassisk fransk-medelhavsk grönsaksgryta från Provence – aubergine, zucchini, paprika och tomat långkokt med vitlök, olivolja och örter. Smakar ännu bättre dagen efter.",
+    steg: [
+      "Tärna aubergine, zucchini och paprika i ca 2 cm bitar. Hacka lök och vitlök.",
+      "Fräs lök och vitlök i olivoljan i en stor gryta tills mjukt. Tillsätt aubergine och stek i några minuter, sen zucchini och paprika.",
+      "Häll i krossade tomater. Krydda med en generös tsk torkade örter (oregano + timjan + basilika), salt, peppar och en nypa chili om du vill.",
+      "Sjud under lock 30 min, rör om då och då. Lyft locket sista 10 min om vätskan är riklig.",
+      "Smaka av med citron eller en skvätt vinäger innan servering. Gott med fullkornsbröd eller fullkornsris."
+    ]
+  },
+  {
+    id: "provencekyckling-oliver-citron",
+    namn: "Provencekyckling med oliver, citron & örter",
+    maltid: ["middag"],
+    tid: 50,
+    portioner: 4,
+    ingredienser: [
+      { id: "kyckling", mangd: 600, enhet: "g" },
+      { id: "lok",      mangd: 1,   enhet: "st" },
+      { id: "vitlok",   mangd: 3,   enhet: "klyfta" },
+      { id: "tomat",    mangd: 1,   enhet: "burk" },
+      { id: "oliver",   mangd: 1,   enhet: "dl" },
+      { id: "citron",   mangd: 1,   enhet: "st" },
+      { id: "olivolja", mangd: 3,   enhet: "msk" },
+      { id: "ris",      mangd: 3,   enhet: "dl" }
+    ],
+    mood: ["varmt-och-matigt", "vill-bjuda", "fest", "efter-traning"],
+    allergener: [],
+    plus: ["tomat", "vitlök", "olivolja", "oliver"],
+    beskrivning: "Kycklinggryta i Provence-stil – tomat, oliver, vitlök, citron och färska eller torkade örter. Långkokt, mustig och festig. Serveras med fullkornsris.",
+    steg: [
+      "Bryn kycklingbitarna i hälften av olivoljan tills de fått färg, ta upp.",
+      "Fräs hackad lök och vitlök i samma panna med resten av oljan tills mjukt.",
+      "Tillsätt krossade tomater, oliver, halvmånsskivor av citron, och 2 generösa tsk torkade örter (timjan + rosmarin + oregano). Lägg tillbaka kycklingen.",
+      "Sjud under lock 25–30 min tills kycklingen är genomstekt och mör. Salta och peppra.",
+      "Koka fullkornsriset under tiden och servera grytan över."
+    ]
+  },
+  {
+    id: "quinoa-tabbouleh",
+    namn: "Quinoa-tabbouleh med tomat, persilja & mynta",
+    maltid: ["lunch", "middag", "forratt"],
+    tid: 25,
+    portioner: 4,
+    ingredienser: [
+      { id: "quinoa",    mangd: 2,   enhet: "dl" },
+      { id: "tomat",     mangd: 3,   enhet: "st" },
+      { id: "gurka",     mangd: 0.5, enhet: "st" },
+      { id: "lok",       mangd: 0.5, enhet: "st" },
+      { id: "citron",    mangd: 1,   enhet: "st" },
+      { id: "olivolja",  mangd: 3,   enhet: "msk" }
+    ],
+    mood: ["sugen-pa-gront", "vill-ata-latt", "vill-bjuda", "snabbt", "efter-traning"],
+    allergener: [],
+    plus: ["quinoa", "tomat", "olivolja"],
+    beskrivning: "Frisk libanesisk inspirerad sallad – quinoa istället för bulgur, med massor av persilja, mynta, tomat, gurka, citron och olivolja. Bra som lunchsallad eller tillbehör.",
+    steg: [
+      "Koka quinoan enligt paketet, låt svalna.",
+      "Tärna tomater och gurka fint, hacka lök, persilja (gärna 1 stort knippe) och mynta riktigt fint.",
+      "Blanda allt med olivolja och saften från en hel citron. Smaka av med salt och peppar.",
+      "Låt stå 10 min så smakerna gifter sig innan servering."
+    ]
+  },
+  {
+    id: "bruschetta-tomat-basilika",
+    namn: "Bruschetta med tomat, vitlök & basilika på rågbröd",
+    maltid: ["mellanmal", "forratt", "lunch"],
+    tid: 12,
+    portioner: 4,
+    ingredienser: [
+      { id: "tomat",    mangd: 4,    enhet: "st" },
+      { id: "vitlok",   mangd: 2,    enhet: "klyfta" },
+      { id: "olivolja", mangd: 2,    enhet: "msk" },
+      { id: "ragbrod",  mangd: 4,    enhet: "skiva" },
+      { id: "citron",   mangd: 0.25, enhet: "st" }
+    ],
+    mood: ["snabbt", "vill-bjuda", "sugen-pa-gront", "fest"],
+    allergener: ["gluten"],
+    plus: ["tomat", "vitlök", "olivolja"],
+    beskrivning: "Italiensk klassiker – rostat rågbröd toppat med en hackad tomat-/vitlökstopping, färsk basilika och olivolja. Snabbt och festligt som tilltugg eller förrätt.",
+    steg: [
+      "Rosta rågbrödet. Halvera en vitlöksklyfta och gnid över brödet medan det är varmt.",
+      "Tärna tomaterna fint och blanda med hackad färsk basilika, finhackad vitlök, olivolja, en skvätt citron, salt och svartpeppar.",
+      "Klicka på rostat bröd precis innan servering så det inte blir blött. Ringla över extra olivolja."
+    ]
   }
 
 ];

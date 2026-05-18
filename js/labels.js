@@ -95,7 +95,10 @@ window.RAVAROR = [
   { id: "notfars",        label: "Nötfärs" },
   { id: "bacon",          label: "Bacon" },
   { id: "gurka",          label: "Gurka (färsk / inlagd)" },
-  { id: "torsk",          label: "Torsk (eller annan vit fisk)" }
+  { id: "torsk",          label: "Torsk (eller annan vit fisk)" },
+  { id: "oliver",         label: "Oliver" },
+  { id: "aubergine",      label: "Aubergine" },
+  { id: "zucchini",       label: "Zucchini" }
 ];
 
 window.ALLERGENER = [
@@ -110,7 +113,7 @@ window.ALLERGENER = [
 // Grova butiksavdelningar – används för att gruppera inköpslistan.
 // Ingredienser som inte finns med hamnar under "Övrigt".
 window.KATEGORIER = [
-  { namn: "Frukt & grönt", ids: ["spenat","broccoli","tomat","paprika","lok","vitlok","avokado","bar","banan","apple","citron","morot","rodbeta","ingefara","gronkal","sotpotatis","granatapple","ruccola","fankal","gurka"] },
+  { namn: "Frukt & grönt", ids: ["spenat","broccoli","tomat","paprika","lok","vitlok","avokado","bar","banan","apple","citron","morot","rodbeta","ingefara","gronkal","sotpotatis","granatapple","ruccola","fankal","gurka","oliver","aubergine","zucchini"] },
   { namn: "Kött & fisk",   ids: ["kyckling","lax","sardiner","rakor","notkott","notfars","bacon","torsk"] },
   { namn: "Mejeri & ägg",  ids: ["agg","naturell yoghurt","kefir","vaxtdryck"] },
   { namn: "Bröd",          ids: ["ragbrod","tortilla","knackebrod"] },
