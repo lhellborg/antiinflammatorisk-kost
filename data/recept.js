@@ -1445,6 +1445,91 @@ window.RECEPT = [
       "Mixa växtdryck, banan, havregryn, mandel (eller mandelsmör), chiafrön och kanel slätt.",
       "Låt stå en minut – chiafröna sväller och konsistensen blir krämigare."
     ]
+  },
+
+  /* ---------- KLASSISK HUSMANSKOST (rött kött – limita gärna mängden eller gör en egen version med hälften baljväxter) ---------- */
+  {
+    id: "oxroulader-gradsas",
+    namn: "Oxrouladar med gräddsås & sötpotatis",
+    maltid: ["middag"],
+    tid: 60,
+    portioner: 4,
+    ingredienser: [
+      { id: "notkott",          mangd: 600, enhet: "g" },
+      { id: "bacon",            mangd: 80,  enhet: "g" },
+      { id: "lok",              mangd: 1,   enhet: "st" },
+      { id: "gurka",            mangd: 1,   enhet: "st" },
+      { id: "olivolja",         mangd: 2,   enhet: "msk" },
+      { id: "naturell yoghurt", mangd: 1,   enhet: "dl" },
+      { id: "sotpotatis",       mangd: 4,   enhet: "st" }
+    ],
+    mood: ["varmt-och-matigt", "vill-bjuda", "fest"],
+    allergener: ["mjolk"],
+    plus: ["sötpotatis", "lök"],
+    beskrivning: "Klassisk svensk husmanskost – tunna skivor av nötkött fyllda med bacon, lök, gurka och senap, brynta och färdiglagade i sky. Tips: använd \"Gör en egen version\" för att byta ut hälften av nötköttet mot t.ex. linser eller kyckling och göra den mer antiinflammatorisk.",
+    steg: [
+      "Banka köttskivorna jämntjocka. Pensla med senap och krydda med salt och peppar.",
+      "Lägg en remsa bacon, en tunn skiva lök och en strimla gurka på varje skiva. Rulla ihop och fäst med tandpetare.",
+      "Bryn rouladerna runt om i olivolja. Lägg över i en gryta tillsammans med resten av löken.",
+      "Häll på vatten + en buljongtärning (eller hemkokt buljong) så det nästan täcker. Sjud under lock ca 35–40 min tills köttet är mört.",
+      "Ta upp rouladerna, sila skyn och låt reducera. Rör ner yoghurten på låg värme (koka inte) tills såsen blir krämig. Smaka av med salt, peppar och en skvätt citron.",
+      "Servera med ugnsbakad sötpotatis (skär i klyftor, ringla över olivolja och baka i 200°C ca 30 min)."
+    ]
+  },
+  {
+    id: "kottfarssas-fullkornspasta",
+    namn: "Köttfärssås på fullkornspasta",
+    maltid: ["middag"],
+    tid: 35,
+    portioner: 4,
+    ingredienser: [
+      { id: "notfars",        mangd: 500, enhet: "g" },
+      { id: "lok",            mangd: 1,   enhet: "st" },
+      { id: "vitlok",         mangd: 2,   enhet: "klyfta" },
+      { id: "morot",          mangd: 2,   enhet: "st" },
+      { id: "tomat",          mangd: 1,   enhet: "burk" },
+      { id: "olivolja",       mangd: 2,   enhet: "msk" },
+      { id: "fullkornspasta", mangd: 320, enhet: "g" }
+    ],
+    mood: ["varmt-och-matigt", "snabbt"],
+    allergener: ["gluten"],
+    plus: ["tomat", "morot", "vitlök", "olivolja"],
+    beskrivning: "Klassisk köttfärssås på nötfärs, lök, vitlök, morot och krossade tomater – serverad med fullkornspasta. För en snällare variant: \"Gör en egen version\" och byt ut hälften av färsen mot röda linser.",
+    steg: [
+      "Riv eller hacka morötter och lök fint. Fräs lök, vitlök och morot i hälften av olivoljan i en stekpanna tills mjukt.",
+      "Tillsätt nötfärsen och smula sönder den medan den bryns. Salta och peppra.",
+      "Häll i krossade tomater och ½ dl vatten. Krydda gärna med oregano, basilika, lite tomatpuré och en liten skvätt balsamvinäger. Låt sjuda 15–20 min.",
+      "Koka fullkornspastan al dente under tiden.",
+      "Servera såsen över pastan med resten av olivoljan ringlad över."
+    ]
+  },
+  {
+    id: "mustig-kottgryta",
+    namn: "Mustig köttgryta med morötter & tomat",
+    maltid: ["middag"],
+    tid: 90,
+    portioner: 4,
+    ingredienser: [
+      { id: "notkott",  mangd: 600, enhet: "g" },
+      { id: "lok",      mangd: 1,   enhet: "st" },
+      { id: "vitlok",   mangd: 2,   enhet: "klyfta" },
+      { id: "morot",    mangd: 3,   enhet: "st" },
+      { id: "tomat",    mangd: 1,   enhet: "burk" },
+      { id: "olivolja", mangd: 2,   enhet: "msk" },
+      { id: "ris",      mangd: 3,   enhet: "dl" }
+    ],
+    mood: ["varmt-och-matigt", "vill-bjuda", "stressad"],
+    allergener: [],
+    plus: ["morot", "vitlök", "tomat", "olivolja"],
+    beskrivning: "Långkokt köttgryta med nötkött, morötter, lök och krossade tomater – tiden gör jobbet, smaken blir djup. Serveras med fullkornsris eller kokt potatis.",
+    steg: [
+      "Skär köttet i 2–3 cm bitar, putsa bort senor. Salta och peppra.",
+      "Bryn köttet i hälften av olivoljan i omgångar tills det fått färg runt om. Ta upp.",
+      "Fräs hackad lök, vitlök och morötter i resten av oljan tills mjukt. Lägg tillbaka köttet.",
+      "Häll i krossade tomater + 3 dl vatten (eller hemkokt buljong). Krydda med lagerblad, timjan, salt och peppar.",
+      "Sjud under lock på låg värme 1–1½ timme tills köttet är mört. Lyft av locket sista 15 min om du vill ha tjockare sås.",
+      "Koka fullkornsriset under tiden och servera."
+    ]
   }
 
 ];

@@ -90,7 +90,11 @@ window.RAVAROR = [
   { id: "rakor",          label: "Räkor" },
   { id: "knackebrod",     label: "Rågknäcke / knäckebröd" },
   { id: "dadlar",         label: "Dadlar" },
-  { id: "solrosfron",     label: "Solrosfrön" }
+  { id: "solrosfron",     label: "Solrosfrön" },
+  { id: "notkott",        label: "Nötkött (stek/gryt)" },
+  { id: "notfars",        label: "Nötfärs" },
+  { id: "bacon",          label: "Bacon" },
+  { id: "gurka",          label: "Gurka (färsk / inlagd)" }
 ];
 
 window.ALLERGENER = [
@@ -105,8 +109,8 @@ window.ALLERGENER = [
 // Grova butiksavdelningar – används för att gruppera inköpslistan.
 // Ingredienser som inte finns med hamnar under "Övrigt".
 window.KATEGORIER = [
-  { namn: "Frukt & grönt", ids: ["spenat","broccoli","tomat","paprika","lok","vitlok","avokado","bar","banan","apple","citron","morot","rodbeta","ingefara","gronkal","sotpotatis","granatapple","ruccola","fankal"] },
-  { namn: "Kött & fisk",   ids: ["kyckling","lax","sardiner","rakor"] },
+  { namn: "Frukt & grönt", ids: ["spenat","broccoli","tomat","paprika","lok","vitlok","avokado","bar","banan","apple","citron","morot","rodbeta","ingefara","gronkal","sotpotatis","granatapple","ruccola","fankal","gurka"] },
+  { namn: "Kött & fisk",   ids: ["kyckling","lax","sardiner","rakor","notkott","notfars","bacon"] },
   { namn: "Mejeri & ägg",  ids: ["agg","naturell yoghurt","kefir","vaxtdryck"] },
   { namn: "Bröd",          ids: ["ragbrod","tortilla","knackebrod"] },
   { namn: "Skafferi",      ids: ["havregryn","linser","kikartor","quinoa","ris","fullkorn","fullkornspasta","valnotter","mandel","chiafron","linfro","olivolja","gurkmeja","kanel","tofu","tahini","pumpafron","solrosfron","kokosmjolk","proteinpulver","morkchoklad","dadlar"] }
