@@ -94,7 +94,8 @@ window.RAVAROR = [
   { id: "notkott",        label: "Nötkött (stek/gryt)" },
   { id: "notfars",        label: "Nötfärs" },
   { id: "bacon",          label: "Bacon" },
-  { id: "gurka",          label: "Gurka (färsk / inlagd)" }
+  { id: "gurka",          label: "Gurka (färsk / inlagd)" },
+  { id: "torsk",          label: "Torsk (eller annan vit fisk)" }
 ];
 
 window.ALLERGENER = [
@@ -110,7 +111,7 @@ window.ALLERGENER = [
 // Ingredienser som inte finns med hamnar under "Övrigt".
 window.KATEGORIER = [
   { namn: "Frukt & grönt", ids: ["spenat","broccoli","tomat","paprika","lok","vitlok","avokado","bar","banan","apple","citron","morot","rodbeta","ingefara","gronkal","sotpotatis","granatapple","ruccola","fankal","gurka"] },
-  { namn: "Kött & fisk",   ids: ["kyckling","lax","sardiner","rakor","notkott","notfars","bacon"] },
+  { namn: "Kött & fisk",   ids: ["kyckling","lax","sardiner","rakor","notkott","notfars","bacon","torsk"] },
   { namn: "Mejeri & ägg",  ids: ["agg","naturell yoghurt","kefir","vaxtdryck"] },
   { namn: "Bröd",          ids: ["ragbrod","tortilla","knackebrod"] },
   { namn: "Skafferi",      ids: ["havregryn","linser","kikartor","quinoa","ris","fullkorn","fullkornspasta","valnotter","mandel","chiafron","linfro","olivolja","gurkmeja","kanel","tofu","tahini","pumpafron","solrosfron","kokosmjolk","proteinpulver","morkchoklad","dadlar"] }

@@ -1530,6 +1530,68 @@ window.RECEPT = [
       "Sjud under lock på låg värme 1–1½ timme tills köttet är mört. Lyft av locket sista 15 min om du vill ha tjockare sås.",
       "Koka fullkornsriset under tiden och servera."
     ]
+  },
+
+  /* ---------- FISKRÄTTER ---------- */
+  {
+    id: "fisksoppa-tomat-fankal-saffran",
+    namn: "Fisksoppa med tomat, fänkål & saffran",
+    maltid: ["lunch", "middag"],
+    tid: 35,
+    portioner: 4,
+    ingredienser: [
+      { id: "lax",        mangd: 400, enhet: "g" },
+      { id: "torsk",      mangd: 200, enhet: "g" },
+      { id: "rakor",      mangd: 200, enhet: "g" },
+      { id: "lok",        mangd: 1,   enhet: "st" },
+      { id: "fankal",     mangd: 1,   enhet: "st" },
+      { id: "vitlok",     mangd: 3,   enhet: "klyfta" },
+      { id: "tomat",      mangd: 1,   enhet: "burk" },
+      { id: "kokosmjolk", mangd: 2,   enhet: "dl" },
+      { id: "olivolja",   mangd: 2,   enhet: "msk" },
+      { id: "citron",     mangd: 0.5, enhet: "st" }
+    ],
+    mood: ["varmt-och-matigt", "forkyld", "vill-bjuda", "efter-traning", "fest"],
+    allergener: ["fisk"],
+    plus: ["lax", "torsk", "räkor", "fänkål", "vitlök", "olivolja"],
+    beskrivning: "Medelhavsinspirerad fisksoppa med lax, vit fisk och räkor i en sky av tomat, fänkål, vitlök och saffran. Kokosmjölk gör soppan krämig utan grädde.",
+    steg: [
+      "Hacka lök, fänkål och vitlök fint. Fräs i olivoljan i en gryta tills mjukt – tappa inte färg.",
+      "Tillsätt krossade tomater, 3 dl vatten, en nypa saffran och salt. Låt sjuda 10 min så smakerna gifter sig.",
+      "Rör i kokosmjölken. Lägg i fiskbitarna (lax + torsk, skurna i större bitar) och sjud försiktigt 5 min.",
+      "Vänd ner räkorna sista minuten så de inte blir överkokta. Smaka av med citron, salt och peppar.",
+      "Servera med rågbröd eller knäcke."
+    ]
+  },
+  {
+    id: "fiskgryta-medelhav",
+    namn: "Färgglad fiskgryta med tomat, paprika & morot",
+    maltid: ["middag"],
+    tid: 35,
+    portioner: 4,
+    ingredienser: [
+      { id: "lax",      mangd: 400, enhet: "g" },
+      { id: "torsk",    mangd: 300, enhet: "g" },
+      { id: "lok",      mangd: 1,   enhet: "st" },
+      { id: "vitlok",   mangd: 2,   enhet: "klyfta" },
+      { id: "morot",    mangd: 2,   enhet: "st" },
+      { id: "paprika",  mangd: 1,   enhet: "st" },
+      { id: "tomat",    mangd: 1,   enhet: "burk" },
+      { id: "olivolja", mangd: 2,   enhet: "msk" },
+      { id: "citron",   mangd: 0.5, enhet: "st" },
+      { id: "ris",      mangd: 3,   enhet: "dl" }
+    ],
+    mood: ["varmt-och-matigt", "vill-bjuda", "efter-traning"],
+    allergener: ["fisk"],
+    plus: ["lax", "torsk", "tomat", "paprika", "morot", "vitlök", "olivolja"],
+    beskrivning: "Färgglad medelhavsinspirerad fiskgryta – lax och vit fisk i en mustig grönsaks- och tomatsås, serverad med fullkornsris.",
+    steg: [
+      "Koka fullkornsriset enligt paketet. Skär lök, vitlök, morot och paprika fint; fisken i större bitar.",
+      "Fräs lök, vitlök, morot och paprika i olivoljan i en stor gryta tills mjukt, ca 6 min.",
+      "Tillsätt krossade tomater + 1 dl vatten. Krydda med oregano (eller timjan), salt och peppar. Sjud 10 min.",
+      "Lägg ner fiskbitarna försiktigt och sjud på låg värme 6–8 min tills fisken precis faller isär.",
+      "Pressa över citron strax innan servering. Servera grytan med riset."
+    ]
   }
 
 ];

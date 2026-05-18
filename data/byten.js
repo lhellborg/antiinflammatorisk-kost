@@ -184,6 +184,17 @@ window.LIKNANDE = [
     ]
   },
   {
+    // OBS: ligger före "potatis" så att traffar "potatis" inte snor matchen
+    traffar: ["sötpotatis", "sotpotatis"],
+    alternativ: [
+      { namn: "kokt potatis med skal", varfor: "Vanlig potatis – kokt med skal (gärna avsvalnad) ger ett lägre blodsockersvar än stekt." },
+      { namn: "morot och palsternacka", varfor: "Rotfrukter som behåller fibrer och betakaroten – passar i ugn på samma sätt." },
+      { namn: "blomkål eller broccoli", varfor: "Lättare, mer grönsaker och färre kolhydrater." },
+      { namn: "pumpa (butternut)", varfor: "Mild sötma och liknande konsistens, betakaroten-rik." },
+      { namn: "fullkornsris eller quinoa", varfor: "Fiberrika alternativ som passar bra som tillbehör." }
+    ]
+  },
+  {
     traffar: ["potatis"],
     alternativ: [
       { namn: "sötpotatis", varfor: "Mer fibrer och betakaroten." },
