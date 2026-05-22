@@ -220,6 +220,13 @@ p { margin: 0 0 1em; }
 .filterbar { display: flex; flex-wrap: wrap; gap: 1.4rem; align-items: flex-start; margin-bottom: 1.6rem; }
 .filterbar .group { display: flex; flex-direction: column; gap: .4rem; }
 .filterbar .group > span { font-size: .82rem; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-soft); }
+.filterbar .group-search { flex: 1 1 18rem; min-width: 14rem; }
+.filterbar .group-search input[type="search"] {
+  width: 100%; font: inherit; padding: .5rem .8rem;
+  border: 1px solid var(--line); border-radius: 999px;
+  background: var(--surface); color: var(--ink);
+}
+.filterbar .group-search input[type="search"]:focus { outline: 2px solid var(--terracotta); outline-offset: 1px; }
 .count { color: var(--ink-soft); margin-bottom: 1rem; }
 
 /* ---------- Fakta-sida ---------- */

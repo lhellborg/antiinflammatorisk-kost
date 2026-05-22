@@ -8,11 +8,12 @@
   var elMeal   = document.getElementById("f-meal");
   var elTime   = document.getElementById("f-time");
   var elAller  = document.getElementById("f-allergen");
+  var elSearch = document.getElementById("f-search");
   var elList   = document.getElementById("recept-list");
   var elCount  = document.getElementById("recept-count");
   if (!elList) return;
 
-  var state = { meal: "alla", time: 999, exclude: [] };
+  var state = { meal: "alla", time: 999, exclude: [], search: "" };
 
   /* ---------- filter-kontroller ---------- */
   function radio(name, value, label, checked) {
@@ -39,11 +40,19 @@
     state.meal = (document.querySelector('input[name="meal"]:checked') || {}).value || "alla";
     state.time = parseInt((document.querySelector('input[name="time"]:checked') || {}).value || "999", 10);
     state.exclude = Array.prototype.map.call(document.querySelectorAll('input[name="allergen"]:checked'), function (i) { return i.value; });
+    state.search = (elSearch && elSearch.value || "").trim().toLowerCase();
+  }
+  function searchHaystack(r) {
+    var ings = (r.ingredienser || []).map(function (it) {
+      return (window.ingrLabel ? window.ingrLabel(it) : (it.namn || it.id || "")).toLowerCase();
+    }).join(" ");
+    return ((r.namn || "") + " " + (r.beskrivning || "") + " " + ings).toLowerCase();
   }
   function matches(r) {
     if (state.meal !== "alla" && !(r.maltid || []).includes(state.meal)) return false;
     if ((r.tid || 0) > state.time) return false;
     for (var i = 0; i < state.exclude.length; i++) if ((r.allergener || []).includes(state.exclude[i])) return false;
+    if (state.search && searchHaystack(r).indexOf(state.search) === -1) return false;
     return true;
   }
 
@@ -153,6 +162,7 @@
   }
 
   document.getElementById("recept-filters").addEventListener("change", applyFilter);
+  if (elSearch) elSearch.addEventListener("input", applyFilter);
   document.addEventListener("myrecipes:changed", rebuild);
   rebuild();
 
