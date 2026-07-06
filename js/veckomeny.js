@@ -98,7 +98,18 @@
   }
 
   /* ---------- recept-typ (för balansreglerna) ---------- */
+  // Memoiseras per receptobjekt: typen räknas annars om för varje recept vid
+  // varje generering/omslag. Redigerade egna recept blir nya objekt (nytt
+  // cache-inslag); WeakMap håller inte kvar borttagna recept i minnet.
+  var typCache = new WeakMap();
   function recipeTyp(r) {
+    var hit = typCache.get(r);
+    if (hit) return hit;
+    var t = computeTyp(r);
+    typCache.set(r, t);
+    return t;
+  }
+  function computeTyp(r) {
     var ids = (r.ingredienser || []).map(function (it) { return it.id; });
     var txt = ids.join(" ") + " " + (r.ingredienser || []).map(function (it) { return (it.namn || "").toLowerCase(); }).join(" ") + " " + (r.namn || "").toLowerCase();
     function has(words) { return words.some(function (w) { return txt.indexOf(w) !== -1; }); }

@@ -10,23 +10,40 @@
 window.Cart = (function () {
   function KEY() { return window.nsKey ? window.nsKey("aik_inkopslista_v2") : "aik_inkopslista_v2"; }
 
+  // Den tolkade listan cachas så att inte varje has/get/count kör JSON.parse –
+  // receptsidan frågar många gånger per kort och vid varje cart:changed.
+  // Cachen gäller bara sin nyckel: byter man profil byts nyckeln och listan
+  // läses om. Skrivs lagringen utanför write() (profilimport, annan flik)
+  // töms cachen via händelserna längst ner.
+  var cache = null, cacheKey = null;
+  function invalidate() { cache = null; cacheKey = null; }
+
   function read() {
+    var k = KEY();
+    if (cache && cacheKey === k) return cache;
+    var arr;
     try {
-      var raw = localStorage.getItem(KEY());
-      var arr = raw ? JSON.parse(raw) : [];
-      if (!Array.isArray(arr)) return [];
-      // tål gammalt format (bara strängar) – tolka som okänt antal portioner
-      return arr.map(function (x) {
-        if (typeof x === "string") return { id: x, portioner: null };
-        return { id: x.id, portioner: (typeof x.portioner === "number" && x.portioner > 0) ? x.portioner : null };
-      }).filter(function (x) { return x.id; });
-    } catch (e) { return []; }
+      var raw = localStorage.getItem(k);
+      arr = raw ? JSON.parse(raw) : [];
+      if (!Array.isArray(arr)) arr = [];
+    } catch (e) { arr = []; }
+    // tål gammalt format (bara strängar) – tolka som okänt antal portioner
+    cache = arr.map(function (x) {
+      if (typeof x === "string") return { id: x, portioner: null };
+      return { id: x.id, portioner: (typeof x.portioner === "number" && x.portioner > 0) ? x.portioner : null };
+    }).filter(function (x) { return x.id; });
+    cacheKey = k;
+    return cache;
   }
 
   function write(arr) {
     try { localStorage.setItem(KEY(), JSON.stringify(arr)); } catch (e) {}
+    cache = arr; cacheKey = KEY();
     document.dispatchEvent(new CustomEvent("cart:changed", { detail: { items: arr.slice() } }));
   }
+
+  document.addEventListener("profile:changed", invalidate);
+  if (typeof window.addEventListener === "function") window.addEventListener("storage", invalidate);
 
   function find(arr, id) {
     for (var i = 0; i < arr.length; i++) if (arr[i].id === id) return i;
@@ -34,7 +51,7 @@ window.Cart = (function () {
   }
 
   return {
-    list:  function () { return read(); },
+    list:  function () { return read().slice(); }, // kopia – cachen ska inte kunna ändras utifrån
     count: function () { return read().length; },
     has:   function (id) { return find(read(), id) !== -1; },
     get:   function (id) { var a = read(), i = find(a, id); return i === -1 ? null : a[i]; },

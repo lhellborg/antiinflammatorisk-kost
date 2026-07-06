@@ -214,6 +214,26 @@ group("Cart (store.js)", function () {
     W.Cart.toggle("r1", 2); assert(W.Cart.has("r1"));
     W.Cart.toggle("r1", 2); assert(!W.Cart.has("r1"));
   });
+  test("list() lämnar ut en kopia – att ändra den påverkar inte carten", function () {
+    W.Cart.clear(); W.Cart.add("r1", 2);
+    var a = W.Cart.list();
+    a.push({ id: "smuggling", portioner: 1 });
+    eq(W.Cart.count(), 1, "push på den utlämnade listan ska inte synas i carten");
+    W.Cart.clear();
+  });
+  test("cachen läses om när en profil importeras över den aktiva", function () {
+    var p = W.Profiles.active();
+    W.Cart.clear(); W.Cart.add("a", 1);
+    var payload = W.Profiles.exportProfile(p.id);
+    W.Cart.add("b", 2);
+    eq(W.Cart.count(), 2);
+    // importProfile skriver localStorage direkt (förbi Cart.write) och
+    // signalerar bara via profile:changed – cachen får inte vara kvar.
+    W.Profiles.importProfile(payload, { replaceId: p.id });
+    eq(W.Cart.count(), 1, "efter import ska carten spegla lagringen, inte cachen");
+    assert(W.Cart.has("a") && !W.Cart.has("b"));
+    W.Cart.clear();
+  });
 });
 
 group("Egna recept (myrecipes.js)", function () {
@@ -226,6 +246,18 @@ group("Egna recept (myrecipes.js)", function () {
     assert(W.recipeById(id), "recipeById hittar det tillagda receptet");
     W.MyRecipes.remove(id);
     eq(W.allRecipes().length, before);
+  });
+  test("egna recept är profil-separerade (cachen följer profilbyte)", function () {
+    W.MyRecipes.clear();
+    var p1 = W.Profiles.active().id;
+    W.MyRecipes.add({ id: "egen-t1", namn: "P1-recept", maltid: ["middag"], portioner: 2, ingredienser: [], egen: true });
+    var p2 = W.Profiles.add("MR-test");
+    W.Profiles.switch(p2.id);
+    eq(W.MyRecipes.count(), 0, "ny profil ska inte se andra profilens recept");
+    W.Profiles.switch(p1);
+    eq(W.MyRecipes.count(), 1, "första profilens recept ska vara kvar");
+    W.Profiles.remove(p2.id);
+    W.MyRecipes.clear();
   });
 });
 

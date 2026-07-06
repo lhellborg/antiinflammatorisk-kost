@@ -8,20 +8,33 @@
 window.MyRecipes = (function () {
   function KEY() { return window.nsKey ? window.nsKey("aik_egna_recept_v1") : "aik_egna_recept_v1"; }
 
+  // Samma cache-upplägg som i Cart (js/store.js): parsa en gång, läs om
+  // vid profilbyte (annan nyckel), profilimport eller ändring i annan flik.
+  var cache = null, cacheKey = null;
+  function invalidate() { cache = null; cacheKey = null; }
+
   function read() {
+    var k = KEY();
+    if (cache && cacheKey === k) return cache;
     try {
-      var a = JSON.parse(localStorage.getItem(KEY()) || "[]");
-      return Array.isArray(a) ? a : [];
-    } catch (e) { return []; }
+      var a = JSON.parse(localStorage.getItem(k) || "[]");
+      cache = Array.isArray(a) ? a : [];
+    } catch (e) { cache = []; }
+    cacheKey = k;
+    return cache;
   }
   function write(a) {
     try { localStorage.setItem(KEY(), JSON.stringify(a)); } catch (e) {}
+    cache = a; cacheKey = KEY();
     document.dispatchEvent(new CustomEvent("myrecipes:changed", { detail: { recept: a.slice() } }));
   }
   function idxOf(a, id) { for (var i = 0; i < a.length; i++) if (a[i].id === id) return i; return -1; }
 
+  document.addEventListener("profile:changed", invalidate);
+  if (typeof window.addEventListener === "function") window.addEventListener("storage", invalidate);
+
   return {
-    list:  read,
+    list:  function () { return read().slice(); }, // kopia – cachen ska inte kunna ändras utifrån
     count: function () { return read().length; },
     get:   function (id) { var a = read(), i = idxOf(a, id); return i === -1 ? null : a[i]; },
     add:   function (r) { var a = read(), i = idxOf(a, r.id); if (i === -1) a.push(r); else a[i] = r; write(a); },

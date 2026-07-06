@@ -123,15 +123,28 @@ window.KATEGORIER = [
   { namn: "Skafferi",      ids: ["havregryn","linser","kikartor","bonor","quinoa","ris","fullkorn","fullkornspasta","valnotter","mandel","chiafron","linfro","olivolja","gurkmeja","kanel","tofu","tahini","pumpafron","solrosfron","kokosmjolk","proteinpulver","morkchoklad","dadlar","vaxtfars"] }
 ];
 
+// Uppslagstabeller byggs vid första anropet – labelFor/categoryFor ropas
+// många gånger per kort (recept-, förslags- och inköpslistan) och ska inte
+// söka linjärt varje gång. Listorna ovan ändras aldrig efter laddning.
+var KATEGORI_MAP = null;
 window.categoryFor = function (id) {
-  var hit = window.KATEGORIER.find(function (k) { return k.ids.indexOf(id) !== -1; });
-  return hit ? hit.namn : "Övrigt";
+  if (!KATEGORI_MAP) {
+    KATEGORI_MAP = new Map();
+    window.KATEGORIER.forEach(function (k) { k.ids.forEach(function (i) { KATEGORI_MAP.set(i, k.namn); }); });
+  }
+  return KATEGORI_MAP.get(id) || "Övrigt";
 };
 
 // Slå upp etikett från id i en lista. Faller tillbaka på id:t självt.
+var LABEL_MAPS = new WeakMap(); // en Map per lista (MALTIDER, RAVAROR, ...)
 window.labelFor = function (list, id) {
-  var hit = list.find(function (x) { return x.id === id; });
-  return hit ? hit.label : id;
+  var m = LABEL_MAPS.get(list);
+  if (!m) {
+    m = new Map();
+    list.forEach(function (x) { m.set(x.id, x.label); });
+    LABEL_MAPS.set(list, m);
+  }
+  return m.has(id) ? m.get(id) : id;
 };
 
 // Etikett för en råvara (med fallback)

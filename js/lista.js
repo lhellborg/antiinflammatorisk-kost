@@ -48,11 +48,14 @@
     }).join(" ");
     return ((r.namn || "") + " " + (r.beskrivning || "") + " " + ings).toLowerCase();
   }
-  function matches(r) {
+  // x = { r, hay } – söktexten är förberäknad i rebuild() så att inte varje
+  // tangenttryck bygger om strängar för alla recept.
+  function matches(x) {
+    var r = x.r;
     if (state.meal !== "alla" && !(r.maltid || []).includes(state.meal)) return false;
     if ((r.tid || 0) > state.time) return false;
     for (var i = 0; i < state.exclude.length; i++) if ((r.allergener || []).includes(state.exclude[i])) return false;
-    if (state.search && searchHaystack(r).indexOf(state.search) === -1) return false;
+    if (state.search && x.hay.indexOf(state.search) === -1) return false;
     return true;
   }
 
@@ -133,9 +136,10 @@
       var item = window.Cart.get(r.id);
       if (item && item.portioner && item.portioner !== stepper.getValue()) { stepper.setValue(item.portioner); drawIngr(item.portioner); }
     }
-    document.addEventListener("cart:changed", syncFromCart);
     paintBtn();
-    return c;
+    // Ingen egen cart:changed-lyssnare per kort – rebuild() slänger korten och
+    // lyssnarna skulle leva kvar. En gemensam lyssnare längre ner ropar på sync.
+    return { el: c, sync: syncFromCart };
   }
 
   /* ---------- bygg/uppdatera hela listan ---------- */
@@ -143,15 +147,24 @@
   function rebuild() {
     var all = window.allRecipes();
     elList.innerHTML = "";
-    cards = all.map(function (r) { return { r: r, el: buildCard(r) }; });
-    cards.forEach(function (x) { elList.appendChild(x.el); });
+    cards = all.map(function (r) {
+      var b = buildCard(r);
+      return { r: r, hay: searchHaystack(r), el: b.el, sync: b.sync };
+    });
+    var frag = document.createDocumentFragment();
+    cards.forEach(function (x) { frag.appendChild(x.el); });
+    elList.appendChild(frag);
     applyFilter();
   }
+  // En enda lyssnare för alla kort (ersätts kortlistan pekar den på de nya).
+  document.addEventListener("cart:changed", function () {
+    cards.forEach(function (x) { x.sync(); });
+  });
   function applyFilter() {
     readState();
     syncChipClasses(elMeal); syncChipClasses(elTime); syncChipClasses(elAller);
     var shown = 0;
-    cards.forEach(function (x) { var ok = matches(x.r); x.el.classList.toggle("hidden", !ok); if (ok) shown++; });
+    cards.forEach(function (x) { var ok = matches(x); x.el.classList.toggle("hidden", !ok); if (ok) shown++; });
     var total = cards.length;
     elCount.textContent = shown + " av " + total + " recept";
     var empty = document.getElementById("recept-empty");
@@ -162,7 +175,12 @@
   }
 
   document.getElementById("recept-filters").addEventListener("change", applyFilter);
-  if (elSearch) elSearch.addEventListener("input", applyFilter);
+  // Debounce: filtrera först när man pausar i skrivandet, inte på varje tecken.
+  var searchTimer = null;
+  if (elSearch) elSearch.addEventListener("input", function () {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(applyFilter, 150);
+  });
   document.addEventListener("myrecipes:changed", rebuild);
   rebuild();
 
